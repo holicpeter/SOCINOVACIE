@@ -1,0 +1,35 @@
+{
+  "name": "socialne-inovacie-v3",
+  "version": "1.0.0",
+  "description": "Vue.js/Nuxt.js aplikácia pre socialneinovacie.gov.sk",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "type-check": "vue-tsc --noEmit"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@nuxt/eslint-config": "^0.3.13",
+    "@nuxt/ui": "^2.17.0",
+    "@nuxtjs/google-fonts": "^3.2.0",
+    "@pinia/nuxt": "^0.5.1",
+    "@vueuse/nuxt": "^10.11.0",
+    "eslint": "^9.7.0",
+    "nuxt": "^3.12.4",
+    "vue": "latest",
+    "vue-router": "latest",
+    "vue-tsc": "^2.0.29"
+  },
+  "dependencies": {
+    "@headlessui/vue": "^1.7.19",
+    "@heroicons/vue": "^2.1.5",
+    "@nuxtjs/tailwindcss": "^6.12.1",
+    "@vueuse/core": "^10.11.0",
+    "pinia": "^2.1.7"
+  }
+}

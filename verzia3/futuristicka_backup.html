@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sociálne inovácie | Vue Futuristická verzia</title>
+    
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <!-- Three.js for 3D effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #bf00ff;
+            --neon-pink: #ff0080;
+            --neon-green: #39ff14;
+            --dark-bg: #0a0a0a;
+            --dark-surface: #1a1a1a;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+
+        .custom-cursor.hover {
+            transform: scale(3);
+            background: var(--neon-purple);
+        }
+
+        /* Holographic Navigation */
+        .holo-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--neon-blue);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .holo-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px var(--neon-blue);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.5); }
+        }
+
+        .holo-nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .holo-nav-link {
+            position: relative;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border: 1px solid transparent;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+        }
+
+        .holo-nav-link:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
+            transform: translateY(-2px);
+        }
+
+        .holo-nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            opacity: 0;
+            border-radius: 20px;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .holo-nav-link:hover::before {
+            opacity: 0.1;
+        }
+
+        /* 3D Hero Section */
+        .hero-3d {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        #three-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 0 20px var(--neon-blue); }
+            to { text-shadow: 0 0 40px var(--neon-purple), 0 0 60px var(--neon-pink); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .neon-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin: 0 1rem;
+        }
+
+        .neon-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .neon-button:hover::before {
+            left: 100%;
+        }
+
+        .neon-button:hover {
+            box-shadow: 0 0 30px var(--neon-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Holographic Cards */
+        .holo-section {
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .holo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .holo-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
+        }
+
+        .holo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .holo-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .holo-card:hover {
+            transform: translateY(-10px) rotateX(10deg) rotateY(5deg);
+            box-shadow: 0 20px 40px rgba(0, 243, 255, 0.3);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+        }
+
+        .card-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--neon-blue);
+        }
+
+        /* Progress bars */
+        .tech-progress {
+            background: rgba(255, 255, 255, 0.1);
+            height: 4px;
+            border-radius: 2px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--neon-blue);
+            border-radius: 2px;
+            transition: width 1s ease;
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .neon-btn-small {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .neon-btn-small:hover {
+            box-shadow: 0 0 15px var(--neon-blue);
+            background: rgba(0, 243, 255, 0.1);
+        }
+
+        .progress-text {
+            font-size: 0.75rem;
+            color: var(--neon-green);
+            font-family: 'Orbitron', monospace;
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        /* News Section */
+        .news-cyber {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(26, 26, 46, 0.9));
+            border-top: 2px solid var(--neon-purple);
+            border-bottom: 2px solid var(--neon-blue);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .cyber-article {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .cyber-article:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.2);
+            border-color: var(--neon-blue);
+        }
+
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .article-tag {
+            background: var(--neon-purple);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .article-date {
+            color: var(--neon-blue);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.875rem;
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .article-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-title a {
+            color: var(--neon-blue);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .article-title a:hover {
+            color: var(--neon-purple);
+            text-shadow: 0 0 15px var(--neon-purple);
+        }
+
+        .article-excerpt {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.875rem;
+            color: var(--neon-green);
+            font-family: 'Orbitron', monospace;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-sidebar {
+            margin-top: 0;
+        }
+
+        .news-sidebar > * + * {
+            margin-top: 2rem;
+        }
+
+        .cyber-widget {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .widget-title {
+            font-family: 'Orbitron', monospace;
+            color: var(--neon-blue);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--neon-blue);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cyber-links {
+            list-style: none;
+        }
+
+        .cyber-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .cyber-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .cyber-link:hover {
+            color: var(--neon-blue);
+            background: rgba(0, 243, 255, 0.1);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .status-items {
+            margin-top: 0;
+        }
+
+        .status-items > * + * {
+            margin-top: 0.75rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.online {
+            background: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .status-dot.warning {
+            background: #ffa500;
+            box-shadow: 0 0 10px #ffa500;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
+        }
+
+        /* Matrix Rain Effect */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        /* Cyber Stats */
+        .cyber-stats {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(191, 0, 255, 0.1));
+            border-top: 1px solid var(--neon-blue);
+            border-bottom: 1px solid var(--neon-purple);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            display: block;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px var(--neon-green);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Neural Network Background */
+        .neural-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Cyber Footer */
+        .cyber-footer {
+            background: var(--dark-surface);
+            border-top: 2px solid var(--neon-blue);
+            padding: 4rem 2rem 2rem;
+            position: relative;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section h3 {
+            font-family: 'Orbitron', monospace;
+            color: var(--neon-blue);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .social-cyber {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--glass-bg);
+            border: 1px solid var(--neon-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-blue);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            box-shadow: 0 0 20px var(--neon-blue);
+            transform: scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .holo-nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .holo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-blue);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-purple);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Custom Cursor -->
+        <div class="custom-cursor" ref="cursor"></div>
+
+        <!-- Matrix Background -->
+        <canvas class="matrix-bg" ref="matrixCanvas"></canvas>
+
+        <!-- Holographic Navigation -->
+        <nav class="holo-nav">
+            <div class="nav-container">
+                <div class="holo-logo">SOCINO.3D</div>
+                <ul class="holo-nav-links">
+                    <li><a href="#home" class="holo-nav-link">DOMOV</a></li>
+                    <li><a href="#o-nas" class="holo-nav-link">O NÁS</a></li>
+                    <li><a href="#aktuality" class="holo-nav-link">AKTUALITY</a></li>
+                    <li><a href="#vyzvy" class="holo-nav-link">VÝZVY</a></li>
+                    <li><a href="#podujatia" class="holo-nav-link">PODUJATIA</a></li>
+                    <li><a href="#inspiracia" class="holo-nav-link">INŠPIRÁCIA</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- 3D Hero Section -->
+        <section class="hero-3d" id="home">
+            <div id="three-container" ref="threeContainer"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">{{ heroTitle }}</h1>
+                <p class="hero-subtitle">{{ heroSubtitle }}</p>
+                <div>
+                    <a href="#aktuality" class="neon-button">
+                        <i class="fas fa-newspaper"></i>
+                        AKTUALITY
+                    </a>
+                    <a href="#vyzvy" class="neon-button">
+                        <i class="fas fa-bullhorn"></i>
+                        VÝZVY
+                    </a>
+                    <a href="#podujatia" class="neon-button">
+                        <i class="fas fa-calendar-alt"></i>
+                        PODUJATIA
+                    </a>
+                    <a href="#inspiracia" class="neon-button">
+                        <i class="fas fa-lightbulb"></i>
+                        INŠPIRÁCIA
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="holo-section about-cyber" id="o-nas">
+            <div class="section-title">
+                <h2>O SOCIÁLNYCH INOVÁCIÁCH</h2>
+                <p>Definícia a vízia budúcnosti sociálnych služieb</p>
+            </div>
+            <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+                <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 3rem; backdrop-filter: blur(20px); margin-bottom: 3rem;">
+                    <h3 style="font-family: 'Orbitron', monospace; color: var(--neon-blue); margin-bottom: 2rem; font-size: 1.5rem;">Definícia sociálnych inovácií</h3>
+                    <p style="line-height: 1.8; margin-bottom: 2rem; font-size: 1.1rem;">
+                        Sociálna inovácia znamená činnosť (proces), ktorá má z hľadiska svojich cieľov aj prostriedkov spoločensky alebo komunitný charakter 
+                        a súvisí s vývojom a implementáciou nových procesov, prístupov, postupov, modelov, produktov a služieb, ktoré reagujú na relevantné 
+                        spoločenské a komunitné problémy a potreby. Sociálne inovácie vytvárajú nové vzťahy, systémy, štruktúry alebo spolupráce medzi 
+                        jednotlivými sektormi (verejným, súkromným a tretím), ktoré prinášajú pozitívnu systémovú zmenu v spoločnosti, zvyšujú kapacitu 
+                        komunitnej alebo sektorovej spravodlivosti a demokratickej správy a alebo predstavujú efektívnejšie riešenie spoločenských problémov.
+                    </p>
+                    <p style="line-height: 1.8; font-size: 1rem; opacity: 0.9;">
+                        Národné kompetenčné centrum pre sociálne inovácie spája odborníkov, akademickú obec, neziskové a miestne 
+                        organizácie s cieľom zlepšenia podpory projektov, ktoré prinášajú riešenia spoločenských a komunitných problémov.
+                    </p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 15px; padding: 2rem; backdrop-filter: blur(10px); transition: all 0.3s ease;" class="holo-card">
+                        <div style="width: 60px; height: 60px; background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple)); border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                            <i class="fas fa-brain" style="font-size: 1.5rem; color: white;"></i>
+                        </div>
+                        <h4 style="font-family: 'Orbitron', monospace; color: var(--neon-blue); margin-bottom: 1rem;">NEURAL SERVICES</h4>
+                        <p style="line-height: 1.6; opacity: 0.9;">AI-powered digitalizácia sociálnych služieb s kvantovým šifrovaním pre lepšiu dostupnosť a efektívnosť.</p>
+                    </div>
+                    
+                    <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 15px; padding: 2rem; backdrop-filter: blur(10px); transition: all 0.3s ease;" class="holo-card">
+                        <div style="width: 60px; height: 60px; background: linear-gradient(45deg, var(--neon-green), var(--neon-blue)); border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                            <i class="fas fa-shield-alt" style="font-size: 1.5rem; color: white;"></i>
+                        </div>
+                        <h4 style="font-family: 'Orbitron', monospace; color: var(--neon-green); margin-bottom: 1rem;">QUANTUM SECURITY</h4>
+                        <p style="line-height: 1.6; opacity: 0.9;">Najmodernejšie zabezpečenie osobných údajov pomocou kvantovej kryptografie a blockchain technológií.</p>
+                    </div>
+                    
+                    <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 15px; padding: 2rem; backdrop-filter: blur(10px); transition: all 0.3s ease;" class="holo-card">
+                        <div style="width: 60px; height: 60px; background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink)); border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                            <i class="fas fa-users" style="font-size: 1.5rem; color: white;"></i>
+                        </div>
+                        <h4 style="font-family: 'Orbitron', monospace; color: var(--neon-purple); margin-bottom: 1rem;">COMMUNITY FOCUS</h4>
+                        <p style="line-height: 1.6; opacity: 0.9;">Prepojenie komunít a organizácií pre tvorbu udržateľných riešení sociálnych výziev budúcnosti.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Holographic Tech Cards -->
+        <section class="holo-section" id="tech">
+            <div class="section-title">
+                <h2>SOCIÁLNE INOVÁCIE 3.0</h2>
+                <p>Futuristické technológie pre lepšiu budúcnosť slovenských komunít</p>
+            </div>
+            <div class="holo-grid">
+                <div v-for="(tech, index) in technologies" :key="index" class="holo-card" @mouseenter="playHoverSound">
+                    <div class="card-icon" :style="{ background: tech.gradient }">
+                        <i :class="tech.icon"></i>
+                    </div>
+                    <h3 class="card-title">{{ tech.title }}</h3>
+                    <p class="card-description">{{ tech.description }}</p>
+                    <div class="tech-progress">
+                        <div class="progress-bar" :style="{ width: tech.progress + '%', background: tech.gradient }"></div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="neon-btn-small">PRESKÚMAŤ</button>
+                        <span class="progress-text">{{ tech.progress }}% DOKONČENÉ</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Aktuality Section -->
+        <section class="holo-section news-cyber" id="aktuality">
+            <div class="section-title">
+                <h2>QUANTUM AKTUALITY</h2>
+                <p>Najnovšie správy a informácie zo sveta sociálnych inovácií</p>
+            </div>
+            <div class="holo-grid">
+                <div class="holo-card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="width: 120px; height: 80px; border-radius: 8px; flex-shrink: 0; border: 1px solid var(--neon-blue); background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(139, 92, 246, 0.2)); display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-newspaper" style="color: var(--neon-blue); font-size: 1.5rem;"></i>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem;">
+                                <span style="background: var(--neon-blue); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">AKTUALITY</span>
+                                <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--neon-blue);">
+                                    <i class="fas fa-calendar"></i>
+                                    5. mája 2025
+                                </div>
+                            </div>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--neon-blue); line-height: 1.3;">Práve bola zverejnená KOMPARATÍVNA A ODPORÚČACIA SPRÁVA O EKOSYSTÉMOCH SOCIÁLNYCH</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.4; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Zaujíma vás mapovanie ekosystémov sociálnych inovácií? Národné kompetenčné centrum pre sociálne...</p>
+                        </div>
+                    </div>
+                    <a href="#" style="color: var(--neon-blue); text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        Čítať viac <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="holo-card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="width: 120px; height: 80px; border-radius: 8px; flex-shrink: 0; border: 1px solid var(--neon-blue); background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(139, 92, 246, 0.2)); display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-file-alt" style="color: var(--neon-blue); font-size: 1.5rem;"></i>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem;">
+                                <span style="background: var(--neon-blue); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">AKTUALITY</span>
+                                <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--neon-blue);">
+                                    <i class="fas fa-calendar"></i>
+                                    2. decembra 2024
+                                </div>
+                            </div>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--neon-blue); line-height: 1.3;">Bola zverejnená definícia sociálnej inovácie a jej atribúty</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.4; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Na webovej stránke www.socialneinovacie.gov.sk v časti dokumenty bola nedávno zverejnená definícia...</p>
+                        </div>
+                    </div>
+                    <a href="#" style="color: var(--neon-blue); text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        Čítať viac <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="holo-card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="width: 120px; height: 80px; border-radius: 8px; flex-shrink: 0; border: 1px solid var(--neon-blue); background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(139, 92, 246, 0.2)); display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-archive" style="color: var(--neon-blue); font-size: 1.5rem;"></i>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem;">
+                                <span style="background: var(--neon-blue); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">AKTUALITY</span>
+                                <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--neon-blue);">
+                                    <i class="fas fa-calendar"></i>
+                                    5. mája 2025
+                                </div>
+                            </div>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--neon-blue); line-height: 1.3;">Práve bola zverejnená KOMPARATÍVNA A ODPORÚČACIA SPRÁVA O EKOSYSTÉMOCH SOCIÁLNYCH</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.4; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Zaujíma vás mapovanie ekosystémov sociálnych inovácií? Národné kompetenčné centrum pre sociálne...</p>
+                        </div>
+                    </div>
+                    <a href="#" style="color: var(--neon-blue); text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        Čítať viac <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="holo-card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="width: 120px; height: 80px; border-radius: 8px; flex-shrink: 0; border: 1px solid var(--neon-blue); background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(139, 92, 246, 0.2)); display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-archive" style="color: var(--neon-blue); font-size: 1.5rem;"></i>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem;">
+                                <span style="background: var(--neon-blue); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">AKTUALITY</span>
+                                <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--neon-blue);">
+                                    <i class="fas fa-calendar"></i>
+                                    2. decembra 2024
+                                </div>
+                            </div>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--neon-blue); line-height: 1.3;">Bola zverejnená definícia sociálnej inovácie a jej atribúty</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.4; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Na webovej stránke www.socialneinovacie.gov.sk v časti dokumenty bola nedávno zverejnená definícia...</p>
+                        </div>
+                    </div>
+                    <a href="#" style="color: var(--neon-blue); text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        Čítať viac <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="holo-card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="width: 120px; height: 80px; border-radius: 8px; flex-shrink: 0; border: 1px solid var(--neon-blue); background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(139, 92, 246, 0.2)); display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-video" style="color: var(--neon-blue); font-size: 1.5rem;"></i>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem;">
+                                <span style="background: var(--neon-blue); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">AKTUALITY</span>
+                                <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--neon-blue);">
+                                    <i class="fas fa-calendar"></i>
+                                    2. decembra 2024
+                                </div>
+                            </div>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--neon-blue); line-height: 1.3;">Online informačný seminár k Výzve na predkladanie projektových zámerov SocInoLab</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.4; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Sekcia riadenia programov EÚ MPSVR SR ako gestor cieľa politiky 4...</p>
+                        </div>
+                    </div>
+                    <a href="#" style="color: var(--neon-blue); text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        Čítať viac <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="holo-card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="width: 120px; height: 80px; border-radius: 8px; flex-shrink: 0; border: 1px solid var(--neon-blue); background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(139, 92, 246, 0.2)); display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-chalkboard-teacher" style="color: var(--neon-blue); font-size: 1.5rem;"></i>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem;">
+                                <span style="background: var(--neon-blue); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">AKTUALITY</span>
+                                <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--neon-blue);">
+                                    <i class="fas fa-calendar"></i>
+                                    26. novembra 2024
+                                </div>
+                            </div>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--neon-blue); line-height: 1.3;">Online informačný seminár k Výzve na predkladanie projektových zámerov</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.4; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Sekcia riadenia programov EÚ MPSVR SR ako gestor cieľa politiky 4...</p>
+                        </div>
+                    </div>
+                    <a href="#" style="color: var(--neon-blue); text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        Čítať viac <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Výzvy Section -->
+        <section class="holo-section" id="vyzvy" style="background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(0, 102, 255, 0.1));">
+            <div class="section-title">
+                <h2>CYBER VÝZVY</h2>
+                <p>Aktuálne výzvy na predkladanie projektových zámerov a návrhov</p>
+            </div>
+            <div class="holo-grid">
+                <div class="holo-card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=120&h=80&fit=crop&crop=center" 
+                             alt="ESF+ Výzva" 
+                             style="width: 120px; height: 80px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid var(--neon-pink);"
+                             onerror="this.style.display='none'">
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem;">
+                                <span style="background: var(--neon-pink); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">VÝZVY</span>
+                                <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--neon-pink);">
+                                    <i class="fas fa-calendar"></i>
+                                    30. júla 2025
+                                </div>
+                            </div>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--neon-pink); line-height: 1.3;">Výzva na predkladanie projektových zámerov PSK-MPSVR-072-2025-PZ-ESF+</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.4; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Ministerstvo práce, sociálnych vecí a rodiny SR ako sprostredkovateľský orgán pre...</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-circle" style="color: var(--neon-green); font-size: 0.6rem;"></i>
+                            Aktívna
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; opacity: 0.8;">
+                            <i class="fas fa-euro-sign" style="color: var(--neon-pink);"></i>
+                            ESF+
+                        </div>
+                    </div>
+                    <a href="#" style="color: var(--neon-pink); text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        Zobraziť výzvu <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="holo-card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=120&h=80&fit=crop&crop=center" 
+                             alt="Vzdelávanie výzva" 
+                             style="width: 120px; height: 80px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid var(--neon-pink);"
+                             onerror="this.style.display='none'">
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem;">
+                                <span style="background: var(--neon-pink); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">VÝZVY</span>
+                                <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--neon-pink);">
+                                    <i class="fas fa-calendar"></i>
+                                    10. júla 2025
+                                </div>
+                            </div>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--neon-pink); line-height: 1.3;">Výzva PSK-MPSVR-060-2025-DV-ESF+ Sociálne inovácie – škálovanie overených nástrojov vo vzdelávaní</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.4; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Ministerstvo práce, sociálnych vecí a rodiny SR ako sprostredkovateľský orgán pre...</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-circle" style="color: var(--neon-green); font-size: 0.6rem;"></i>
+                            Aktívna
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; opacity: 0.8;">
+                            <i class="fas fa-euro-sign" style="color: var(--neon-pink);"></i>
+                            ESF+
+                        </div>
+                    </div>
+                    <a href="#" style="color: var(--neon-pink); text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        Zobraziť výzvu <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="holo-card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=80&fit=crop&crop=center" 
+                             alt="Zamestávanie" 
+                             style="width: 120px; height: 80px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid var(--neon-pink);"
+                             onerror="this.style.display='none'">
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem;">
+                                <span style="background: var(--neon-pink); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">VÝZVY</span>
+                                <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--neon-pink);">
+                                    <i class="fas fa-calendar"></i>
+                                    11. júna 2025
+                                </div>
+                            </div>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--neon-pink); line-height: 1.3;">Novootvorená výzva na predkladanie návrhov: Implementácia balíka opatrení pre zamestnávanie</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.4; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Nová výzva na predkladanie návrhov: Zamestnávanie osôb so zdravotným postihnutím Európske...</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-circle" style="color: var(--neon-green); font-size: 0.6rem;"></i>
+                            Otvorená
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; opacity: 0.8;">
+                            <i class="fas fa-euro-sign" style="color: var(--neon-pink);"></i>
+                            EÚ
+                        </div>
+                    </div>
+                    <a href="#" style="color: var(--neon-pink); text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        Zobraziť výzvu <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="holo-card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                        <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=120&h=80&fit=crop&crop=center" 
+                             alt="Dofinancovanie" 
+                             style="width: 120px; height: 80px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid var(--neon-pink);"
+                             onerror="this.style.display='none'">
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem;">
+                                <span style="background: var(--neon-pink); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">VÝZVY</span>
+                                <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--neon-pink);">
+                                    <i class="fas fa-calendar"></i>
+                                    10. júna 2025
+                                </div>
+                            </div>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--neon-pink); line-height: 1.3;">Výzva na dofinancovanie projektov na podporu sociálnych inovácií financovaných z</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.4; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Ministerstvo práce, sociálnych vecí a rodiny Slovenskej republiky v súlade so zákonom č. 523/2004...</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-circle" style="color: #dc3545; font-size: 0.6rem;"></i>
+                            Uzavretá
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; opacity: 0.8;">
+                            <i class="fas fa-euro-sign" style="color: var(--neon-pink);"></i>
+                            národné
+                        </div>
+                    </div>
+                    <a href="#" style="color: var(--neon-pink); text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        Zobraziť výzvu <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Podujatia Section -->
+        <section class="holo-section" id="podujatia" style="background: linear-gradient(135deg, rgba(0, 255, 159, 0.1), rgba(139, 92, 246, 0.1));">
+            <div class="section-title">
+                <h2>CYBER PODUJATIA</h2>
+                <p>Vzdelávacie aktivity, workshopy a konferencie v oblasti sociálnych inovácií</p>
+            </div>
+            <div class="holo-grid">
+                <div class="holo-card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=120&h=80&fit=crop&crop=center" 
+                             alt="Thematic Workshop" 
+                             style="width: 120px; height: 80px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid var(--neon-green);"
+                             onerror="this.style.display='none'">
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem;">
+                                <span style="background: var(--neon-green); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">PODUJATIA</span>
+                                <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--neon-green);">
+                                    <i class="fas fa-calendar"></i>
+                                    Marec 2024
+                                </div>
+                            </div>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--neon-green); line-height: 1.3;">Thematic Workshop</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.4; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Ministerstvo práce, sociálnych vecí a rodiny Slovenskej republiky ako člen medzinárodného konzorcia Social...</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; opacity: 0.8;">
+                            <i class="fas fa-map-marker-alt" style="color: var(--neon-green);"></i>
+                            Bratislava
+                        </div>
+                    </div>
+                    <a href="#" style="color: var(--neon-green); text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        Viac o podujatí <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="holo-card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                        <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=120&h=80&fit=crop&crop=center" 
+                             alt="Medzinárodný biznis kurz" 
+                             style="width: 120px; height: 80px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid var(--neon-green);"
+                             onerror="this.style.display='none'">
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem;">
+                                <span style="background: var(--neon-green); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">PODUJATIA</span>
+                                <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--neon-green);">
+                                    <i class="fas fa-calendar"></i>
+                                    Február 2024
+                                </div>
+                            </div>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--neon-green); line-height: 1.3;">Kurz: Medzinárodný biznis</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.4; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Cieľom celoživotného vzdelávania ekonomických lídr v rámci priority 1 CZV EÚSKV v spolupráci s...</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; opacity: 0.8;">
+                            <i class="fas fa-map-marker-alt" style="color: var(--neon-green);"></i>
+                            Online
+                        </div>
+                    </div>
+                    <a href="#" style="color: var(--neon-green); text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        Viac o podujatí <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="holo-card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                        <img src="https://images.unsplash.com/photo-1515169067868-5387ec2265b5?w=120&h=80&fit=crop&crop=center" 
+                             alt="Líder súčasnosti kurz" 
+                             style="width: 120px; height: 80px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid var(--neon-green);"
+                             onerror="this.style.display='none'">
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem;">
+                                <span style="background: var(--neon-green); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">PODUJATIA</span>
+                                <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--neon-green);">
+                                    <i class="fas fa-calendar"></i>
+                                    Január 2024
+                                </div>
+                            </div>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--neon-green); line-height: 1.3;">Kurz: Líder súčasnosti: nástroje a zručnosti efektívneho a empatického lídra</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.4; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Centrum celoživotného vzdelávania Ekonomickej univerzity v Bratislave (CZV EÚSKV) v spolupráci s...</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; opacity: 0.8;">
+                            <i class="fas fa-map-marker-alt" style="color: var(--neon-green);"></i>
+                            Bratislava
+                        </div>
+                    </div>
+                    <a href="#" style="color: var(--neon-green); text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        Viac o podujatí <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="holo-card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                        <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=120&h=80&fit=crop&crop=center" 
+                             alt="Konferencia" 
+                             style="width: 120px; height: 80px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid var(--neon-green);"
+                             onerror="this.style.display='none'">
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem;">
+                                <span style="background: var(--neon-green); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">PODUJATIA</span>
+                                <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--neon-green);">
+                                    <i class="fas fa-calendar"></i>
+                                    December 2023
+                                </div>
+                            </div>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--neon-green); line-height: 1.3;">Konferencia o podpore sociálnych inovácií na Slovensku</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.4; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Spolu sme mali s Ministerstvom vnútra, regionálneho rozvoja a informatizácie SR a s príslušne...</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; opacity: 0.8;">
+                            <i class="fas fa-map-marker-alt" style="color: var(--neon-green);"></i>
+                            Bratislava
+                        </div>
+                    </div>
+                    <a href="#" style="color: var(--neon-green); text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        Viac o podujatí <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inšpirujte sa Section -->
+        <section class="holo-section" id="inspiracia" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(255, 119, 0, 0.1));">
+            <div class="section-title">
+                <h2>NEURAL INŠPIRÁCIA</h2>
+                <p>Objavte úspešné projekty a najlepšie praktiky v oblasti sociálnych inovácií</p>
+            </div>
+            <div style="max-width: 1400px; margin: 0 auto;">
+                <!-- Na Slovensku -->
+                <div style="margin-bottom: 4rem;">
+                    <h3 style="font-family: 'Orbitron', monospace; color: var(--neon-blue); font-size: 1.8rem; margin-bottom: 2rem; text-align: center;">
+                        <i class="fas fa-map" style="margin-right: 1rem;"></i>Na Slovensku
+                    </h3>
+                    <div class="holo-grid">
+                        <div class="holo-card" style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem;">
+                                <i class="fas fa-industry" style="color: white;"></i>
+                            </div>
+                            <h4 style="font-family: 'Orbitron', monospace; color: var(--neon-blue); margin-bottom: 1rem;">Riešenie dlhodobej nezamestnanosti v deindustrializovaných oblastiach</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.9;">Inovatívne prístupy k riešeniu nezamestnanosti v regiónoch postihnutých deindustrializáciou.</p>
+                            <a href="#" style="color: var(--neon-blue); text-decoration: none; font-weight: 600;">Preskúmať →</a>
+                        </div>
+
+                        <div class="holo-card" style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(45deg, var(--neon-green), var(--neon-blue)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem;">
+                                <i class="fas fa-gamepad" style="color: white;"></i>
+                            </div>
+                            <h4 style="font-family: 'Orbitron', monospace; color: var(--neon-green); margin-bottom: 1rem;">Gamifactory</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.9;">Využitie gamifikácie pre vzdelávanie a sociálnu integráciu mladých ľudí.</p>
+                            <a href="#" style="color: var(--neon-green); text-decoration: none; font-weight: 600;">Preskúmať →</a>
+                        </div>
+
+                        <div class="holo-card" style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem;">
+                                <i class="fas fa-flag" style="color: white;"></i>
+                            </div>
+                            <h4 style="font-family: 'Orbitron', monospace; color: var(--neon-pink); margin-bottom: 1rem;">Red Flags Slovensko.Digital</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.9;">Nástroj na identifikáciu podozrivých verejných obstarávaní a transparentnosť.</p>
+                            <a href="#" style="color: var(--neon-pink); text-decoration: none; font-weight: 600;">Preskúmať →</a>
+                        </div>
+
+                        <div class="holo-card" style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem;">
+                                <i class="fas fa-film" style="color: white;"></i>
+                            </div>
+                            <h4 style="font-family: 'Orbitron', monospace; color: var(--neon-purple); margin-bottom: 1rem;">Inkluzívne kino</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.9;">Sprístupnenie filmového umenia osobám so zdravotným postihnutím.</p>
+                            <a href="#" style="color: var(--neon-purple); text-decoration: none; font-weight: 600;">Preskúmať →</a>
+                        </div>
+
+                        <div class="holo-card" style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(45deg, var(--neon-green), var(--neon-pink)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem;">
+                                <i class="fas fa-life-ring" style="color: white;"></i>
+                            </div>
+                            <h4 style="font-family: 'Orbitron', monospace; color: var(--neon-green); margin-bottom: 1rem;">rescueROOM</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.9;">Inovatívne riešenie pre poskytovanie psychologickej pomoci a podpory.</p>
+                            <a href="#" style="color: var(--neon-green); text-decoration: none; font-weight: 600;">Preskúmať →</a>
+                        </div>
+
+                        <div class="holo-card" style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(45deg, var(--neon-blue), var(--neon-green)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem;">
+                                <i class="fas fa-user-md" style="color: white;"></i>
+                            </div>
+                            <h4 style="font-family: 'Orbitron', monospace; color: var(--neon-blue); margin-bottom: 1rem;">Zdravotníci na ulici</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.9;">Mobilná zdravotná starostlivosť pre bezdomovcov a marginalizované skupiny.</p>
+                            <a href="#" style="color: var(--neon-blue); text-decoration: none; font-weight: 600;">Preskúmať →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- V zahraničí -->
+                <div>
+                    <h3 style="font-family: 'Orbitron', monospace; color: var(--neon-purple); font-size: 1.8rem; margin-bottom: 2rem; text-align: center;">
+                        <i class="fas fa-globe-europe" style="margin-right: 1rem;"></i>V zahraničí
+                    </h3>
+                    <div class="holo-grid">
+                        <div class="holo-card" style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem;">
+                                <i class="fas fa-wheelchair" style="color: white;"></i>
+                            </div>
+                            <h4 style="font-family: 'Orbitron', monospace; color: var(--neon-purple); margin-bottom: 1rem;">Posilňovanie jednotlivcov s postihnutím pomocou zamestnanosti</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.9;">Európske iniciatívy na podporu začlenenia osôb so zdravotným postihnutím do pracovného procesu.</p>
+                            <a href="#" style="color: var(--neon-purple); text-decoration: none; font-weight: 600;">Preskúmať →</a>
+                        </div>
+
+                        <div class="holo-card" style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(45deg, var(--neon-green), var(--neon-blue)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem;">
+                                <i class="fas fa-balance-scale" style="color: white;"></i>
+                            </div>
+                            <h4 style="font-family: 'Orbitron', monospace; color: var(--neon-green); margin-bottom: 1rem;">Udržanie zamestnancov v odľahlých častiach prostredníctvom podpory osobno-pracovnej rovnováhy</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.9;">Riešenia pre udržanie kvalifikovanej pracovnej sily v rurálnych oblastiach.</p>
+                            <a href="#" style="color: var(--neon-green); text-decoration: none; font-weight: 600;">Preskúmať →</a>
+                        </div>
+
+                        <div class="holo-card" style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem;">
+                                <i class="fas fa-users" style="color: white;"></i>
+                            </div>
+                            <h4 style="font-family: 'Orbitron', monospace; color: var(--neon-blue); margin-bottom: 1rem;">Integrácia utečencov prostredníctvom spoločne navrhnutých aktivít na komunitnej úrovni</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.9;">Komunitné programy na integráciu utečencov a migrantov do miestnych komunít.</p>
+                            <a href="#" style="color: var(--neon-blue); text-decoration: none; font-weight: 600;">Preskúmať →</a>
+                        </div>
+
+                        <div class="holo-card" style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(45deg, var(--neon-pink), var(--neon-green)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem;">
+                                <i class="fas fa-home" style="color: white;"></i>
+                            </div>
+                            <h4 style="font-family: 'Orbitron', monospace; color: var(--neon-pink); margin-bottom: 1rem;">Dostupné a včasné služby domácej starostlivosti pre všetkých</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.9;">Inovačné modely poskytovania domácej zdravotnej a sociálnej starostlivosti.</p>
+                            <a href="#" style="color: var(--neon-pink); text-decoration: none; font-weight: 600;">Preskúmať →</a>
+                        </div>
+
+                        <div class="holo-card" style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem;">
+                                <i class="fas fa-laptop-code" style="color: white;"></i>
+                            </div>
+                            <h4 style="font-family: 'Orbitron', monospace; color: var(--neon-purple); margin-bottom: 1rem;">Prepojenie freelancerov pre lepšie zosúladenie osobno-pracovného života</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.9;">Platformy na podporu flexibilnej práce a lepšej work-life balance.</p>
+                            <a href="#" style="color: var(--neon-purple); text-decoration: none; font-weight: 600;">Preskúmať →</a>
+                        </div>
+
+                        <div class="holo-card" style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(45deg, var(--neon-green), var(--neon-pink)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem;">
+                                <i class="fas fa-leaf" style="color: white;"></i>
+                            </div>
+                            <h4 style="font-family: 'Orbitron', monospace; color: var(--neon-green); margin-bottom: 1rem;">Holistický prístup k propagácii udržateľného obchodu</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.9;">Komplexné riešenia pre podporu udržateľného podnikania a zelených technológií.</p>
+                            <a href="#" style="color: var(--neon-green); text-decoration: none; font-weight: 600;">Preskúmať →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cyber Stats -->
+        <section class="cyber-stats" id="stats">
+            <div class="section-title">
+                <h2>LIVE ANALYTICS</h2>
+                <p>Real-time štatistiky sociálnych inovácií powered by quantum AI</p>
+            </div>
+            <div class="stats-grid">
+                <div v-for="(stat, index) in stats" :key="index" class="stat-item">
+                    <span class="stat-number">{{ animatedStats[index] }}</span>
+                    <div class="stat-label">{{ stat.label }}</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cyber Footer -->
+        <footer class="cyber-footer" id="contact">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>KONTAKTNÉ INFORMÁCIE</h3>
+                    <p style="margin-bottom: 1.5rem; line-height: 1.6;">
+                        Ministerstvo práce, sociálnych vecí a rodiny SR
+                        <br />
+                        Odbor sociálnych inovácií
+                    </p>
+                    <div style="line-height: 1.8;">
+                        <p><i class="fas fa-map-marker-alt" style="margin-right: 0.5rem; color: var(--neon-blue);"></i>
+                        Špitálska 4, 6, 8, 816 43 Bratislava</p>
+                        <p><i class="fas fa-phone" style="margin-right: 0.5rem; color: var(--neon-blue);"></i>
+                        +421 2 2046 0000</p>
+                        <p><i class="fas fa-envelope" style="margin-right: 0.5rem; color: var(--neon-blue);"></i>
+                        info@mpsvr.gov.sk</p>
+                    </div>
+                    <div class="social-cyber">
+                        <a href="#" class="social-link" aria-label="Facebook stránka"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn profil"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link" aria-label="YouTube kanál"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link" aria-label="Newsletter"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>UŽITOČNÉ ODKAZY</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://mpsvr.gov.sk">MPSVaR SR</a></li>
+                        <li><a href="https://gov.sk">Portál gov.sk</a></li>
+                        <li><a href="#pristupnost">Vyhlásenie o prístupnosti</a></li>
+                        <li><a href="#cookies">Pravidlá používania cookies</a></li>
+                        <li><a href="#gdpr">Ochrana osobných údajov</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>PRE ORGANIZÁCIE</h3>
+                    <ul class="footer-links">
+                        <li><a href="#granty">Grantové výzvy</a></li>
+                        <li><a href="#partneri">Partnerské organizácie</a></li>
+                        <li><a href="#metodiky">Metodické materiály</a></li>
+                        <li><a href="#evaluacia">Evaluácia projektov</a></li>
+                        <li><a href="#vzdelavanie">Vzdelávacie aktivity</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>SLEDUJTE NÁS</h3>
+                    <p style="margin-bottom: 1rem; line-height: 1.6;">
+                        Zostávajte v kontakte s najnovšími informáciami o sociálnych inováciách
+                    </p>
+                    <div class="social-cyber">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(0, 243, 255, 0.3);">
+                <p style="opacity: 0.7; margin-bottom: 1rem; line-height: 1.6;">
+                    © 2025 Ministerstvo práce, sociálnych vecí a rodiny Slovenskej republiky
+                    <br />
+                    Všetky práva vyhradené. Oficiálna stránka štátnej správy SR.
+                </p>
+                <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; font-size: 0.9rem; opacity: 0.6;">
+                    <span>WCAG 2.1 AA</span>
+                    <span>NASES kompatibilné</span>
+                    <span>Vyhláška č. 78/2020</span>
+                    <span>HTML5 validné</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const { createApp, ref, onMounted, reactive } = Vue;
+
+        createApp({
+            setup() {
+                const heroTitle = ref("SOCIÁLNE INOVÁCIE 3.0");
+                const heroSubtitle = ref("Budúcnosť sociálnych služieb poháňaná umelou inteligenciou a kvantovými technológiami pre prosperujúce slovenské komunity.");
+                
+                const technologies = reactive([
+                    {
+                        title: "NEURAL SOCIÁLNE SLUŽBY",
+                        description: "AI-powered digitalizácia sociálnych služieb s kvantovým šifrovaním a neurálnymi sieťami pre lepšiu dostupnosť.",
+                        icon: "fas fa-users",
+                        gradient: "linear-gradient(45deg, #00f3ff, #bf00ff)",
+                        progress: 87
+                    },
+                    {
+                        title: "QUANTUM VZDELÁVANIE",
+                        description: "Holografické e-learning platformy s AI tutormi a neurálnym prepojením pre inkluzívne vzdelávanie.",
+                        icon: "fas fa-graduation-cap",
+                        gradient: "linear-gradient(45deg, #bf00ff, #ff0080)",
+                        progress: 93
+                    },
+                    {
+                        title: "CYBER ZAMESTNANOSŤ",
+                        description: "Blockchain rekvalifikačné programy s AI matchingom a metaverse job centrum pre nezamestnaných.",
+                        icon: "fas fa-briefcase",
+                        gradient: "linear-gradient(45deg, #ff0080, #39ff14)",
+                        progress: 76
+                    },
+                    {
+                        title: "BIO-TECH ZDRAVOTNÍCTVO",
+                        description: "Nanobot diagnostika s kvantovými senzormi a AI predikciou chorôb v reálnom čase.",
+                        icon: "fas fa-heart",
+                        gradient: "linear-gradient(45deg, #39ff14, #00f3ff)",
+                        progress: 84
+                    },
+                    {
+                        title: "SMART HABITAT LIVING",
+                        description: "Inteligentné sociálne bývanie s IoT systémami a AI správou pre znevýhodnené skupiny.",
+                        icon: "fas fa-home",
+                        gradient: "linear-gradient(45deg, #ff4500, #ffd700)",
+                        progress: 78
+                    },
+                    {
+                        title: "ECO-NEURAL ENVIRONMENT",
+                        description: "Kvantové monitorovanie ekosystému s AI optimalizáciou pre udržateľné komunity budúcnosti.",
+                        icon: "fas fa-leaf",
+                        gradient: "linear-gradient(45deg, #8a2be2, #00ced1)",
+                        progress: 91
+                    }
+                ]);
+
+                const stats = reactive([
+                    { value: 47, label: "Aktívnych projektov" },
+                    { value: 12450, label: "Podporených občanov" },
+                    { value: 156, label: "Partnerských organizácií" },
+                    { value: 92, label: "Úspešnosť projektov %" }
+                ]);
+
+                const animatedStats = ref([0, 0, 0, 0]);
+
+                // Matrix Rain Effect
+                const initMatrixRain = (canvas) => {
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+
+                    const matrix = "СОЦИАЛЬНЫЕИННОВАЦИИ10101010111000110101";
+                    const matrixArray = matrix.split("");
+                    const fontSize = 10;
+                    const columns = canvas.width / fontSize;
+                    const drops = [];
+
+                    for (let x = 0; x < columns; x++) {
+                        drops[x] = 1;
+                    }
+
+                    const draw = () => {
+                        ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        
+                        ctx.fillStyle = '#00f3ff';
+                        ctx.font = fontSize + 'px monospace';
+
+                        for (let i = 0; i < drops.length; i++) {
+                            const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                                drops[i] = 0;
+                            }
+                            drops[i]++;
+                        }
+                    };
+
+                    setInterval(draw, 35);
+                };
+
+                // 3D Scene with Three.js
+                const init3DScene = (container) => {
+                    const scene = new THREE.Scene();
+                    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                    const renderer = new THREE.WebGLRenderer({ alpha: true });
+                    
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                    container.appendChild(renderer.domElement);
+
+                    // Create particles
+                    const particlesGeometry = new THREE.BufferGeometry();
+                    const particlesCount = 5000;
+                    const posArray = new Float32Array(particlesCount * 3);
+
+                    for (let i = 0; i < particlesCount * 3; i++) {
+                        posArray[i] = (Math.random() - 0.5) * 5;
+                    }
+
+                    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+                    
+                    const particlesMaterial = new THREE.PointsMaterial({
+                        size: 0.005,
+                        color: 0x00f3ff
+                    });
+
+                    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+                    scene.add(particlesMesh);
+
+                    camera.position.z = 2;
+
+                    const animate = () => {
+                        requestAnimationFrame(animate);
+                        particlesMesh.rotation.y += 0.001;
+                        particlesMesh.rotation.x += 0.0005;
+                        renderer.render(scene, camera);
+                    };
+
+                    animate();
+
+                    // Mouse movement effect
+                    document.addEventListener('mousemove', (event) => {
+                        const x = (event.clientX / window.innerWidth) * 2 - 1;
+                        const y = -(event.clientY / window.innerHeight) * 2 + 1;
+                        particlesMesh.rotation.x = y * 0.1;
+                        particlesMesh.rotation.y = x * 0.1;
+                    });
+                };
+
+                // Animate stats
+                const animateStats = () => {
+                    stats.forEach((stat, index) => {
+                        const target = stat.value;
+                        const increment = target / 100;
+                        let current = 0;
+                        
+                        const counter = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                animatedStats.value[index] = target;
+                                clearInterval(counter);
+                            } else {
+                                animatedStats.value[index] = Math.floor(current);
+                            }
+                        }, 50);
+                    });
+                };
+
+                // Custom cursor
+                const initCursor = (cursor) => {
+                    document.addEventListener('mousemove', (e) => {
+                        cursor.style.left = e.clientX + 'px';
+                        cursor.style.top = e.clientY + 'px';
+                    });
+
+                    document.querySelectorAll('a, button, .holo-card').forEach(el => {
+                        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+                    });
+                };
+
+                // Sound effects
+                const playHoverSound = () => {
+                    // Web Audio API for hover sound
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
+                    
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.1);
+                };
+
+                onMounted(() => {
+                    // Initialize all effects
+                    const matrixCanvas = document.querySelector('.matrix-bg');
+                    const threeContainer = document.querySelector('#three-container');
+                    const cursor = document.querySelector('.custom-cursor');
+                    
+                    if (matrixCanvas) initMatrixRain(matrixCanvas);
+                    if (threeContainer) init3DScene(threeContainer);
+                    if (cursor) initCursor(cursor);
+                    
+                    // Start stats animation
+                    setTimeout(animateStats, 2000);
+
+                    // GSAP Scroll Animations
+                    gsap.registerPlugin(ScrollTrigger);
+                    
+                    gsap.from('.holo-card', {
+                        duration: 1,
+                        y: 100,
+                        opacity: 0,
+                        stagger: 0.2,
+                        scrollTrigger: {
+                            trigger: '.holo-grid',
+                            start: 'top 80%'
+                        }
+                    });
+
+                    // Smooth scrolling
+                    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                        anchor.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            const target = document.querySelector(this.getAttribute('href'));
+                            if (target) {
+                                target.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        });
+                    });
+                });
+
+                return {
+                    heroTitle,
+                    heroSubtitle,
+                    technologies,
+                    stats,
+                    animatedStats,
+                    playHoverSound
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
