@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sociálne inovácie | Ministerstvo práce, sociálnych vecí a rodiny SR</title>
+    <meta name="description" content="Sociálne inovácie - oficiálna stránka Ministerstva práce, sociálnych vecí a rodiny Slovenskej republiky. Informácie o sociálnych inováciách, projektoch a iniciatívach.">
+    <meta name="keywords" content="sociálne inovácie, ministerstvo práce, sociálne veci, rodina, Slovenská republika, gov.sk">
+    <meta name="author" content="Ministerstvo práce, sociálnych vecí a rodiny SR">
+    <link rel="canonical" href="https://socialneinovacie.gov.sk/">
+    
+    <!-- NASES požiadavky - Accessibility -->
+    <meta name="accessibility" content="WCAG 2.1 AA">
+    <meta name="language" content="sk">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sociálne inovácie | MPSVaR SR">
+    <meta property="og:description" content="Oficiálna stránka o sociálnych inováciách Ministerstva práce, sociálnych vecí a rodiny SR">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://socialneinovacie.gov.sk/">
+    <meta property="og:image" content="https://socialneinovacie.gov.sk/assets/og-image.jpg">
+    
+    <!-- Government standards compliance -->
+    <meta name="gov.sk" content="true">
+    <meta name="department" content="Ministerstvo práce, sociálnych vecí a rodiny SR">
+    <meta name="classification" content="verejná správa">
+    
+    <!-- React 18 CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- D3.js for data visualization -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Framer Motion CDN -->
+    <script src="https://unpkg.com/framer-motion@10/dist/framer-motion.js"></script>
+    
+    <!-- Lottie for animations -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Official gov.sk colors - Light mode */
+            --primary-blue: #003d82;
+            --secondary-blue: #4a90e2;
+            --light-blue: #e8f4fd;
+            --accent-orange: #ff6b35;
+            --success-green: #28a745;
+            --warning-yellow: #ffc107;
+            --danger-red: #dc3545;
+            
+            /* Light theme colors */
+            --background-light: #ffffff;
+            --background-section: #f8f9fa;
+            --background-card: #ffffff;
+            --text-primary: #2c3e50;
+            --text-secondary: #6c757d;
+            --text-muted: #adb5bd;
+            --border-light: #e9ecef;
+            --border-medium: #dee2e6;
+            --shadow-light: 0 2px 10px rgba(0, 61, 130, 0.1);
+            --shadow-medium: 0 4px 20px rgba(0, 61, 130, 0.15);
+            --shadow-hover: 0 8px 30px rgba(0, 61, 130, 0.2);
+            
+            /* Interactive colors */
+            --hover-blue: #0056b3;
+            --active-blue: #004494;
+            --glass-surface: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(0, 61, 130, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background-light);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* NASES Accessibility Requirements - Skip Links */
+        .skip-links {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            z-index: 10000;
+        }
+
+        .skip-links a {
+            position: absolute;
+            left: -10000px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            background: var(--primary-blue);
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .skip-links a:focus {
+            position: static;
+            width: auto;
+            height: auto;
+            left: auto;
+            top: auto;
+        }
+
+        /* Government branding compliance */
+        .gov-header {
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .gov-header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .gov-header a:hover {
+            text-decoration: underline;
+        }
+
+        /* Light Particles Background */
+        .quantum-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--background-light) 100%);
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--secondary-blue);
+            border-radius: 50%;
+            animation: lightFloat 12s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes lightFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(50px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Light Navigation */
+        .morph-nav {
+            position: fixed;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: var(--background-card);
+            border: 1px solid var(--border-medium);
+            border-radius: 50px;
+            padding: 0.75rem 2rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
+        }
+
+        .morph-nav:hover {
+            box-shadow: var(--shadow-medium);
+            transform: translateX(-50%) translateY(-2px);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            /* WCAG 2.1 AA contrast ratio 4.5:1 */
+        }
+
+        .nav-link:focus {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary-blue), transparent);
+            transition: left 0.5s ease;
+            opacity: 0.1;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-blue);
+            background: var(--light-blue);
+        }
+
+        /* Light Hero Section */
+        .immersive-hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--background-light) 100%);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            padding: 0 2rem;
+            z-index: 2;
+        }
+
+        .glitch-title {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-blue), var(--secondary-blue), var(--accent-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .quantum-button {
+            padding: 1rem 1.5rem;
+            background: var(--background-card);
+            border: 2px solid var(--primary-blue);
+            border-radius: 15px;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quantum-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-blue);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .quantum-button:hover::after {
+            opacity: 1;
+        }
+
+        .quantum-button:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Light Data Visualization Section */
+        .data-viz-section {
+            padding: 8rem 2rem;
+            position: relative;
+            background: var(--background-section);
+        }
+
+        .data-viz-section:nth-child(even) {
+            background: var(--background-light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Morphing Cards */
+        .morph-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Card with Image Layout */
+        .card-with-image {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-image {
+            width: 120px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1px solid var(--border-light);
+        }
+
+        .card-content {
+            flex: 1;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .card-date {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .card-badge {
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .card-title-small {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .card-description-small {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-link-small {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .card-link-small:hover {
+            color: var(--hover-blue);
+        }
+
+        .morph-card {
+            background: var(--background-card);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: var(--shadow-light);
+        }
+
+        .morph-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                var(--light-blue) 0%,
+                transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .morph-card:hover::before {
+            opacity: 1;
+        }
+
+        .morph-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary-blue);
+        }
+
+        .card-icon-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-icon-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-blue);
+            opacity: 0.9;
+        }
+
+        .card-icon {
+            position: relative;
+            z-index: 1;
+            color: white;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .card-description {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .progress-container {
+            margin-top: 1rem;
+        }
+
+        .progress-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--border-light);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+            border-radius: 2px;
+            transition: width 1s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            animation: progressShimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes progressShimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Light Dashboard */
+        .dashboard-section {
+            padding: 6rem 2rem;
+            background: var(--background-section);
+            border-top: 1px solid var(--border-medium);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .metric-card {
+            background: var(--background-card);
+            border: 1px solid var(--border-light);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: var(--shadow-light);
+        }
+
+        .metric-card:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary-blue);
+        }
+
+        .metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-trend {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.2rem;
+            color: var(--success-green);
+        }
+
+        /* Light Footer */
+        .neural-footer {
+            background: var(--background-section);
+            border-top: 2px solid var(--primary-blue);
+            padding: 4rem 2rem 2rem;
+            position: relative;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .social-neural {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-node {
+            width: 45px;
+            height: 45px;
+            background: var(--background-card);
+            border: 2px solid var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-node:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .glitch-title {
+                font-size: 2.5rem;
+            }
+
+            .morph-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Light Loading Animation */
+        .quantum-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .quantum-loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-animation {
+            width: 60px;
+            height: 60px;
+            border: 3px solid var(--border-light);
+            border-top: 3px solid var(--primary-blue);
+            border-right: 3px solid var(--secondary-blue);
+            border-radius: 50%;
+            animation: lightSpin 1s linear infinite;
+        }
+
+        @keyframes lightSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // Government Header Component
+        const GovHeader = () => (
+            <div className="gov-header">
+                <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
+                    Oficiálna stránka štátnej správy SR | 
+                    <a href="https://gov.sk" target="_blank" rel="noopener noreferrer"> gov.sk</a> | 
+                    <a href="https://mpsvr.gov.sk" target="_blank" rel="noopener noreferrer"> mpsvr.gov.sk</a>
+                </div>
+            </div>
+        );
+
+        // Skip Links Component - NASES requirement
+        const SkipLinks = () => (
+            <div className="skip-links">
+                <a href="#main-content">Preskočiť na hlavný obsah</a>
+                <a href="#main-navigation">Preskočiť na navigáciu</a>
+                <a href="#footer">Preskočiť na pätičku</a>
+            </div>
+        );
+
+        // Quantum Particles Component
+        const QuantumParticles = () => {
+            useEffect(() => {
+                const createParticle = () => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 2 + 's';
+                    particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                    
+                    document.querySelector('.quantum-bg').appendChild(particle);
+                    
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                        }
+                    }, 8000);
+                };
+
+                const interval = setInterval(createParticle, 300);
+                return () => clearInterval(interval);
+            }, []);
+
+            return <div className="quantum-bg"></div>;
+        };
+
+        // Morphing Navigation Component - WCAG Compliant
+        const MorphNav = () => (
+            <nav className="morph-nav" id="main-navigation" role="navigation" aria-label="Hlavné menu">
+                <ul className="nav-links">
+                    <li><a href="#home" className="nav-link" aria-label="Domov">Domov</a></li>
+                    <li><a href="#aktuality" className="nav-link" aria-label="Aktuality">Aktuality</a></li>
+                    <li><a href="#vyzvy" className="nav-link" aria-label="Výzvy">Výzvy</a></li>
+                    <li><a href="#podujatia" className="nav-link" aria-label="Podujatia">Podujatia</a></li>
+                    <li><a href="#inspiracia" className="nav-link" aria-label="Inšpirujte sa">Inšpirujte sa</a></li>
+                </ul>
+            </nav>
+        );
+
+        // News/Event Card Component - for different categories with images
+        const ContentCard = ({ icon, title, description, category, date, status, amount, location, type, image }) => {
+            const getCategoryColor = (cat) => {
+                switch(cat) {
+                    case 'AKTUALITY': return 'var(--primary-blue)';
+                    case 'VÝZVY': return 'var(--accent-orange)';
+                    case 'PODUJATIA': return 'var(--success-green)';
+                    case 'INŠPIRÁCIA': return 'var(--secondary-blue)';
+                    default: return 'var(--primary-blue)';
+                }
+            };
+
+            return (
+                <div className="morph-card" role="article" tabIndex="0">
+                    <div className="card-with-image">
+                        {image && (
+                            <img 
+                                src={image} 
+                                alt={title}
+                                className="card-image"
+                                onError={(e) => {
+                                    e.target.style.display = 'none';
+                                }}
+                            />
+                        )}
+                        <div className="card-content">
+                            <div className="card-meta">
+                                <span className="card-badge" style={{ background: getCategoryColor(category) }}>
+                                    {category}
+                                </span>
+                                {date && (
+                                    <div className="card-date">
+                                        <i className="fas fa-calendar" style={{ color: getCategoryColor(category) }}></i>
+                                        {date}
+                                    </div>
+                                )}
+                            </div>
+                            <h3 className="card-title-small">{title}</h3>
+                            <p className="card-description-small">{description}</p>
+                        </div>
+                    </div>
+                    
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', fontSize: '0.85rem', marginBottom: '1rem' }}>
+                        {status && (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                <i className="fas fa-circle" style={{ 
+                                    color: status === 'Aktívna' || status === 'Otvorená' ? 'var(--success-green)' : 'var(--danger-red)',
+                                    fontSize: '0.6rem'
+                                }}></i>
+                                {status}
+                            </div>
+                        )}
+                        {amount && (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)' }}>
+                                <i className="fas fa-euro-sign" style={{ color: getCategoryColor(category) }}></i>
+                                {amount}
+                            </div>
+                        )}
+                        {location && (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)' }}>
+                                <i className="fas fa-map-marker-alt" style={{ color: getCategoryColor(category) }}></i>
+                                {location}
+                            </div>
+                        )}
+                    </div>
+
+                    <a href="#" className="card-link-small">
+                        {category === 'VÝZVY' ? 'Zobraziť výzvu' : 
+                         category === 'PODUJATIA' ? 'Viac o podujatí' :
+                         category === 'INŠPIRÁCIA' ? 'Preskúmať' : 'Čítať viac'}
+                        <i className="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            );
+        };
+
+        // Metric Card Component - Real statistics
+        const MetricCard = ({ value, label, trend, suffix = "", description }) => {
+            const [animatedValue, setAnimatedValue] = useState(0);
+
+            useEffect(() => {
+                const duration = 2000;
+                const steps = 60;
+                const increment = value / steps;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= value) {
+                        setAnimatedValue(value);
+                        clearInterval(timer);
+                    } else {
+                        setAnimatedValue(Math.floor(current));
+                    }
+                }, duration / steps);
+
+                return () => clearInterval(timer);
+            }, [value]);
+
+            return (
+                <div className="metric-card" role="article" tabIndex="0">
+                    <div className="metric-trend" aria-label={`Trend: ${trend === 'up' ? 'rastúci' : 'klesajúci'}`}>
+                        <i className={`fas fa-arrow-${trend === 'up' ? 'up' : 'down'}`} aria-hidden="true"></i>
+                    </div>
+                    <span className="metric-value" aria-label={`Hodnota: ${animatedValue.toLocaleString()}${suffix}`}>
+                        {animatedValue.toLocaleString()}{suffix}
+                    </span>
+                    <div className="metric-label">{label}</div>
+                    {description && (
+                        <p style={{ fontSize: '0.85rem', opacity: 0.8, marginTop: '0.5rem' }}>
+                            {description}
+                        </p>
+                    )}
+                </div>
+            );
+        };
+
+        // Main App Component
+        const App = () => {
+            const [isLoading, setIsLoading] = useState(true);
+
+            const aktuality = [
+                {
+                    icon: "fas fa-gavel",
+                    title: "Práve bola zverejnená KOMPENZAČNÁ A ODPORÚČACIA SPRÁVA O EKOSYSTÉMOCH SOCIÁLNYCH",
+                    description: "Začína sa nás rozsiahle ekosystému sociálnych inovácií kompetenčné centrum pre sociálne...",
+                    category: "AKTUALITY",
+                    date: "4. mája 2024",
+                    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=120&h=80&fit=crop&crop=center"
+                },
+                {
+                    icon: "fas fa-lightbulb",
+                    title: "Bola zverejnená definícia sociálnej Inovácie a jej atribúty",
+                    description: "www.socialneinovacie.gov.sk v časti dokumenty bola nedávno zverejnená definícia...",
+                    category: "AKTUALITY", 
+                    date: "2. decembra 2024",
+                    image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=120&h=80&fit=crop&crop=center"
+                },
+                {
+                    icon: "fas fa-laptop",
+                    title: "Online informačný seminár k Výzve na predkladanie projektových zámerov SocioLab",
+                    description: "Sekcia sociálna ochrana EU MPSVaR SR ako gestor cieľa politiky...",
+                    category: "AKTUALITY",
+                    date: "2. decembra 2024",
+                    image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=120&h=80&fit=crop&crop=center"
+                },
+                {
+                    icon: "fas fa-presentation",
+                    title: "Online informačný seminár k Výzve na predkladanie projektových zámerov",
+                    description: "Výzva je určená programu EÚ MPSVaR SR ako gestor cieľa politiky...",
+                    category: "AKTUALITY",
+                    date: "26. novembra 2024",
+                    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=120&h=80&fit=crop&crop=center"
+                }
+            ];
+
+            const vyzvy = [
+                {
+                    icon: "fas fa-euro-sign",
+                    title: "Výzva na predkladanie projektových zámerov PSK-MPSVR-072-2025-PZ-ESF+",
+                    description: "Ministerstvo práce, sociálnych vecí a rodiny SR ako sprostredkovateľský orgán pre...",
+                    category: "VÝZVY",
+                    date: "30. júla 2024",
+                    status: "Aktívna",
+                    amount: "ESF+",
+                    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=120&h=80&fit=crop&crop=center"
+                },
+                {
+                    icon: "fas fa-graduation-cap",
+                    title: "Výzva PSK-MPSVR-060-2025-DV-ESF+ Sociálne Inovácie - Skúlovanle overených riešení vo vzdelávaní",
+                    description: "Ministerstvo práce, sociálnych vecí a rodiny SR ako sprostredkovateľský orgán pre...",
+                    category: "VÝZVY",
+                    date: "15. júla 2024",
+                    status: "Aktívna", 
+                    amount: "ESF+",
+                    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=120&h=80&fit=crop&crop=center"
+                },
+                {
+                    icon: "fas fa-chart-line",
+                    title: "Novootvorená výzva na predkladanie návrhov: Implementácia balíka opatrení pre zamestávanie",
+                    description: "Nová výzva na predkladanie návrhov zamestávanie osôb so zdravotným postihnutím Európsk...",
+                    category: "VÝZVY", 
+                    date: "11. júna 2024",
+                    status: "Otvorená",
+                    amount: "EÚ",
+                    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=80&fit=crop&crop=center"
+                },
+                {
+                    icon: "fas fa-hands-helping",
+                    title: "Výzva na dofiancovanie projektov na podporu sociálnych inovácií financovaných z",
+                    description: "Ministerstvo práce, sociálnych vecí a rodiny Slovenskej republiky vysialisovaním č. 25/2024...",
+                    category: "VÝZVY",
+                    date: "16. júna 2024", 
+                    status: "Uzavretá",
+                    amount: "národné",
+                    image: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=120&h=80&fit=crop&crop=center"
+                }
+            ];
+
+            const podujatia = [
+                {
+                    icon: "fas fa-chalkboard-teacher",
+                    title: "Thematic Workshop",
+                    description: "Ministerstvo práce, sociálnych vecí a rodiny Slovenskej republiky ako člen medzinárodného konzorcia Social...",
+                    category: "PODUJATIA",
+                    date: "Marec 2024",
+                    location: "Bratislava",
+                    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=120&h=80&fit=crop&crop=center"
+                },
+                {
+                    icon: "fas fa-globe",
+                    title: "Kurz: Medzinárodný biznis",
+                    description: "Cieľom celoživotného vzdelávania ekonomických lídr v rámci priority 1 CZV EÚSKV v spolupráci s...",
+                    category: "PODUJATIA", 
+                    date: "Február 2024",
+                    location: "Online",
+                    image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=120&h=80&fit=crop&crop=center"
+                },
+                {
+                    icon: "fas fa-user-tie",
+                    title: "Kurz: Líder súčasnosti: nástroje a zručnosti efektívneho a empatického lídra",
+                    description: "Centrum celoživotného vzdelávania Ekonomickej univerzity v Bratislave (CZV EÚSKV) v spolupráci s...",
+                    category: "PODUJATIA",
+                    date: "Január 2024", 
+                    location: "Bratislava",
+                    image: "https://images.unsplash.com/photo-1515169067868-5387ec2265b5?w=120&h=80&fit=crop&crop=center"
+                },
+                {
+                    icon: "fas fa-conference",
+                    title: "Konferencia o podpore sociálnych inovácií na Slovensku",
+                    description: "Spolu sme mali s Ministerstvom vnútra, regionálneho rozvoja a informatizácie SR a s príslušne...",
+                    category: "PODUJATIA",
+                    date: "December 2023",
+                    location: "Bratislava",
+                    image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=120&h=80&fit=crop&crop=center"
+                }
+            ];
+
+            const inspiracia = [
+                {
+                    icon: "fas fa-map",
+                    title: "Na Slovensku",
+                    description: "Preskúmajte slovenské projekty a iniciatívy v oblasti sociálnych inovácií",
+                    category: "INŠPIRÁCIA",
+                    type: "local"
+                },
+                {
+                    icon: "fas fa-globe-europe", 
+                    title: "V zahraničí",
+                    description: "Objavte medzinárodné najlepšie praktiky a riešenia zo sveta",
+                    category: "INŠPIRÁCIA",
+                    type: "international"
+                }
+            ];
+
+            const metrics = [
+                { 
+                    value: 47, 
+                    label: "Aktívnych projektov", 
+                    trend: "up",
+                    description: "Počet bežiacich projektov sociálnych inovácií"
+                },
+                { 
+                    value: 12450, 
+                    label: "Podporených občanov", 
+                    trend: "up",
+                    description: "Celkový počet občanov, ktorí využili naše služby"
+                },
+                { 
+                    value: 156, 
+                    label: "Partnerských organizácií", 
+                    trend: "up",
+                    description: "Neziskové organizácie a inštitúcie v sieti"
+                },
+                { 
+                    value: 92, 
+                    label: "Úspešnosť projektov", 
+                    trend: "up", 
+                    suffix: "%",
+                    description: "Percento úspešne dokončených projektov"
+                }
+            ];
+
+            useEffect(() => {
+                const timer = setTimeout(() => {
+                    setIsLoading(false);
+                }, 2000);
+                return () => clearTimeout(timer);
+            }, []);
+
+            useEffect(() => {
+                // Smooth scrolling
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                });
+            }, []);
+
+            if (isLoading) {
+                return (
+                    <div className="quantum-loader">
+                        <div className="loader-animation"></div>
+                    </div>
+                );
+            }
+
+            return (
+                <div>
+                    <SkipLinks />
+                    <GovHeader />
+                    <QuantumParticles />
+                    <MorphNav />
+
+                    {/* Hero Section */}
+                    <section className="immersive-hero" id="home">
+                        <div className="hero-content">
+                            <header>
+                                <h1 className="glitch-title">Sociálne inovácie</h1>
+                                <p className="hero-subtitle">
+                                    Sociálna inovácia znamená činnosť (proces), ktorá má z hľadiska svojich cieľov aj prostriedkov spoločensky alebo komunitný charakter 
+                                    a súvisí s vývojom a implementáciou nových procesov, prístupov, postupov, modelov, produktov a služieb, ktoré reagujú na relevantné 
+                                    spoločenské a komunitné problémy a potreby. Sociálne inovácie vytvárajú nové vzťahy, systémy, štruktúry alebo spolupráce medzi 
+                                    jednotlivými sektormi (verejným, súkromným a tretím), ktoré prinášajú pozitívnu systémovú zmenu v spoločnosti, zvyšujú kapacitu 
+                                    komunitnej alebo sektorovej spravodlivosti a demokratickej správy a alebo predstavujú efektívnejšie riešenie spoločenských problémov.
+                                </p>
+                                <p className="hero-subtitle" style={{ fontSize: '1rem', marginTop: '1.5rem', opacity: 0.9 }}>
+                                    Národné kompetenčné centrum pre sociálne inovácie spája odborníkov, akademickú obec, neziskové a miestne 
+                                    organizácie s cieľom zlepšenia podpory projektov, ktoré prinášajú riešenia spoločenských a spoločenských problémov.
+                                </p>
+                            </header>
+                            <div className="cta-grid">
+                                <a href="#aktuality" className="quantum-button" aria-label="Prejsť na aktuality">
+                                    <i className="fas fa-newspaper" aria-hidden="true"></i>
+                                    Aktuality
+                                </a>
+                                <a href="#vyzvy" className="quantum-button" aria-label="Zobraziť výzvy">
+                                    <i className="fas fa-bullhorn" aria-hidden="true"></i>
+                                    Výzvy
+                                </a>
+                                <a href="#podujatia" className="quantum-button" aria-label="Prezrieť podujatia">
+                                    <i className="fas fa-calendar-alt" aria-hidden="true"></i>
+                                    Podujatia
+                                </a>
+                                <a href="#inspiracia" className="quantum-button" aria-label="Nájsť inšpiráciu">
+                                    <i className="fas fa-lightbulb" aria-hidden="true"></i>
+                                    Inšpirujte sa
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Statistics Dashboard */}
+                    <section className="dashboard-section" id="statistiky">
+                        <div className="section-header">
+                            <h2 className="section-title">Štatistiky a výsledky</h2>
+                            <p className="section-subtitle">
+                                Aktuálne údaje o dosahu a vplyve našich programov sociálnych inovácií
+                            </p>
+                        </div>
+                        <div className="dashboard-grid">
+                            {metrics.map((metric, index) => (
+                                <MetricCard
+                                    key={index}
+                                    value={metric.value}
+                                    label={metric.label}
+                                    trend={metric.trend}
+                                    suffix={metric.suffix}
+                                    description={metric.description}
+                                />
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Aktuality Section */}
+                    <section className="data-viz-section" id="aktuality">
+                        <div className="section-header">
+                            <h2 className="section-title">Aktuality</h2>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                                <p className="section-subtitle">
+                                    Najnovšie správy a informácie zo sveta sociálnych inovácií
+                                </p>
+                                <a href="#" style={{ 
+                                    color: 'var(--electric-blue)', 
+                                    textDecoration: 'none', 
+                                    fontWeight: '600',
+                                    fontSize: '0.9rem'
+                                }}>
+                                    Archív aktualít →
+                                </a>
+                            </div>
+                        </div>
+                        <div className="morph-grid">
+                            {aktuality.map((item, index) => (
+                                <ContentCard
+                                    key={index}
+                                    icon={item.icon}
+                                    title={item.title}
+                                    description={item.description}
+                                    category={item.category}
+                                    date={item.date}
+                                    image={item.image}
+                                />
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Výzvy Section */}
+                    <section className="data-viz-section" id="vyzvy" style={{ 
+                        background: 'linear-gradient(135deg, rgba(255, 0, 110, 0.05) 0%, rgba(0, 102, 255, 0.05) 100%)'
+                    }}>
+                        <div className="section-header">
+                            <h2 className="section-title">Výzvy</h2>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                                <p className="section-subtitle">
+                                    Aktuálne výzvy na predkladanie projektových zámerov a návrhov
+                                </p>
+                                <a href="#" style={{ 
+                                    color: 'var(--cyber-pink)', 
+                                    textDecoration: 'none', 
+                                    fontWeight: '600',
+                                    fontSize: '0.9rem'
+                                }}>
+                                    Archív výziev →
+                                </a>
+                            </div>
+                        </div>
+                        <div className="morph-grid">
+                            {vyzvy.map((item, index) => (
+                                <ContentCard
+                                    key={index}
+                                    icon={item.icon}
+                                    title={item.title}
+                                    description={item.description}
+                                    category={item.category}
+                                    date={item.date}
+                                    status={item.status}
+                                    amount={item.amount}
+                                    image={item.image}
+                                />
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Podujatia Section */}
+                    <section className="data-viz-section" id="podujatia" style={{ 
+                        background: 'linear-gradient(135deg, rgba(0, 255, 159, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%)'
+                    }}>
+                        <div className="section-header">
+                            <h2 className="section-title">Podujatia</h2>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                                <p className="section-subtitle">
+                                    Vzdelávacie aktivity, workshopy a konferencie v oblasti sociálnych inovácií
+                                </p>
+                                <a href="#" style={{ 
+                                    color: 'var(--neon-green)', 
+                                    textDecoration: 'none', 
+                                    fontWeight: '600',
+                                    fontSize: '0.9rem'
+                                }}>
+                                    Archív podujatí →
+                                </a>
+                            </div>
+                        </div>
+                        <div className="morph-grid">
+                            {podujatia.map((item, index) => (
+                                <ContentCard
+                                    key={index}
+                                    icon={item.icon}
+                                    title={item.title}
+                                    description={item.description}
+                                    category={item.category}
+                                    date={item.date}
+                                    location={item.location}
+                                    image={item.image}
+                                />
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Inšpirujte sa Section */}
+                    <section className="data-viz-section" id="inspiracia" style={{ 
+                        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(255, 119, 0, 0.05) 100%)'
+                    }}>
+                        <div className="section-header">
+                            <h2 className="section-title">Inšpirujte sa</h2>
+                            <p className="section-subtitle">
+                                Objavte úspešné projekty a najlepšie praktiky v oblasti sociálnych inovácií
+                            </p>
+                        </div>
+                        <div style={{ 
+                            display: 'grid', 
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+                            gap: '2rem',
+                            maxWidth: '1000px',
+                            margin: '0 auto'
+                        }}>
+                            {inspiracia.map((item, index) => (
+                                <div key={index} style={{
+                                    background: 'var(--glass-surface)',
+                                    border: '1px solid var(--glass-border)',
+                                    borderRadius: '20px',
+                                    padding: '3rem 2rem',
+                                    textAlign: 'center',
+                                    backdropFilter: 'blur(20px)',
+                                    transition: 'all 0.3s ease',
+                                    cursor: 'pointer'
+                                }}
+                                className="morph-card"
+                                >
+                                    <div style={{
+                                        width: '80px',
+                                        height: '80px',
+                                        background: 'var(--secondary-blue)',
+                                        borderRadius: '20px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        margin: '0 auto 2rem',
+                                        fontSize: '2rem'
+                                    }}>
+                                        <i className={item.icon} style={{ color: 'white' }}></i>
+                                    </div>
+                                    <h3 style={{ 
+                                        fontSize: '1.5rem', 
+                                        fontWeight: '600', 
+                                        marginBottom: '1rem',
+                                        color: 'var(--primary-blue)'
+                                    }}>
+                                        {item.title}
+                                    </h3>
+                                    <p style={{ lineHeight: 1.6, marginBottom: '2rem', color: 'var(--text-secondary)' }}>
+                                        {item.description}
+                                    </p>
+                                    <a href="#" style={{
+                                        color: 'var(--primary-blue)',
+                                        textDecoration: 'none',
+                                        fontWeight: '600',
+                                        fontSize: '1.1rem'
+                                    }}>
+                                        Preskúmať →
+                                    </a>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Contact and Footer */}
+                    <footer className="neural-footer" id="kontakt">
+                        <div className="footer-grid">
+                            <div className="footer-section">
+                                <h3>Kontaktné informácie</h3>
+                                <p style={{ marginBottom: '1.5rem' }}>
+                                    Ministerstvo práce, sociálnych vecí a rodiny SR
+                                    <br />
+                                    Odbor sociálnych inovácií
+                                </p>
+                                <div style={{ lineHeight: 1.8 }}>
+                                    <p><i className="fas fa-map-marker-alt" style={{ marginRight: '0.5rem', color: 'var(--primary-blue)' }}></i>
+                                    Špitálska 4, 816 43 Bratislava</p>
+                                    <p><i className="fas fa-phone" style={{ marginRight: '0.5rem', color: 'var(--primary-blue)' }}></i>
+                                    +421 2 2046 0000</p>
+                                    <p><i className="fas fa-envelope" style={{ marginRight: '0.5rem', color: 'var(--primary-blue)' }}></i>
+                                    info@mpsvr.gov.sk</p>
+                                </div>
+                            </div>
+                            <div className="footer-section">
+                                <h3>Užitočné odkazy</h3>
+                                <ul className="footer-links">
+                                    <li><a href="https://mpsvr.gov.sk">MPSVaR SR</a></li>
+                                    <li><a href="https://gov.sk">Portál gov.sk</a></li>
+                                    <li><a href="#pristupnost">Vyhlásenie o prístupnosti</a></li>
+                                    <li><a href="#cookies">Pravidlá používania cookies</a></li>
+                                    <li><a href="#gdpr">Ochrana osobných údajov</a></li>
+                                </ul>
+                            </div>
+                            <div className="footer-section">
+                                <h3>Pre organizácie</h3>
+                                <ul className="footer-links">
+                                    <li><a href="#granty">Grantové výzvy</a></li>
+                                    <li><a href="#partneri">Partnerské organizácie</a></li>
+                                    <li><a href="#metodiky">Metodické materiály</a></li>
+                                    <li><a href="#evaluacia">Evaluácia projektov</a></li>
+                                    <li><a href="#vzdelavanie">Vzdelávacie aktivity</a></li>
+                                </ul>
+                            </div>
+                            <div className="footer-section">
+                                <h3>Sledujte nás</h3>
+                                <p style={{ marginBottom: '1rem' }}>
+                                    Zostávajte v kontakte s najnovšími informáciami o sociálnych inováciách
+                                </p>
+                                <div className="social-neural">
+                                    <a href="#" className="social-node" aria-label="Facebook stránka"><i className="fab fa-facebook-f"></i></a>
+                                    <a href="#" className="social-node" aria-label="LinkedIn profil"><i className="fab fa-linkedin-in"></i></a>
+                                    <a href="#" className="social-node" aria-label="YouTube kanál"><i className="fab fa-youtube"></i></a>
+                                    <a href="#" className="social-node" aria-label="Newsletter"><i className="fas fa-newsletter"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div style={{ textAlign: 'center', marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid #333' }}>
+                            <p style={{ opacity: 0.7, marginBottom: '1rem', color: 'var(--text-secondary)' }}>
+                                © 2025 Ministerstvo práce, sociálnych vecí a rodiny Slovenskej republiky
+                                <br />
+                                Všetky práva vyhradené. Oficiálna stránka štátnej správy SR.
+                            </p>
+                            <div style={{ 
+                                display: 'flex', 
+                                justifyContent: 'center', 
+                                gap: '2rem', 
+                                flexWrap: 'wrap',
+                                fontSize: '0.9rem',
+                                color: 'var(--text-muted)'
+                            }}>
+                                <span>WCAG 2.1 AA</span>
+                                <span>NASES kompatibilné</span>
+                                <span>Vyhláška č. 78/2020</span>
+                                <span>HTML5 validné</span>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            );
+        };
+
+        // Render the app
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply font-sans text-gray-900 bg-white;
+  }
+  
+  /* Focus styles for accessibility */
+  *:focus {
+    @apply outline-none ring-2 ring-primary-500 ring-offset-2;
+  }
+  
+  /* Skip link styles */
+  .skip-link {
+    @apply absolute -top-10 left-4 bg-primary-600 text-white px-4 py-2 rounded-md z-50 transition-all duration-300;
+  }
+  
+  .skip-link:focus {
+    @apply top-4;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center px-4 py-2 border border-primary-600 text-sm font-medium rounded-md text-primary-600 bg-white hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200;
+  }
+  
+  .card {
+    @apply bg-white overflow-hidden shadow-lg rounded-lg border border-gray-200 transition-shadow duration-300 hover:shadow-xl;
+  }
+  
+  .gov-header {
+    @apply bg-primary-600 text-white;
+  }
+  
+  .main-nav {
+    @apply bg-blue-50 border-b border-blue-200;
+  }
+}
+
+@layer utilities {
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --tw-prose-body: #000000;
+    --tw-prose-headings: #000000;
+    --tw-prose-links: #0000FF;
+    --tw-prose-bold: #000000;
+    --tw-prose-counters: #000000;
+    --tw-prose-bullets: #000000;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  body {
+    @apply bg-gray-900 text-gray-100;
+  }
+  
+  .card {
+    @apply bg-gray-800 border-gray-700;
+  }
+  
+  .main-nav {
+    @apply bg-gray-800 border-gray-700;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sociálne inovácie - oficiálna stránka Ministerstva práce, sociálnych vecí a rodiny SR">
+    <meta name="keywords" content="sociálne inovácie, ministerstvo práce, sociálne veci, rodina, SR">
+    <meta name="author" content="Ministerstvo práce, sociálnych vecí a rodiny SR">
+    
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Sociálne inovácie">
+    <meta property="og:description" content="Podporujeme sociálne inovácie na Slovensku">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://socialneinovacie.gov.sk/">
+    
+    <title>Sociálne inovácie | Ministerstvo práce, sociálnych vecí a rodiny SR</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Custom CSS pre NASES požiadavky */
+        :root {
+            --primary-color: #0052CC;
+            --secondary-color: #E5F3FF;
+            --text-color: #333333;
+            --background-color: #FFFFFF;
+            --border-color: #CCCCCC;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+        
+        /* Skip to content pre accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 1000;
+        }
+        
+        .skip-link:focus {
+            top: 6px;
+        }
+        
+        /* Header styling */
+        .gov-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+        }
+        
+        .gov-header .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+        }
+        
+        .gov-header .nav-link {
+            color: white !important;
+            transition: opacity 0.3s;
+        }
+        
+        .gov-header .nav-link:hover {
+            opacity: 0.8;
+        }
+        
+        /* Main navigation */
+        .main-nav {
+            background-color: var(--secondary-color);
+            padding: 0.5rem 0;
+        }
+        
+        .main-nav .nav-link {
+            color: var(--primary-color);
+            font-weight: 500;
+            padding: 0.75rem 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .main-nav .nav-link:hover,
+        .main-nav .nav-link:focus {
+            background-color: rgba(0, 82, 204, 0.1);
+            color: var(--primary-color);
+        }
+        
+        /* Hero section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), #003d99);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .hero .lead {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* Card styling */
+        .innovation-card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+        
+        .innovation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .innovation-card .card-header {
+            background-color: var(--secondary-color);
+            border-bottom: 2px solid var(--primary-color);
+            font-weight: bold;
+        }
+        
+        /* News section */
+        .news-item {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .news-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Accessibility improvements */
+        .btn:focus,
+        .nav-link:focus,
+        a:focus {
+            outline: 2px solid #FFA500;
+            outline-offset: 2px;
+        }
+        
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary-color: #000080;
+                --text-color: #000000;
+                --border-color: #000000;
+            }
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background-color: #1a1a1a;
+                --text-color: #ffffff;
+                --border-color: #444444;
+            }
+            
+            body {
+                background-color: var(--background-color);
+                color: var(--text-color);
+            }
+            
+            .card {
+                background-color: #2a2a2a;
+                border-color: var(--border-color);
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #f8f9fa;
+            border-top: 3px solid var(--primary-color);
+            margin-top: 4rem;
+            padding: 3rem 0 2rem;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero .lead {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to content link -->
+    <a href="#main-content" class="skip-link">Preskočiť na hlavný obsah</a>
+    
+    <!-- Government Header -->
+    <header class="gov-header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand" href="/">
+                    <i class="fas fa-landmark me-2" aria-hidden="true"></i>
+                    gov.sk
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#govNavbar" 
+                        aria-controls="govNavbar" aria-expanded="false" aria-label="Prepnúť navigáciu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="govNavbar">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" aria-label="Kontakt">
+                                <i class="fas fa-envelope me-1" aria-hidden="true"></i>
+                                Kontakt
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" aria-label="Mapa stránky">
+                                <i class="fas fa-sitemap me-1" aria-hidden="true"></i>
+                                Mapa stránky
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" aria-label="English version">
+                                <i class="fas fa-globe me-1" aria-hidden="true"></i>
+                                EN
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Navigation -->
+    <nav class="main-nav" role="navigation" aria-label="Hlavná navigácia">
+        <div class="container">
+            <ul class="nav nav-pills justify-content-center flex-wrap">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" aria-current="page">Domov</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#o-nas">O nás</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#projekty">Projekty</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#novinky">Novinky</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#dokumenty">Dokumenty</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#kontakt">Kontakt</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero" aria-labelledby="hero-title">
+        <div class="container text-center">
+            <h1 id="hero-title">Sociálne inovácie</h1>
+            <p class="lead">Podporujeme a rozvíjame sociálne inovácie pre lepšiu budúcnosť Slovenska</p>
+            <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
+                <a href="#projekty" class="btn btn-light btn-lg">
+                    <i class="fas fa-lightbulb me-2" aria-hidden="true"></i>
+                    Naše projekty
+                </a>
+                <a href="#dokumenty" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-file-alt me-2" aria-hidden="true"></i>
+                    Dokumentácia
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <main id="main-content" class="container">
+        <!-- About Section -->
+        <section id="o-nas" class="mb-5">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="text-center mb-4">O sociálnych inováciách</h2>
+                    <p class="lead text-center">
+                        Sociálne inovácie predstavujú nové riešenia (produkty, služby, modely, trhy, procesy atď.), 
+                        ktoré súčasne uspokojujú sociálne potreby a vytvárajú nové sociálne vzťahy alebo spoluprácu.
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Innovation Areas -->
+        <section id="projekty" class="mb-5">
+            <div class="container">
+                <h2 class="text-center mb-5">Oblasti inovácií</h2>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card innovation-card">
+                            <div class="card-header">
+                                <i class="fas fa-users text-primary me-2" aria-hidden="true"></i>
+                                Sociálne služby
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    Inovácie v oblasti poskytovania sociálnych služieb, 
+                                    digitalizácia procesov a zlepšenie dostupnosti.
+                                </p>
+                                <a href="#" class="btn btn-primary btn-sm">Viac informácií</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card innovation-card">
+                            <div class="card-header">
+                                <i class="fas fa-graduation-cap text-primary me-2" aria-hidden="true"></i>
+                                Vzdelávanie
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    Moderné prístupy k vzdelávaniu, e-learning platformy 
+                                    a inkluzívne vzdelávacie programy.
+                                </p>
+                                <a href="#" class="btn btn-primary btn-sm">Viac informácií</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card innovation-card">
+                            <div class="card-header">
+                                <i class="fas fa-briefcase text-primary me-2" aria-hidden="true"></i>
+                                Zamestnanosť
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    Podporné programy pre nezamestnaných, rekvalifikácie 
+                                    a prepojenie s trhom práce.
+                                </p>
+                                <a href="#" class="btn btn-primary btn-sm">Viac informácií</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card innovation-card">
+                            <div class="card-header">
+                                <i class="fas fa-heart text-primary me-2" aria-hidden="true"></i>
+                                Zdravotníctvo
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    Inovatívne riešenia v oblasti zdravotnej starostlivosti 
+                                    a prevencie ochorení.
+                                </p>
+                                <a href="#" class="btn btn-primary btn-sm">Viac informácií</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card innovation-card">
+                            <div class="card-header">
+                                <i class="fas fa-home text-primary me-2" aria-hidden="true"></i>
+                                Bývanie
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    Dostupné bývanie, sociálne byty a podporné programy 
+                                    pre znevýhodnené skupiny.
+                                </p>
+                                <a href="#" class="btn btn-primary btn-sm">Viac informácií</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card innovation-card">
+                            <div class="card-header">
+                                <i class="fas fa-leaf text-primary me-2" aria-hidden="true"></i>
+                                Životné prostredie
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    Ekologické a udržateľné riešenia pre lepšie 
+                                    životné podmienky komunít.
+                                </p>
+                                <a href="#" class="btn btn-primary btn-sm">Viac informácií</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- News Section -->
+        <section id="novinky" class="mb-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h2 class="mb-4">Aktuality</h2>
+                    
+                    <article class="news-item">
+                        <h3><a href="#" class="text-decoration-none">Nová výzva na podporu sociálnych inovácií</a></h3>
+                        <p class="news-date">
+                            <i class="fas fa-calendar me-2" aria-hidden="true"></i>
+                            2. august 2025
+                        </p>
+                        <p>
+                            Ministerstvo práce, sociálnych vecí a rodiny SR vyhlasuje novú výzvu 
+                            na podporu inovatívnych projektov v oblasti sociálnych služieb...
+                        </p>
+                    </article>
+                    
+                    <article class="news-item">
+                        <h3><a href="#" class="text-decoration-none">Konferencia o sociálnych inováciách</a></h3>
+                        <p class="news-date">
+                            <i class="fas fa-calendar me-2" aria-hidden="true"></i>
+                            28. júl 2025
+                        </p>
+                        <p>
+                            V septembri sa uskutoční medzinárodná konferencia zameraná na 
+                            najnovšie trendy v oblasti sociálnych inovácií...
+                        </p>
+                    </article>
+                    
+                    <article class="news-item">
+                        <h3><a href="#" class="text-decoration-none">Úspešné projekty roku 2025</a></h3>
+                        <p class="news-date">
+                            <i class="fas fa-calendar me-2" aria-hidden="true"></i>
+                            20. júl 2025
+                        </p>
+                        <p>
+                            Predstavujeme najúspešnejšie sociálne inovácie, ktoré v tomto roku 
+                            priniesli pozitívne zmeny do života občanov...
+                        </p>
+                    </article>
+                </div>
+                
+                <aside class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">Rýchle odkazy</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <a href="#" class="text-decoration-none">
+                                        <i class="fas fa-file-pdf text-danger me-2" aria-hidden="true"></i>
+                                        Stratégia sociálnych inovácií
+                                    </a>
+                                </li>
+                                <li class="mb-2">
+                                    <a href="#" class="text-decoration-none">
+                                        <i class="fas fa-chart-bar text-success me-2" aria-hidden="true"></i>
+                                        Štatistiky a reporty
+                                    </a>
+                                </li>
+                                <li class="mb-2">
+                                    <a href="#" class="text-decoration-none">
+                                        <i class="fas fa-handshake text-primary me-2" aria-hidden="true"></i>
+                                        Partneri a sponzori
+                                    </a>
+                                </li>
+                                <li class="mb-2">
+                                    <a href="#" class="text-decoration-none">
+                                        <i class="fas fa-question-circle text-info me-2" aria-hidden="true"></i>
+                                        Často kladené otázky
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h4>Kontakt</h4>
+                    <address>
+                        <strong>Ministerstvo práce, sociálnych vecí a rodiny SR</strong><br>
+                        Spitalska 4, 6, 8<br>
+                        816 43 Bratislava<br>
+                        <a href="mailto:info@socialneinovacie.gov.sk">info@socialneinovacie.gov.sk</a>
+                    </address>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <h4>Užitočné odkazy</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none">Ochrana osobných údajov</a></li>
+                        <li><a href="#" class="text-decoration-none">Prehlásenie o prístupnosti</a></li>
+                        <li><a href="#" class="text-decoration-none">Podmienky používania</a></li>
+                        <li><a href="#" class="text-decoration-none">RSS kanály</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <h4>Sledujte nás</h4>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-decoration-none" aria-label="Facebook">
+                            <i class="fab fa-facebook fa-2x" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none" aria-label="Twitter">
+                            <i class="fab fa-twitter fa-2x" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin fa-2x" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none" aria-label="YouTube">
+                            <i class="fab fa-youtube fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <hr>
+            
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="text-muted mb-0">
+                        © 2025 Ministerstvo práce, sociálnych vecí a rodiny SR. Všetky práva vyhradené.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Accessibility improvements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add ARIA labels to interactive elements
+            const links = document.querySelectorAll('a[href="#"]');
+            links.forEach(link => {
+                if (!link.getAttribute('aria-label') && !link.getAttribute('title')) {
+                    link.setAttribute('title', 'Odkaz nie je zatiaľ aktívny');
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            const anchorLinks = document.querySelectorAll('a[href^="#"]');
+            anchorLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        e.preventDefault();
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Focus the target element for accessibility
+                        targetElement.setAttribute('tabindex', '-1');
+                        targetElement.focus();
+                    }
+                });
+            });
+            
+            // Dynamic loading simulation
+            setTimeout(() => {
+                const newsSection = document.getElementById('novinky');
+                if (newsSection) {
+                    newsSection.setAttribute('data-loaded', 'true');
+                }
+            }, 1000);
+        });
+        
+        // Add live region for dynamic content updates
+        function announceUpdate(message) {
+            const liveRegion = document.createElement('div');
+            liveRegion.setAttribute('aria-live', 'polite');
+            liveRegion.setAttribute('aria-atomic', 'true');
+            liveRegion.className = 'sr-only';
+            liveRegion.textContent = message;
+            document.body.appendChild(liveRegion);
+            
+            setTimeout(() => {
+                document.body.removeChild(liveRegion);
+            }, 1000);
+        }
+        
+        // Example of dynamic content loading
+        function loadMoreNews() {
+            announceUpdate('Načítavajú sa nové články...');
+            // Simulation of loading
+            setTimeout(() => {
+                announceUpdate('Nové články boli načítané');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
