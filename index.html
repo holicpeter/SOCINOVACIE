@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOCIÁLNE INOVÁCIE - Prezentácia</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00f3ff, #bf00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+        .version-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .version-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .version-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
+        }
+        .version-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #00f3ff;
+        }
+        .version-desc {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #00f3ff, #bf00ff);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.4);
+        }
+        .featured {
+            border: 2px solid #00f3ff;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+        .featured .version-title {
+            color: #00f3ff;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SOCIÁLNE INOVÁCIE</h1>
+        <p class="subtitle">Prezentácia moderných webových riešení pre gov.sk</p>
+        
+        <div class="version-grid">
+            <div class="version-card">
+                <h3 class="version-title">Verzia 1 - Bootstrap</h3>
+                <p class="version-desc">Klasické riešenie s Bootstrap frameworkom a NASES compliance</p>
+                <a href="verzia1/index.html" class="btn">Otvoriť demo</a>
+            </div>
+            
+            <div class="version-card">
+                <h3 class="version-title">Verzia 2 - React</h3>
+                <p class="version-desc">Moderná React aplikácia s TypeScript a Tailwind CSS</p>
+                <a href="verzia2/kreativna-react.html" class="btn">Otvoriť demo</a>
+            </div>
+            
+            <div class="version-card featured">
+                <h3 class="version-title">🚀 Verzia 3 - Futuristická</h3>
+                <p class="version-desc">Cyberpunk dizajn s 3D efektmi, animáciami a reálnym obsahom</p>
+                <a href="verzia3/futuristicka.html" class="btn">Otvoriť demo</a>
+            </div>
+        </div>
+        
+        <div style="margin-top: 2rem; opacity: 0.6;">
+            <p>🎯 <strong>Pre prezentáciu odporúčame Verziu 3</strong> - obsahuje najnovší dizajn a všetky funkcie</p>
+            <p>📱 Všetky verzie sú responzívne a optimalizované pre mobile zariadenia</p>
+        </div>
+    </div>
+</body>
+</html>
