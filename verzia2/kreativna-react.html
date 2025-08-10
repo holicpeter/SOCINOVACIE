@@ -4,15 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sociálne inovácie | Ministerstvo práce, sociálnych vecí a rodiny SR</title>
-    <meta name="description" content="Sociálne inovácie - oficiálna stránka Ministerstva práce, sociálnych vecí a rodiny Slovenskej republiky. Informácie o sociálnych inováciách, projektoch a iniciatívach.">
-    <meta name="keywords" content="sociálne inovácie, ministerstvo práce, sociálne veci, rodina, Slovenská republika, gov.sk">
-    <meta name="author" content="Ministerstvo práce, sociálnych vecí a rodiny SR">
-    <link rel="canonical" href="https://socialneinovacie.gov.sk/">
     
-    <!-- NASES požiadavky - Accessibility -->
-    <meta name="accessibility" content="WCAG 2.1 AA">
+    <!-- NASES Meta Tags podľa vyhlášky č. 78/2020 Z. z. -->
+    <meta name="description" content="Sociálne inovácie - oficiálna stránka Ministerstva práce, sociálnych vecí a rodiny Slovenskej republiky. Informácie o sociálnych inováciách, projektoch a iniciatívach.">
+    <meta name="keywords" content="sociálne inovácie, ministerstvo práce, sociálne veci, rodina, Slovenská republika, gov.sk, NASES">
+    <meta name="author" content="Ministerstvo práce, sociálnych vecí a rodiny SR">
+    <meta name="publisher" content="Ministerstvo práce, sociálnych vecí a rodiny SR">
+    <meta name="copyright" content="© 2024 Ministerstvo práce, sociálnych vecí a rodiny SR">
     <meta name="language" content="sk">
     <meta name="robots" content="index, follow">
+    <meta name="accessibility" content="WCAG 2.1 AA compliant">
+    <meta name="format-detection" content="telephone=yes">
+    <meta name="theme-color" content="#003d82">
+    
+    <!-- Dublin Core metadata pre NASES -->
+    <meta name="DC.title" content="Sociálne inovácie | MPSVaR SR">
+    <meta name="DC.creator" content="Ministerstvo práce, sociálnych vecí a rodiny SR">
+    <meta name="DC.subject" content="sociálne inovácie, verejná správa, gov.sk">
+    <meta name="DC.description" content="Oficiálna stránka o sociálnych inováciách Ministerstva práce, sociálnych vecí a rodiny SR">
+    <meta name="DC.publisher" content="Ministerstvo práce, sociálnych vecí a rodiny SR">
+    <meta name="DC.date" content="2024">
+    <meta name="DC.type" content="Text">
+    <meta name="DC.format" content="text/html">
+    <meta name="DC.identifier" content="https://socialneinovacie.gov.sk/">
+    <meta name="DC.language" content="sk">
+    <meta name="DC.rights" content="© 2024 Ministerstvo práce, sociálnych vecí a rodiny SR">
+    
+    <link rel="canonical" href="https://socialneinovacie.gov.sk/">
     
     <!-- Open Graph -->
     <meta property="og:title" content="Sociálne inovácie | MPSVaR SR">
@@ -756,6 +774,84 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        /* NASES Accessibility Enhancements */
+        .high-contrast {
+            filter: contrast(150%);
+        }
+
+        .reduced-motion * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+
+        /* Focus indicators */
+        *:focus {
+            outline: 3px solid #ff6b35 !important;
+            outline-offset: 2px !important;
+        }
+
+        /* Screen reader only content */
+        .sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
+        }
+
+        /* Error messages */
+        .error-message {
+            color: #d32f2f;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* Search results */
+        #search-results {
+            z-index: 1000;
+        }
+
+        /* Print styles */
+        @media print {
+            .skip-links,
+            .search-container,
+            button,
+            .social-neural {
+                display: none !important;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+            }
+        }
+
+        /* High contrast media query */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary-blue: #000080;
+                --accent-orange: #ff4500;
+                --background-light: #ffffff;
+                --text-primary: #000000;
+            }
+        }
+
+        /* Reduced motion media query */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -819,7 +915,39 @@
                     <li><a href="#vyzvy" className="nav-link" aria-label="Výzvy">Výzvy</a></li>
                     <li><a href="#podujatia" className="nav-link" aria-label="Podujatia">Podujatia</a></li>
                     <li><a href="#inspiracia" className="nav-link" aria-label="Inšpirujte sa">Inšpirujte sa</a></li>
+                    <li><a href="https://socialneinovacie.gov.sk/" target="_blank" className="nav-link" aria-label="Sociálne Inovácie WEB - otvorí sa v novom okne">Sociálne Inovácie WEB</a></li>
                 </ul>
+                <div className="search-container" style={{ marginLeft: '20px' }}>
+                    <form role="search" aria-label="Vyhľadávanie na stránke">
+                        <input 
+                            type="search" 
+                            id="site-search" 
+                            placeholder="Vyhľadať..."
+                            aria-label="Zadajte hľadaný výraz"
+                            style={{ 
+                                padding: '8px 12px', 
+                                border: '1px solid #ccc', 
+                                borderRadius: '4px',
+                                fontSize: '14px'
+                            }}
+                        />
+                        <button 
+                            type="submit" 
+                            aria-label="Vyhľadať"
+                            style={{ 
+                                padding: '8px 16px', 
+                                marginLeft: '5px',
+                                background: '#003d82',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '4px',
+                                cursor: 'pointer'
+                            }}
+                        >
+                            Hľadať
+                        </button>
+                    </form>
+                </div>
             </nav>
         );
 
@@ -1457,6 +1585,230 @@
 
         // Render the app
         ReactDOM.render(<App />, document.getElementById('root'));
+
+        // NASES Accessibility & Functionality JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Screen reader announcements
+            const announceToScreenReader = (message) => {
+                const announcement = document.createElement('div');
+                announcement.setAttribute('aria-live', 'polite');
+                announcement.setAttribute('aria-atomic', 'true');
+                announcement.style.position = 'absolute';
+                announcement.style.left = '-10000px';
+                announcement.style.width = '1px';
+                announcement.style.height = '1px';
+                announcement.style.overflow = 'hidden';
+                announcement.textContent = message;
+                document.body.appendChild(announcement);
+                setTimeout(() => document.body.removeChild(announcement), 1000);
+            };
+
+            // Search functionality
+            const searchForm = document.querySelector('form[role="search"]');
+            if (searchForm) {
+                searchForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const searchTerm = document.getElementById('site-search').value.trim();
+                    if (searchTerm) {
+                        performSearch(searchTerm);
+                        announceToScreenReader(`Hľadám výraz: ${searchTerm}`);
+                    }
+                });
+            }
+
+            function performSearch(term) {
+                const contentSections = document.querySelectorAll('section, main, article');
+                let results = [];
+                
+                contentSections.forEach(section => {
+                    const text = section.textContent.toLowerCase();
+                    if (text.includes(term.toLowerCase())) {
+                        const heading = section.querySelector('h1, h2, h3, h4, h5, h6');
+                        if (heading) {
+                            results.push({
+                                title: heading.textContent,
+                                element: section,
+                                id: section.id || `search-result-${results.length}`
+                            });
+                        }
+                    }
+                });
+
+                displaySearchResults(results, term);
+            }
+
+            function displaySearchResults(results, term) {
+                let existingResults = document.getElementById('search-results');
+                if (existingResults) {
+                    existingResults.remove();
+                }
+
+                if (results.length === 0) {
+                    announceToScreenReader(`Nenašli sa žiadne výsledky pre "${term}"`);
+                    return;
+                }
+
+                const resultsContainer = document.createElement('div');
+                resultsContainer.id = 'search-results';
+                resultsContainer.innerHTML = `
+                    <div style="
+                        position: fixed; 
+                        top: 80px; 
+                        right: 20px; 
+                        background: white; 
+                        border: 2px solid #003d82; 
+                        border-radius: 8px; 
+                        padding: 20px; 
+                        max-width: 300px; 
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                        z-index: 1000;
+                    ">
+                        <h3 style="margin: 0 0 15px 0; color: #003d82;">Výsledky vyhľadávania</h3>
+                        <p style="margin: 0 0 10px 0; font-size: 14px;">Nájdených ${results.length} výsledkov pre "${term}"</p>
+                        ${results.map(result => `
+                            <div style="margin-bottom: 10px;">
+                                <a href="#${result.id}" style="color: #003d82; text-decoration: none; font-weight: 500;"
+                                   onclick="document.getElementById('${result.id}').scrollIntoView({behavior:'smooth'});">
+                                    ${result.title}
+                                </a>
+                            </div>
+                        `).join('')}
+                        <button onclick="this.parentElement.parentElement.remove();" 
+                                style="margin-top: 15px; padding: 5px 15px; background: #003d82; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                            Zavrieť
+                        </button>
+                    </div>
+                `;
+                document.body.appendChild(resultsContainer);
+                announceToScreenReader(`Nájdených ${results.length} výsledkov`);
+            }
+
+            // Keyboard navigation support
+            document.addEventListener('keydown', function(e) {
+                // Alt + 1 = Skip to main content
+                if (e.altKey && e.key === '1') {
+                    e.preventDefault();
+                    const mainContent = document.getElementById('main-content') || document.querySelector('main');
+                    if (mainContent) {
+                        mainContent.focus();
+                        mainContent.scrollIntoView({behavior: 'smooth'});
+                    }
+                }
+                
+                // Alt + 2 = Skip to navigation
+                if (e.altKey && e.key === '2') {
+                    e.preventDefault();
+                    const navigation = document.getElementById('main-navigation');
+                    if (navigation) {
+                        navigation.focus();
+                        navigation.scrollIntoView({behavior: 'smooth'});
+                    }
+                }
+                
+                // Alt + 3 = Skip to search
+                if (e.altKey && e.key === '3') {
+                    e.preventDefault();
+                    const searchInput = document.getElementById('site-search');
+                    if (searchInput) {
+                        searchInput.focus();
+                    }
+                }
+
+                // Escape to close search results
+                if (e.key === 'Escape') {
+                    const searchResults = document.getElementById('search-results');
+                    if (searchResults) {
+                        searchResults.remove();
+                    }
+                }
+            });
+
+            // High contrast support
+            const mediaQuery = window.matchMedia('(prefers-contrast: high)');
+            function handleContrastChange(e) {
+                if (e.matches) {
+                    document.body.classList.add('high-contrast');
+                } else {
+                    document.body.classList.remove('high-contrast');
+                }
+            }
+            mediaQuery.addListener(handleContrastChange);
+            handleContrastChange(mediaQuery);
+
+            // Reduced motion support
+            const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+            function handleMotionChange(e) {
+                if (e.matches) {
+                    document.body.classList.add('reduced-motion');
+                } else {
+                    document.body.classList.remove('reduced-motion');
+                }
+            }
+            motionQuery.addListener(handleMotionChange);
+            handleMotionChange(motionQuery);
+
+            // ARIA live regions for dynamic content
+            const createLiveRegion = (id, politeness = 'polite') => {
+                if (!document.getElementById(id)) {
+                    const region = document.createElement('div');
+                    region.id = id;
+                    region.setAttribute('aria-live', politeness);
+                    region.setAttribute('aria-atomic', 'true');
+                    region.style.position = 'absolute';
+                    region.style.left = '-10000px';
+                    region.style.width = '1px';
+                    region.style.height = '1px';
+                    region.style.overflow = 'hidden';
+                    document.body.appendChild(region);
+                }
+            };
+            
+            createLiveRegion('announcements', 'polite');
+            createLiveRegion('status', 'assertive');
+
+            // Form validation enhancement
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    const requiredFields = form.querySelectorAll('[required]');
+                    let isValid = true;
+                    
+                    requiredFields.forEach(field => {
+                        if (!field.value.trim()) {
+                            isValid = false;
+                            field.setAttribute('aria-invalid', 'true');
+                            field.style.borderColor = '#d32f2f';
+                            
+                            // Add error message
+                            let errorMsg = field.parentElement.querySelector('.error-message');
+                            if (!errorMsg) {
+                                errorMsg = document.createElement('div');
+                                errorMsg.className = 'error-message';
+                                errorMsg.style.color = '#d32f2f';
+                                errorMsg.style.fontSize = '14px';
+                                errorMsg.style.marginTop = '5px';
+                                field.parentElement.appendChild(errorMsg);
+                            }
+                            errorMsg.textContent = 'Toto pole je povinné';
+                        } else {
+                            field.setAttribute('aria-invalid', 'false');
+                            field.style.borderColor = '';
+                            const errorMsg = field.parentElement.querySelector('.error-message');
+                            if (errorMsg) {
+                                errorMsg.remove();
+                            }
+                        }
+                    });
+                    
+                    if (!isValid) {
+                        e.preventDefault();
+                        announceToScreenReader('Formulár obsahuje chyby. Prosím, opravte ich.');
+                    }
+                });
+            });
+
+            console.log('NASES accessibility features initialized');
+        });
     </script>
 </body>
 </html>

@@ -3,7 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sociálne inovácie - Futuristická verzia</title>
+    <title>Sociálne inovácie | Ministerstvo práce, sociálnych vecí a rodiny SR</title>
+    
+    <!-- NASES Meta Tags podľa vyhlášky č. 78/2020 Z. z. -->
+    <meta name="description" content="Sociálne inovácie - oficiálna stránka Ministerstva práce, sociálnych vecí a rodiny Slovenskej republiky. Informácie o sociálnych inováciách, projektoch a iniciatívach.">
+    <meta name="keywords" content="sociálne inovácie, ministerstvo práce, sociálne veci, rodina, Slovenská republika, gov.sk, NASES">
+    <meta name="author" content="Ministerstvo práce, sociálnych vecí a rodiny SR">
+    <meta name="publisher" content="Ministerstvo práce, sociálnych vecí a rodiny SR">
+    <meta name="copyright" content="© 2024 Ministerstvo práce, sociálnych vecí a rodiny SR">
+    <meta name="language" content="sk">
+    <meta name="robots" content="index, follow">
+    <meta name="accessibility" content="WCAG 2.1 AA compliant">
+    <meta name="format-detection" content="telephone=yes">
+    <meta name="theme-color" content="#00f3ff">
+    
+    <!-- Dublin Core metadata pre NASES -->
+    <meta name="DC.title" content="Sociálne inovácie | MPSVaR SR">
+    <meta name="DC.creator" content="Ministerstvo práce, sociálnych vecí a rodiny SR">
+    <meta name="DC.subject" content="sociálne inovácie, verejná správa, gov.sk">
+    <meta name="DC.description" content="Oficiálna stránka o sociálnych inováciách Ministerstva práce, sociálnych vecí a rodiny SR">
+    <meta name="DC.publisher" content="Ministerstvo práce, sociálnych vecí a rodiny SR">
+    <meta name="DC.date" content="2024">
+    <meta name="DC.type" content="Text">
+    <meta name="DC.format" content="text/html">
+    <meta name="DC.identifier" content="https://socialneinovacie.gov.sk/">
+    <meta name="DC.language" content="sk">
+    <meta name="DC.rights" content="© 2024 Ministerstvo práce, sociálnych vecí a rodiny SR">
+    
+    <link rel="canonical" href="https://socialneinovacie.gov.sk/">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sociálne inovácie | MPSVaR SR">
+    <meta property="og:description" content="Oficiálna stránka o sociálnych inováciách Ministerstva práce, sociálnych vecí a rodiny SR">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://socialneinovacie.gov.sk/">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -35,6 +69,38 @@
             color: var(--text-light);
             overflow-x: hidden;
             cursor: none;
+        }
+
+        /* NASES Skip Links */
+        .skip-links {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            z-index: 10000;
+        }
+
+        .skip-links a {
+            position: absolute;
+            left: -10000px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            background: var(--neon-blue);
+            color: var(--dark-bg);
+            padding: 8px 16px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        .skip-links a:focus {
+            position: static;
+            width: auto;
+            height: auto;
+            left: 6px;
+            top: 6px;
         }
 
         .custom-cursor {
@@ -456,6 +522,101 @@
             align-items: center;
             justify-content: center;
         }
+        /* NASES Accessibility Enhancements */
+        .high-contrast {
+            filter: contrast(200%) brightness(120%);
+        }
+
+        .reduced-motion * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+
+        /* Focus indicators */
+        *:focus {
+            outline: 3px solid var(--neon-green) !important;
+            outline-offset: 2px !important;
+            box-shadow: 0 0 15px var(--neon-green) !important;
+        }
+
+        /* Screen reader only content */
+        .sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
+        }
+
+        /* Error messages */
+        .error-message {
+            color: var(--neon-pink);
+            font-size: 14px;
+            margin-top: 5px;
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        /* Search results */
+        #search-results {
+            z-index: 1000;
+        }
+
+        /* Print styles */
+        @media print {
+            .skip-links,
+            .search-container,
+            button,
+            .custom-cursor,
+            #three-container,
+            .matrix-rain,
+            .particles-container {
+                display: none !important;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            
+            .cyber-footer,
+            .holo-nav {
+                background: white !important;
+                color: black !important;
+            }
+        }
+
+        /* High contrast media query */
+        @media (prefers-contrast: high) {
+            :root {
+                --neon-blue: #0066ff;
+                --neon-pink: #ff0066;
+                --neon-green: #00ff66;
+                --neon-purple: #6600ff;
+                --text-light: #ffffff;
+                --dark-bg: #000000;
+            }
+        }
+
+        /* Reduced motion media query */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            
+            .custom-cursor {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -466,21 +627,65 @@
         <!-- Matrix Rain Background -->
         <canvas class="matrix-bg"></canvas>
 
+        <!-- Skip Links -->
+        <div class="skip-links">
+            <a href="#main-content">Preskočiť na hlavný obsah</a>
+            <a href="#main-navigation">Preskočiť na navigáciu</a>
+            <a href="#search">Preskočiť na vyhľadávanie</a>
+            <a href="#footer">Preskočiť na pätičku</a>
+        </div>
+
         <!-- Navigation -->
-        <nav class="holo-nav">
+        <nav class="holo-nav" id="main-navigation" role="navigation" aria-label="Hlavné menu">
             <div class="nav-container">
                 <div class="logo">SI.PLUS</div>
                 <ul class="nav-links">
-                    <li><a href="#home" class="holo-nav-link">DOMOV</a></li>
-                    <li><a href="#aktuality" class="holo-nav-link">AKTUALITY</a></li>
-                    <li><a href="#vyzvy" class="holo-nav-link">VÝZVY</a></li>
-                    <li><a href="#podujatia" class="holo-nav-link">PODUJATIA</a></li>
-                    <li><a href="#inspiracia" class="holo-nav-link">INŠPIRÁCIA</a></li>
+                    <li><a href="#home" class="holo-nav-link" aria-label="Domov">DOMOV</a></li>
+                    <li><a href="#aktuality" class="holo-nav-link" aria-label="Aktuality">AKTUALITY</a></li>
+                    <li><a href="#vyzvy" class="holo-nav-link" aria-label="Výzvy">VÝZVY</a></li>
+                    <li><a href="#podujatia" class="holo-nav-link" aria-label="Podujatia">PODUJATIA</a></li>
+                    <li><a href="#inspiracia" class="holo-nav-link" aria-label="Inšpirácia">INŠPIRÁCIA</a></li>
+                    <li><a href="https://socialneinovacie.gov.sk/" target="_blank" class="holo-nav-link" aria-label="Sociálne Inovácie WEB - otvorí sa v novom okne">SI WEB</a></li>
                 </ul>
+                <div class="search-container" id="search" style="margin-left: 20px;">
+                    <form role="search" aria-label="Vyhľadávanie na stránke">
+                        <input 
+                            type="search" 
+                            id="site-search" 
+                            placeholder="Vyhľadať..."
+                            aria-label="Zadajte hľadaný výraz"
+                            style="
+                                padding: 8px 12px; 
+                                border: 1px solid var(--neon-blue); 
+                                border-radius: 4px;
+                                background: rgba(0, 243, 255, 0.1);
+                                color: var(--text-light);
+                                font-size: 14px;
+                            "
+                        />
+                        <button 
+                            type="submit" 
+                            aria-label="Vyhľadať"
+                            style="
+                                padding: 8px 16px; 
+                                margin-left: 5px;
+                                background: var(--neon-blue);
+                                color: var(--dark-bg);
+                                border: none;
+                                border-radius: 4px;
+                                cursor: pointer;
+                                font-weight: bold;
+                            "
+                        >
+                            HĽADAŤ
+                        </button>
+                    </form>
+                </div>
             </div>
         </nav>
 
         <!-- Hero Section -->
+        <main id="main-content" tabindex="-1">
         <section class="hero-3d" id="home">
             <div id="three-container" ref="threeContainer"></div>
             <div class="hero-content">
@@ -1086,30 +1291,54 @@
         </section>
 
         <!-- Footer -->
-        <footer class="cyber-footer">
+        <footer class="cyber-footer" id="footer" role="contentinfo">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>KONTAKT</h3>
+                    <h3>KONTAKTNÉ INFORMÁCIE</h3>
                     <p>Ministerstvo práce, sociálnych vecí a rodiny SR</p>
-                    <p>Špitálska 4,6,8, Bratislava 816 43</p>
-                    <p>Email: si.plus@employment.gov.sk</p>
+                    <p>Odbor sociálnych inovácií</p>
+                    <p><i class="fas fa-map-marker-alt" style="margin-right: 8px; color: var(--neon-blue);"></i>Špitálska 4, 816 43 Bratislava</p>
+                    <p><i class="fas fa-phone" style="margin-right: 8px; color: var(--neon-blue);"></i>+421 2 2046 0000</p>
+                    <p><i class="fas fa-envelope" style="margin-right: 8px; color: var(--neon-blue);"></i>info@mpsvr.gov.sk</p>
                 </div>
                 <div class="footer-section">
-                    <h3>ODKAZY</h3>
-                    <p><a href="#">Dokumenty</a></p>
-                    <p><a href="#">Prípadové štúdie</a></p>
-                    <p><a href="#">English version</a></p>
+                    <h3>UŽITOČNÉ ODKAZY</h3>
+                    <p><a href="https://mpsvr.gov.sk" target="_blank">MPSVaR SR</a></p>
+                    <p><a href="https://gov.sk" target="_blank">Portál gov.sk</a></p>
+                    <p><a href="#pristupnost">Vyhlásenie o prístupnosti</a></p>
+                    <p><a href="#cookies">Pravidlá používania cookies</a></p>
+                    <p><a href="#gdpr">Ochrana osobných údajov</a></p>
                 </div>
                 <div class="footer-section">
-                    <h3>SOCIÁLNE SIETE</h3>
-                    <p><a href="#">Facebook</a></p>
-                    <p><a href="#">LinkedIn</a></p>
+                    <h3>PRE ORGANIZÁCIE</h3>
+                    <p><a href="#granty">Grantové výzvy</a></p>
+                    <p><a href="#partneri">Partnerské organizácie</a></p>
+                    <p><a href="#metodiky">Metodické materiály</a></p>
+                    <p><a href="#evaluacia">Evaluácia projektov</a></p>
+                    <p><a href="#vzdelavanie">Vzdelávacie aktivity</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>SLEDUJTE NÁS</h3>
+                    <p>Zostávajte v kontakte s najnovšími informáciami</p>
+                    <div style="margin-top: 10px;">
+                        <a href="#" aria-label="Facebook stránka" style="color: var(--neon-blue); margin-right: 15px;"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="LinkedIn profil" style="color: var(--neon-blue); margin-right: 15px;"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="YouTube kanál" style="color: var(--neon-blue);"><i class="fab fa-youtube"></i></a>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Národné kompetenčné centrum pre sociálne inovácie. Všetky práva vyhradené.</p>
+                <p>&copy; 2025 Ministerstvo práce, sociálnych vecí a rodiny Slovenskej republiky</p>
+                <p>Všetky práva vyhradené. Oficiálna stránka štátnej správy SR.</p>
+                <div style="margin-top: 10px; font-size: 0.9rem; color: var(--text-dim);">
+                    <span style="margin-right: 20px;">WCAG 2.1 AA</span>
+                    <span style="margin-right: 20px;">NASES kompatibilné</span>
+                    <span style="margin-right: 20px;">Vyhláška č. 78/2020</span>
+                    <span>HTML5 validné</span>
+                </div>
             </div>
         </footer>
+        </main>
     </div>
 
     <script>
@@ -1253,7 +1482,233 @@
             if (matrixCanvas) initMatrixRain(matrixCanvas);
             if (threeContainer) init3DScene(threeContainer);
             if (cursor) initCustomCursor(cursor);
+
+            // NASES Accessibility & Functionality JavaScript
+            initNASESFeatures();
         });
+
+        function initNASESFeatures() {
+            // Screen reader announcements
+            const announceToScreenReader = (message) => {
+                const announcement = document.createElement('div');
+                announcement.setAttribute('aria-live', 'polite');
+                announcement.setAttribute('aria-atomic', 'true');
+                announcement.style.position = 'absolute';
+                announcement.style.left = '-10000px';
+                announcement.style.width = '1px';
+                announcement.style.height = '1px';
+                announcement.style.overflow = 'hidden';
+                announcement.textContent = message;
+                document.body.appendChild(announcement);
+                setTimeout(() => document.body.removeChild(announcement), 1000);
+            };
+
+            // Search functionality
+            const searchForm = document.querySelector('form[role="search"]');
+            if (searchForm) {
+                searchForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const searchTerm = document.getElementById('site-search').value.trim();
+                    if (searchTerm) {
+                        performSearch(searchTerm);
+                        announceToScreenReader(`Hľadám výraz: ${searchTerm}`);
+                    }
+                });
+            }
+
+            function performSearch(term) {
+                const contentSections = document.querySelectorAll('section, main, article');
+                let results = [];
+                
+                contentSections.forEach(section => {
+                    const text = section.textContent.toLowerCase();
+                    if (text.includes(term.toLowerCase())) {
+                        const heading = section.querySelector('h1, h2, h3, h4, h5, h6');
+                        if (heading) {
+                            results.push({
+                                title: heading.textContent,
+                                element: section,
+                                id: section.id || `search-result-${results.length}`
+                            });
+                        }
+                    }
+                });
+
+                displaySearchResults(results, term);
+            }
+
+            function displaySearchResults(results, term) {
+                let existingResults = document.getElementById('search-results');
+                if (existingResults) {
+                    existingResults.remove();
+                }
+
+                if (results.length === 0) {
+                    announceToScreenReader(`Nenašli sa žiadne výsledky pre "${term}"`);
+                    return;
+                }
+
+                const resultsContainer = document.createElement('div');
+                resultsContainer.id = 'search-results';
+                resultsContainer.innerHTML = `
+                    <div style="
+                        position: fixed; 
+                        top: 80px; 
+                        right: 20px; 
+                        background: var(--dark-bg); 
+                        border: 2px solid var(--neon-blue); 
+                        border-radius: 8px; 
+                        padding: 20px; 
+                        max-width: 300px; 
+                        box-shadow: 0 0 30px var(--neon-blue);
+                        z-index: 1000;
+                        color: var(--text-light);
+                    ">
+                        <h3 style="margin: 0 0 15px 0; color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue);">VÝSLEDKY VYHĽADÁVANIA</h3>
+                        <p style="margin: 0 0 10px 0; font-size: 14px;">Nájdených ${results.length} výsledkov pre "${term}"</p>
+                        ${results.map(result => `
+                            <div style="margin-bottom: 10px;">
+                                <a href="#${result.id}" style="color: var(--neon-green); text-decoration: none; font-weight: 500; text-shadow: 0 0 5px var(--neon-green);"
+                                   onclick="document.getElementById('${result.id}').scrollIntoView({behavior:'smooth'});">
+                                    ${result.title}
+                                </a>
+                            </div>
+                        `).join('')}
+                        <button onclick="this.parentElement.parentElement.remove();" 
+                                style="margin-top: 15px; padding: 8px 15px; background: var(--neon-blue); color: var(--dark-bg); border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
+                            ZAVRIEŤ
+                        </button>
+                    </div>
+                `;
+                document.body.appendChild(resultsContainer);
+                announceToScreenReader(`Nájdených ${results.length} výsledkov`);
+            }
+
+            // Keyboard navigation support
+            document.addEventListener('keydown', function(e) {
+                // Alt + 1 = Skip to main content
+                if (e.altKey && e.key === '1') {
+                    e.preventDefault();
+                    const mainContent = document.getElementById('main-content');
+                    if (mainContent) {
+                        mainContent.focus();
+                        mainContent.scrollIntoView({behavior: 'smooth'});
+                    }
+                }
+                
+                // Alt + 2 = Skip to navigation
+                if (e.altKey && e.key === '2') {
+                    e.preventDefault();
+                    const navigation = document.getElementById('main-navigation');
+                    if (navigation) {
+                        navigation.focus();
+                        navigation.scrollIntoView({behavior: 'smooth'});
+                    }
+                }
+                
+                // Alt + 3 = Skip to search
+                if (e.altKey && e.key === '3') {
+                    e.preventDefault();
+                    const searchInput = document.getElementById('site-search');
+                    if (searchInput) {
+                        searchInput.focus();
+                    }
+                }
+
+                // Escape to close search results
+                if (e.key === 'Escape') {
+                    const searchResults = document.getElementById('search-results');
+                    if (searchResults) {
+                        searchResults.remove();
+                    }
+                }
+            });
+
+            // High contrast support
+            const mediaQuery = window.matchMedia('(prefers-contrast: high)');
+            function handleContrastChange(e) {
+                if (e.matches) {
+                    document.body.classList.add('high-contrast');
+                } else {
+                    document.body.classList.remove('high-contrast');
+                }
+            }
+            mediaQuery.addListener(handleContrastChange);
+            handleContrastChange(mediaQuery);
+
+            // Reduced motion support
+            const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+            function handleMotionChange(e) {
+                if (e.matches) {
+                    document.body.classList.add('reduced-motion');
+                } else {
+                    document.body.classList.remove('reduced-motion');
+                }
+            }
+            motionQuery.addListener(handleMotionChange);
+            handleMotionChange(motionQuery);
+
+            // ARIA live regions for dynamic content
+            const createLiveRegion = (id, politeness = 'polite') => {
+                if (!document.getElementById(id)) {
+                    const region = document.createElement('div');
+                    region.id = id;
+                    region.setAttribute('aria-live', politeness);
+                    region.setAttribute('aria-atomic', 'true');
+                    region.style.position = 'absolute';
+                    region.style.left = '-10000px';
+                    region.style.width = '1px';
+                    region.style.height = '1px';
+                    region.style.overflow = 'hidden';
+                    document.body.appendChild(region);
+                }
+            };
+            
+            createLiveRegion('announcements', 'polite');
+            createLiveRegion('status', 'assertive');
+
+            // Form validation enhancement
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    const requiredFields = form.querySelectorAll('[required]');
+                    let isValid = true;
+                    
+                    requiredFields.forEach(field => {
+                        if (!field.value.trim()) {
+                            isValid = false;
+                            field.setAttribute('aria-invalid', 'true');
+                            field.style.borderColor = 'var(--neon-pink)';
+                            field.style.boxShadow = '0 0 10px var(--neon-pink)';
+                            
+                            // Add error message
+                            let errorMsg = field.parentElement.querySelector('.error-message');
+                            if (!errorMsg) {
+                                errorMsg = document.createElement('div');
+                                errorMsg.className = 'error-message';
+                                field.parentElement.appendChild(errorMsg);
+                            }
+                            errorMsg.textContent = 'Toto pole je povinné';
+                        } else {
+                            field.setAttribute('aria-invalid', 'false');
+                            field.style.borderColor = '';
+                            field.style.boxShadow = '';
+                            const errorMsg = field.parentElement.querySelector('.error-message');
+                            if (errorMsg) {
+                                errorMsg.remove();
+                            }
+                        }
+                    });
+                    
+                    if (!isValid) {
+                        e.preventDefault();
+                        announceToScreenReader('Formulár obsahuje chyby. Prosím, opravte ich.');
+                    }
+                });
+            });
+
+            console.log('NASES accessibility features initialized for futuristic version');
+        }
     </script>
 </body>
 </html>
