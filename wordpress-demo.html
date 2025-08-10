@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordPress Demo - Sociálne inovácie</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* WordPress Admin Bar Simulation */
+        #wpadminbar {
+            background: #23282d;
+            height: 32px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 13px;
+            color: #eee;
+        }
+
+        #wpadminbar .ab-item {
+            color: #eee;
+            text-decoration: none;
+            padding: 0 8px;
+            line-height: 32px;
+        }
+
+        #wpadminbar .ab-item:hover {
+            color: #00a0d2;
+        }
+
+        /* Main Content */
+        body {
+            margin: 0;
+            padding-top: 32px;
+            font-family: 'Inter', sans-serif;
+            background: #f1f1f1;
+        }
+
+        .wp-demo-notice {
+            background: #0073aa;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .wp-demo-notice a {
+            color: #87ceeb;
+            text-decoration: none;
+        }
+
+        /* WordPress Theme Styles */
+        :root {
+            --primary-blue: #003d82;
+            --secondary-blue: #4a90e2;
+            --light-blue: #e8f4fd;
+            --accent-orange: #ff6b35;
+            --success-green: #28a745;
+            --text-primary: #2c3e50;
+            --text-secondary: #6c757d;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+        }
+
+        .wp-site-main {
+            background: var(--bg-primary);
+            min-height: 100vh;
+        }
+
+        .wp-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .wp-header {
+            background: var(--bg-primary);
+            border-bottom: 3px solid var(--primary-blue);
+            box-shadow: 0 2px 8px rgba(0, 61, 130, 0.1);
+        }
+
+        .wp-gov-bar {
+            background: var(--primary-blue);
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .wp-site-branding {
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .wp-site-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin: 0 0 10px 0;
+        }
+
+        .wp-site-description {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin: 0;
+        }
+
+        /* WordPress Editor Simulation */
+        .wp-editor-demo {
+            background: white;
+            margin: 30px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 61, 130, 0.1);
+        }
+
+        .wp-editor-toolbar {
+            background: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .wp-editor-title {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .wp-editor-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .wp-btn {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .wp-btn:hover {
+            background: var(--secondary-blue);
+        }
+
+        .wp-btn-secondary {
+            background: #6c757d;
+        }
+
+        .wp-editor-content {
+            padding: 20px;
+        }
+
+        /* Content Cards */
+        .wp-content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .wp-content-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 61, 130, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .wp-content-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 61, 130, 0.15);
+        }
+
+        .wp-card-header {
+            background: var(--light-blue);
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .wp-card-title {
+            margin: 0;
+            color: var(--primary-blue);
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .wp-card-content {
+            padding: 20px;
+        }
+
+        .wp-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .wp-post-status {
+            background: var(--success-green);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+
+        /* Features List */
+        .wp-features {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 2px 8px rgba(0, 61, 130, 0.1);
+        }
+
+        .wp-features h3 {
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .wp-features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .wp-feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .wp-feature-icon {
+            background: var(--primary-blue);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .wp-feature-text h4 {
+            margin: 0 0 5px 0;
+            color: var(--text-primary);
+            font-size: 16px;
+        }
+
+        .wp-feature-text p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .wp-footer {
+            background: var(--primary-blue);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .wp-container {
+                padding: 0 15px;
+            }
+            
+            .wp-site-title {
+                font-size: 24px;
+            }
+            
+            .wp-content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .wp-editor-toolbar {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- WordPress Admin Bar -->
+    <div id="wpadminbar">
+        <a href="#" class="ab-item">
+            <i class="fab fa-wordpress" style="margin-right: 8px;"></i>
+            WordPress Demo
+        </a>
+        <div style="margin-left: auto; display: flex; gap: 15px;">
+            <a href="#" class="ab-item">+ Nový príspevok</a>
+            <a href="#" class="ab-item">Upraviť stránku</a>
+            <a href="#" class="ab-item">Customizer</a>
+            <a href="#" class="ab-item">Užívateľ</a>
+        </div>
+    </div>
+
+    <!-- Demo Notice -->
+    <div class="wp-demo-notice">
+        <i class="fas fa-info-circle" style="margin-right: 8px;"></i>
+        <strong>WordPress Demo</strong> - Toto je simulácia WordPress témy pre socialneinovacie.gov.sk
+        <span style="margin-left: 20px;">
+            <a href="file:///c:/Users/holic/OneDrive/Documents/GitHub/SOCINOVACIE/verzia2/kreativna-react.html">
+                <i class="fas fa-external-link-alt"></i> Zobraziť React verziu
+            </a>
+        </span>
+    </div>
+
+    <div class="wp-site-main">
+        <!-- Header -->
+        <header class="wp-header">
+            <div class="wp-gov-bar">
+                Oficiálna stránka štátnej správy Slovenskej republiky
+            </div>
+            <div class="wp-container">
+                <div class="wp-site-branding">
+                    <h1 class="wp-site-title">Sociálne inovácie</h1>
+                    <p class="wp-site-description">
+                        Ministerstvo práce, sociálnych vecí a rodiny Slovenskej republiky
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <div class="wp-container">
+            <!-- WordPress Editor Demo -->
+            <div class="wp-editor-demo">
+                <div class="wp-editor-toolbar">
+                    <div class="wp-editor-title">
+                        <i class="fas fa-edit" style="margin-right: 8px;"></i>
+                        WordPress Editor - Upraviť obsah
+                    </div>
+                    <div class="wp-editor-buttons">
+                        <button class="wp-btn wp-btn-secondary">Uložiť koncept</button>
+                        <button class="wp-btn">Publikovať</button>
+                    </div>
+                </div>
+                <div class="wp-editor-content">
+                    <p><strong>Výhody WordPress CMS:</strong></p>
+                    <p>✅ Jednoduché spravovanie obsahu cez admin rozhranie<br>
+                    ✅ Visual editor pre príspevky a stránky<br>
+                    ✅ Media Library pre správu obrázkov<br>
+                    ✅ User management pre redaktorov<br>
+                    ✅ Plugin compatibility pre dodatočné funkcie</p>
+                </div>
+            </div>
+
+            <!-- Content Management Demo -->
+            <div class="wp-content-grid">
+                <div class="wp-content-card">
+                    <div class="wp-card-header">
+                        <h3 class="wp-card-title">
+                            <i class="fas fa-newspaper" style="margin-right: 8px;"></i>
+                            Aktuality
+                        </h3>
+                    </div>
+                    <div class="wp-card-content">
+                        <div class="wp-card-meta">
+                            <span>3 publikované</span>
+                            <span class="wp-post-status">Aktívne</span>
+                        </div>
+                        <p>Správa noviniek a oznámení. Custom post type s meta fields pre kategórie a featured images.</p>
+                        <div style="margin-top: 15px;">
+                            <button class="wp-btn" style="font-size: 13px; padding: 6px 12px;">
+                                <i class="fas fa-plus"></i> Pridať aktualitu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wp-content-card">
+                    <div class="wp-card-header">
+                        <h3 class="wp-card-title">
+                            <i class="fas fa-bullhorn" style="margin-right: 8px;"></i>
+                            Výzvy
+                        </h3>
+                    </div>
+                    <div class="wp-card-content">
+                        <div class="wp-card-meta">
+                            <span>5 aktívnych</span>
+                            <span class="wp-post-status">Aktívne</span>
+                        </div>
+                        <p>Calls for proposals s meta fields: výška podpory, status, termín podania.</p>
+                        <div style="margin-top: 15px;">
+                            <button class="wp-btn" style="font-size: 13px; padding: 6px 12px;">
+                                <i class="fas fa-plus"></i> Pridať výzvu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wp-content-card">
+                    <div class="wp-card-header">
+                        <h3 class="wp-card-title">
+                            <i class="fas fa-calendar-check" style="margin-right: 8px;"></i>
+                            Podujatia
+                        </h3>
+                    </div>
+                    <div class="wp-card-content">
+                        <div class="wp-card-meta">
+                            <span>2 nadchádzajúce</span>
+                            <span class="wp-post-status">Aktívne</span>
+                        </div>
+                        <p>Events a workshopy s meta fields: miesto, dátum, čas, kapacita.</p>
+                        <div style="margin-top: 15px;">
+                            <button class="wp-btn" style="font-size: 13px; padding: 6px 12px;">
+                                <i class="fas fa-plus"></i> Pridať podujatie
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="wp-features">
+                <h3>WordPress CMS Features</h3>
+                <div class="wp-features-grid">
+                    <div class="wp-feature-item">
+                        <div class="wp-feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="wp-feature-text">
+                            <h4>NASES Compliance</h4>
+                            <p>WCAG 2.1 AA, Vyhláška č. 78/2020, accessibility features</p>
+                        </div>
+                    </div>
+                    
+                    <div class="wp-feature-item">
+                        <div class="wp-feature-icon">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="wp-feature-text">
+                            <h4>Content Management</h4>
+                            <p>Visual editor, media library, custom post types</p>
+                        </div>
+                    </div>
+                    
+                    <div class="wp-feature-item">
+                        <div class="wp-feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="wp-feature-text">
+                            <h4>User Management</h4>
+                            <p>Roles, permissions, multi-user editing</p>
+                        </div>
+                    </div>
+                    
+                    <div class="wp-feature-item">
+                        <div class="wp-feature-icon">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </div>
+                        <div class="wp-feature-text">
+                            <h4>Plugin Support</h4>
+                            <p>SEO, security, backup, analytics plugins</p>
+                        </div>
+                    </div>
+                    
+                    <div class="wp-feature-item">
+                        <div class="wp-feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="wp-feature-text">
+                            <h4>Responsive Design</h4>
+                            <p>Mobile-first, gov.sk colors, accessibility</p>
+                        </div>
+                    </div>
+                    
+                    <div class="wp-feature-item">
+                        <div class="wp-feature-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="wp-feature-text">
+                            <h4>Multijazyčnosť</h4>
+                            <p>SK/EN podpora, WPML compatibility</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Installation Guide -->
+            <div class="wp-features">
+                <h3>Inštalácia WordPress</h3>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-top: 20px;">
+                    <h4 style="margin-top: 0;">🚀 Rýchla inštalácia (XAMPP):</h4>
+                    <ol style="line-height: 1.8;">
+                        <li><strong>Stiahnite XAMPP:</strong> <a href="https://www.apachefriends.org/" target="_blank">apachefriends.org</a></li>
+                        <li><strong>Spustite:</strong> Apache + MySQL servery</li>
+                        <li><strong>Stiahnite WordPress:</strong> <a href="https://wordpress.org/download/" target="_blank">wordpress.org/download</a></li>
+                        <li><strong>Vytvorte databázu:</strong> http://localhost/phpmyadmin → nová databáza "socinovacie"</li>
+                        <li><strong>Nainštalujte:</strong> http://localhost/socinovacie</li>
+                        <li><strong>Nahrajte tému:</strong> wp-content/themes/socialne-inovacie/</li>
+                    </ol>
+                    
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
+                        <strong>Alternatívy:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li><a href="https://localwp.com/" target="_blank">Local by Flywheel</a> - Jednoklikové WordPress prostredie</li>
+                            <li><a href="https://www.mamp.info/" target="_blank">MAMP</a> - Mac/Windows lokálny server</li>
+                            <li><a href="https://wordpress.com/" target="_blank">WordPress.com</a> - Online hosting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="wp-footer">
+            <div class="wp-container">
+                <p>
+                    <i class="fab fa-wordpress" style="margin-right: 8px;"></i>
+                    WordPress Téma pre socialneinovacie.gov.sk
+                </p>
+                <p style="margin-top: 10px; opacity: 0.8; font-size: 14px;">
+                    © 2024 Ministerstvo práce, sociálnych vecí a rodiny SR
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Simulate WordPress functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add some interactive elements
+            const buttons = document.querySelectorAll('.wp-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+
+            // Admin bar interactions
+            const adminItems = document.querySelectorAll('.ab-item');
+            adminItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('WordPress admin action:', this.textContent.trim());
+                });
+            });
+        });
+    </script>
+</body>
+</html>

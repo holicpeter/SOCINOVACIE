@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordPress Dark Mode - Sociálne inovácie</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* WordPress Admin Bar - Dark */
+        #wpadminbar {
+            background: linear-gradient(135deg, #0f0f23, #1a1a2e);
+            height: 32px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 13px;
+            color: #e2e8f0;
+            border-bottom: 1px solid #2d3748;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        #wpadminbar .ab-item {
+            color: #e2e8f0;
+            text-decoration: none;
+            padding: 0 8px;
+            line-height: 32px;
+            transition: all 0.2s ease;
+            border-radius: 4px;
+        }
+
+        #wpadminbar .ab-item:hover {
+            color: #00f5ff;
+            background: rgba(0, 245, 255, 0.1);
+        }
+
+        /* Dark Mode Design System */
+        :root {
+            /* Dark Colors */
+            --bg-primary: #0f0f23;
+            --bg-secondary: #16213e;
+            --bg-tertiary: #1a1a2e;
+            --bg-card: #1e1e3f;
+            --bg-accent: #2d3748;
+            
+            /* Text Colors */
+            --text-primary: #f7fafc;
+            --text-secondary: #e2e8f0;
+            --text-muted: #a0aec0;
+            --text-accent: #00f5ff;
+            
+            /* Brand Colors */
+            --primary: #3182ce;
+            --primary-light: #4299e1;
+            --primary-dark: #2c5282;
+            --accent: #00f5ff;
+            --accent-dark: #00d4ff;
+            --success: #38a169;
+            --warning: #ed8936;
+            --danger: #e53e3e;
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #00f5ff 0%, #0099cc 100%);
+            --gradient-success: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+            --gradient-warning: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'Fira Code', 'JetBrains Mono', 'SF Mono', monospace;
+            
+            /* Effects */
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 20px rgba(0, 245, 255, 0.3);
+            --shadow-glow-lg: 0 0 40px rgba(0, 245, 255, 0.2);
+            
+            /* Borders */
+            --border-radius: 0.75rem;
+            --border-radius-lg: 1rem;
+            --border-radius-xl: 1.5rem;
+            --border-color: #2d3748;
+            --border-color-light: #4a5568;
+        }
+
+        /* Reset & Base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            padding-top: 32px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(103, 126, 234, 0.1) 0%, transparent 50%);
+            min-height: 100vh;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.025em;
+            color: var(--text-primary);
+        }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.75rem; }
+        h4 { font-size: 1.5rem; }
+        h5 { font-size: 1.25rem; }
+        h6 { font-size: 1.125rem; }
+
+        p {
+            margin-bottom: var(--space-md);
+            color: var(--text-secondary);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent-dark);
+            text-shadow: 0 0 8px rgba(0, 245, 255, 0.6);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        /* Header */
+        .site-header {
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 32px;
+            z-index: 50;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gov-bar {
+            background: var(--gradient-primary);
+            color: white;
+            font-size: 0.875rem;
+            padding: var(--space-sm) 0;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .site-branding {
+            padding: var(--space-2xl) 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .site-title {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient-accent);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: var(--space-sm);
+            letter-spacing: -0.05em;
+            text-shadow: var(--shadow-glow);
+        }
+
+        .site-description {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        .main-nav {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: var(--space-lg) var(--space-xl);
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-menu a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-accent);
+            opacity: 0.1;
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-menu a:hover::before,
+        .nav-menu a:focus::before {
+            left: 0;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a:focus {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            text-shadow: 0 0 8px rgba(0, 245, 255, 0.6);
+        }
+
+        /* Demo Notice */
+        .wp-demo-notice {
+            background: var(--gradient-primary);
+            color: white;
+            padding: var(--space-lg);
+            text-align: center;
+            font-weight: 500;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wp-demo-notice::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .wp-demo-notice a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .wp-demo-notice a:hover {
+            color: white;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Main Content */
+        .site-main {
+            padding: var(--space-3xl) 0;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: var(--space-2xl);
+            margin: var(--space-3xl) 0;
+        }
+
+        .content-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-xl);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-accent);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl), var(--shadow-glow);
+            border-color: var(--border-color-light);
+        }
+
+        .content-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-header {
+            padding: var(--space-xl);
+            background: rgba(0, 245, 255, 0.05);
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .card-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-icon::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: inherit;
+            filter: blur(8px);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .card-icon.aktuality { 
+            background: var(--gradient-primary);
+            box-shadow: 0 0 20px rgba(103, 126, 234, 0.4);
+        }
+        .card-icon.vyzvy { 
+            background: var(--gradient-warning);
+            box-shadow: 0 0 20px rgba(237, 137, 54, 0.4);
+        }
+        .card-icon.podujatia { 
+            background: var(--gradient-success);
+            box-shadow: 0 0 20px rgba(56, 161, 105, 0.4);
+        }
+
+        .card-content {
+            padding: var(--space-xl);
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            font-size: 0.875rem;
+        }
+
+        .card-status {
+            background: var(--gradient-success);
+            color: white;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 0 12px rgba(56, 161, 105, 0.3);
+        }
+
+        .card-date {
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-family: var(--font-mono);
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: var(--space-lg);
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            padding: var(--space-sm) 0;
+            position: relative;
+        }
+
+        .card-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-accent);
+            transition: width 0.3s ease;
+        }
+
+        .card-link:hover {
+            transform: translateX(4px);
+            text-shadow: 0 0 8px rgba(0, 245, 255, 0.6);
+        }
+
+        .card-link:hover::after {
+            width: 100%;
+        }
+
+        /* Editor Demo */
+        .wp-editor {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-xl);
+            overflow: hidden;
+            margin: var(--space-3xl) 0;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .wp-editor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-accent);
+        }
+
+        .editor-toolbar {
+            background: var(--bg-accent);
+            border-bottom: 1px solid var(--border-color);
+            padding: var(--space-lg) var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .editor-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-family: var(--font-mono);
+        }
+
+        .editor-buttons {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .btn {
+            padding: var(--space-sm) var(--space-lg);
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: white;
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 25px rgba(0, 245, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-accent);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .editor-content {
+            padding: var(--space-xl);
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            background: rgba(0, 245, 255, 0.02);
+        }
+
+        /* Features Grid */
+        .features-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-xl);
+            padding: var(--space-3xl);
+            margin: var(--space-3xl) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-accent);
+        }
+
+        .features-title {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+            color: var(--text-primary);
+            font-size: 2.25rem;
+            font-weight: 800;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-2xl);
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: var(--space-xl);
+            border-radius: var(--border-radius-lg);
+            transition: all 0.3s ease;
+            background: rgba(0, 245, 255, 0.02);
+            border: 1px solid transparent;
+        }
+
+        .feature-item:hover {
+            background: rgba(0, 245, 255, 0.05);
+            border-color: var(--border-color);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 4.5rem;
+            height: 4.5rem;
+            border-radius: var(--border-radius-xl);
+            background: var(--gradient-accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-lg);
+            font-size: 1.75rem;
+            box-shadow: var(--shadow-glow);
+            position: relative;
+        }
+
+        .feature-icon::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: var(--gradient-accent);
+            border-radius: inherit;
+            filter: blur(10px);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: var(--space-3xl) 0 var(--space-xl);
+            margin-top: var(--space-3xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-accent);
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: var(--gradient-accent);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: var(--space-sm);
+        }
+
+        .footer-description {
+            margin-bottom: var(--space-lg);
+            opacity: 0.8;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            padding: var(--space-sm);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 8px rgba(0, 245, 255, 0.6);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: var(--space-lg);
+            font-size: 0.875rem;
+            opacity: 0.7;
+            font-family: var(--font-mono);
+        }
+
+        /* Animations */
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(0, 245, 255, 0.5); }
+            50% { text-shadow: 0 0 30px rgba(0, 245, 255, 0.8); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .card-icon {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--space-md);
+            }
+            
+            .site-title {
+                font-size: 2.25rem;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-xl);
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+            }
+            
+            .nav-menu a {
+                padding: var(--space-md) var(--space-lg);
+                border-bottom: 1px solid var(--border-color);
+                border-right: none;
+            }
+            
+            .editor-toolbar {
+                flex-direction: column;
+                gap: var(--space-md);
+                align-items: flex-start;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        *:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* High contrast mode */
+        @media (prefers-contrast: high) {
+            :root {
+                --bg-primary: #000000;
+                --bg-card: #111111;
+                --text-primary: #ffffff;
+                --text-secondary: #ffffff;
+                --border-color: #ffffff;
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <!-- WordPress Admin Bar -->
+    <div id="wpadminbar">
+        <a href="#" class="ab-item">
+            <i class="fab fa-wordpress" style="margin-right: 8px;"></i>
+            WordPress Dark
+        </a>
+        <div style="margin-left: auto; display: flex; gap: 15px;">
+            <a href="#" class="ab-item">+ Nový</a>
+            <a href="#" class="ab-item">Upraviť</a>
+            <a href="#" class="ab-item">Customizer</a>
+            <a href="#" class="ab-item">Admin</a>
+        </div>
+    </div>
+
+    <!-- Demo Notice -->
+    <div class="wp-demo-notice">
+        <strong>WordPress Dark Mode</strong> - Moderný dark theme s cyberpunk estetikou
+        <span style="margin-left: 20px;">
+            <a href="file:///c:/Users/holic/OneDrive/Documents/GitHub/SOCINOVACIE/wordpress-minimal.html">← Minimal</a>
+            |
+            <a href="file:///c:/Users/holic/OneDrive/Documents/GitHub/SOCINOVACIE/wordpress-demo.html">Klasická →</a>
+        </span>
+    </div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="gov-bar">
+            Oficiálna stránka štátnej správy Slovenskej republiky
+        </div>
+        
+        <div class="container">
+            <div class="site-branding">
+                <h1 class="site-title">Sociálne inovácie</h1>
+                <p class="site-description">
+                    Ministerstvo práce, sociálnych vecí a rodiny Slovenskej republiky
+                </p>
+            </div>
+        </div>
+
+        <nav class="main-nav" role="navigation" aria-label="Hlavné menu">
+            <div class="container">
+                <ul class="nav-menu">
+                    <li><a href="#home">Domov</a></li>
+                    <li><a href="#aktuality">Aktuality</a></li>
+                    <li><a href="#vyzvy">Výzvy</a></li>
+                    <li><a href="#podujatia">Podujatia</a></li>
+                    <li><a href="#o-nas">O nás</a></li>
+                    <li><a href="#kontakt">Kontakt</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="site-main">
+        <div class="container">
+            
+            <!-- WordPress Editor Demo -->
+            <section class="wp-editor">
+                <div class="editor-toolbar">
+                    <div class="editor-title">
+                        <i class="fas fa-terminal"></i>
+                        WordPress Dark Theme Editor
+                    </div>
+                    <div class="editor-buttons">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-save"></i>
+                            Uložiť
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-rocket"></i>
+                            Publikovať
+                        </button>
+                    </div>
+                </div>
+                <div class="editor-content">
+                    <p><strong>Dark Mode WordPress Theme Features:</strong></p>
+                    <p>• Cyberpunk-inspired dark design s neon akcentmi<br>
+                    • Glow efekty a gradientné pozadia<br>
+                    • Enhanced typography s Inter + Fira Code<br>
+                    • Plná NASES compliance v dark mode<br>
+                    • Advanced animations a hover effects</p>
+                </div>
+            </section>
+
+            <!-- Content Cards -->
+            <div class="card-grid">
+                <article class="content-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <div class="card-icon aktuality">
+                                <i class="fas fa-newspaper"></i>
+                            </div>
+                            Aktuality
+                        </h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span class="card-date">
+                                <i class="far fa-calendar-alt"></i>
+                                3 príspevky
+                            </span>
+                            <span class="card-status">Aktívne</span>
+                        </div>
+                        <p class="card-description">
+                            Najnovšie informácie o sociálnych inováciách, projektoch a iniciatívach. 
+                            Sledujte aktuálne dianie v oblasti sociálneho podnikania a digitálnej transformácie.
+                        </p>
+                        <a href="#aktuality" class="card-link">
+                            Zobraziť všetky
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="content-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <div class="card-icon vyzvy">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            Výzvy
+                        </h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span class="card-date">
+                                <i class="far fa-clock"></i>
+                                5 aktívnych
+                            </span>
+                            <span class="card-status">Otvorené</span>
+                        </div>
+                        <p class="card-description">
+                            Aktuálne otvorené výzvy na predkladanie projektových návrhov. 
+                            Získajte finančnú podporu pre vaše inovatívne riešenia v oblasti digitalizácie.
+                        </p>
+                        <a href="#vyzvy" class="card-link">
+                            Prezrieť výzvy
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="content-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <div class="card-icon podujatia">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            Podujatia
+                        </h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span class="card-date">
+                                <i class="far fa-calendar-alt"></i>
+                                2 nadchádzajúce
+                            </span>
+                            <span class="card-status">Registrácia</span>
+                        </div>
+                        <p class="card-description">
+                            Vzdelávacie workshopy, tech konferencie a networking podujatia. 
+                            Rozvíjajte svoje znalosti v oblasti AI, blockchain a sociálnych inovácií.
+                        </p>
+                        <a href="#podujatia" class="card-link">
+                            Prihlásiť sa
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Features -->
+            <section class="features-section">
+                <h2 class="features-title">Dark Mode Features</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <h3 class="feature-title">Dark Theme</h3>
+                        <p class="feature-description">
+                            Profesionálny dark mode dizajn s cyan neon akcentmi
+                        </p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <h3 class="feature-title">Glow Effects</h3>
+                        <p class="feature-description">
+                            Cyberpunk štýl s glow efektmi a gradient pozadiami
+                        </p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3 class="feature-title">Eye Comfort</h3>
+                        <p class="feature-description">
+                            Optimalizované pre dlhodobé používanie bez únavy očí
+                        </p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="feature-title">Performance</h3>
+                        <p class="feature-description">
+                            Hardware-accelerated animations a smooth transitions
+                        </p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="feature-title">Developer Friendly</h3>
+                        <p class="feature-description">
+                            Monospace fonts a syntax highlighting ready
+                        </p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-universal-access"></i>
+                        </div>
+                        <h3 class="feature-title">Accessibility</h3>
+                        <p class="feature-description">
+                            WCAG 2.1 AA compliance aj v dark mode
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <h2 class="footer-brand">Sociálne inovácie</h2>
+                <p class="footer-description">
+                    Ministerstvo práce, sociálnych vecí a rodiny Slovenskej republiky
+                </p>
+                <nav class="footer-links">
+                    <a href="#ochrana-udajov">Ochrana údajov</a>
+                    <a href="#pristupnost">Prístupnosť</a>
+                    <a href="#podmienky">Podmienky</a>
+                    <a href="#kontakt">Kontakt</a>
+                    <a href="#mapa-stranky">Mapa stránky</a>
+                </nav>
+                <div class="footer-bottom">
+                    <p>© 2024 Ministerstvo práce, sociálnych vecí a rodiny SR</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Advanced dark theme interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enhanced button interactions with ripple effect
+            const buttons = document.querySelectorAll('.btn, .card-link');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Create advanced ripple effect
+                    const ripple = document.createElement('span');
+                    ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: radial-gradient(circle, rgba(0, 245, 255, 0.8) 0%, transparent 70%);
+                        transform: scale(0);
+                        animation: rippleEffect 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                        pointer-events: none;
+                        z-index: 1000;
+                    `;
+                    
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height) * 2;
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+                    
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => ripple.remove(), 800);
+                });
+            });
+
+            // Parallax effect for cards
+            const cards = document.querySelectorAll('.content-card');
+            document.addEventListener('mousemove', (e) => {
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+                
+                cards.forEach((card, index) => {
+                    const speed = (index + 1) * 0.5;
+                    const x = (mouseX - 0.5) * speed;
+                    const y = (mouseY - 0.5) * speed;
+                    
+                    card.style.transform = `translate(${x}px, ${y}px) rotateX(${y * 2}deg) rotateY(${x * 2}deg)`;
+                });
+            });
+
+            // Glow effect on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const glowObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0) scale(1)';
+                        entry.target.style.filter = 'drop-shadow(0 0 20px rgba(0, 245, 255, 0.3))';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe elements
+            document.querySelectorAll('.content-card, .feature-item').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(40px) scale(0.95)';
+                el.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                glowObserver.observe(el);
+            });
+
+            // Dynamic glow intensity based on time
+            function updateGlowIntensity() {
+                const time = Date.now() * 0.001;
+                const intensity = (Math.sin(time) + 1) * 0.5;
+                
+                document.documentElement.style.setProperty(
+                    '--shadow-glow', 
+                    `0 0 ${20 + intensity * 10}px rgba(0, 245, 255, ${0.3 + intensity * 0.2})`
+                );
+                
+                requestAnimationFrame(updateGlowIntensity);
+            }
+            updateGlowIntensity();
+        });
+
+        // Add advanced CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes rippleEffect {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes pulseGlow {
+                0%, 100% {
+                    box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+                }
+                50% {
+                    box-shadow: 0 0 40px rgba(0, 245, 255, 0.6);
+                }
+            }
+            
+            .card-icon {
+                animation: pulseGlow 3s ease-in-out infinite;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
