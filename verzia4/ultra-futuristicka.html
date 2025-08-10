@@ -715,6 +715,203 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* NOVÉ KREATÍVNE ANIMÁCIE */
+        
+        /* Matrix rain effect enhanced */
+        @keyframes matrixRain {
+            0% { 
+                transform: translateY(-100vh) scale(0.8);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(100vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+        
+        /* Floating orbs animation */
+        @keyframes floatingOrbs {
+            0% { 
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                opacity: 0.3;
+            }
+            25% { 
+                transform: translate(30px, -50px) rotate(90deg) scale(1.2);
+                opacity: 0.7;
+            }
+            50% { 
+                transform: translate(-20px, -80px) rotate(180deg) scale(0.8);
+                opacity: 1;
+            }
+            75% { 
+                transform: translate(-40px, -30px) rotate(270deg) scale(1.1);
+                opacity: 0.6;
+            }
+            100% { 
+                transform: translate(0, 0) rotate(360deg) scale(1);
+                opacity: 0.3;
+            }
+        }
+        
+        /* Cyber circuit animation */
+        @keyframes cyberCircuit {
+            0% { 
+                stroke-dashoffset: 1000;
+                filter: drop-shadow(0 0 5px var(--cyber-blue));
+            }
+            50% {
+                stroke-dashoffset: 500;
+                filter: drop-shadow(0 0 15px var(--neon-blue));
+            }
+            100% { 
+                stroke-dashoffset: 0;
+                filter: drop-shadow(0 0 25px var(--electric-blue));
+            }
+        }
+        
+        /* Data stream animation */
+        @keyframes dataStream {
+            0% { 
+                transform: translateX(-100%) skewX(-10deg);
+                box-shadow: 0 0 10px var(--cyber-blue);
+            }
+            50% {
+                transform: translateX(0%) skewX(0deg);
+                box-shadow: 0 0 30px var(--neon-blue);
+            }
+            100% { 
+                transform: translateX(100%) skewX(10deg);
+                box-shadow: 0 0 10px var(--electric-blue);
+            }
+        }
+        
+        /* Holographic text effect */
+        @keyframes holographicText {
+            0% { 
+                text-shadow: 
+                    0 0 10px var(--cyber-blue),
+                    0 0 20px var(--neon-blue),
+                    0 0 30px var(--electric-blue);
+                transform: translateY(0px);
+            }
+            25% {
+                text-shadow: 
+                    2px 0 10px var(--neon-blue),
+                    -2px 0 20px var(--cyber-blue),
+                    0 0 40px var(--electric-blue);
+                transform: translateY(-2px);
+            }
+            50% {
+                text-shadow: 
+                    0 0 15px var(--electric-blue),
+                    0 0 25px var(--cyber-blue),
+                    0 0 35px var(--neon-blue);
+                transform: translateY(0px);
+            }
+            75% {
+                text-shadow: 
+                    -2px 0 10px var(--cyber-blue),
+                    2px 0 20px var(--neon-blue),
+                    0 0 40px var(--electric-blue);
+                transform: translateY(2px);
+            }
+            100% { 
+                text-shadow: 
+                    0 0 10px var(--cyber-blue),
+                    0 0 20px var(--neon-blue),
+                    0 0 30px var(--electric-blue);
+                transform: translateY(0px);
+            }
+        }
+        
+        /* Quantum interference */
+        @keyframes quantumInterference {
+            0% { 
+                filter: hue-rotate(0deg) saturate(1) blur(0px);
+                transform: scale(1);
+            }
+            25% {
+                filter: hue-rotate(90deg) saturate(1.5) blur(1px);
+                transform: scale(1.02);
+            }
+            50% {
+                filter: hue-rotate(180deg) saturate(2) blur(0px);
+                transform: scale(0.98);
+            }
+            75% {
+                filter: hue-rotate(270deg) saturate(1.5) blur(1px);
+                transform: scale(1.01);
+            }
+            100% { 
+                filter: hue-rotate(360deg) saturate(1) blur(0px);
+                transform: scale(1);
+            }
+        }
+        
+        /* Cyber pulse waves */
+        @keyframes cyberPulseWaves {
+            0% { 
+                box-shadow: 
+                    0 0 0 0 rgba(0, 212, 255, 0.7),
+                    0 0 0 0 rgba(0, 153, 255, 0.5),
+                    0 0 0 0 rgba(0, 255, 255, 0.3);
+            }
+            25% {
+                box-shadow: 
+                    0 0 0 10px rgba(0, 212, 255, 0.5),
+                    0 0 0 0 rgba(0, 153, 255, 0.5),
+                    0 0 0 0 rgba(0, 255, 255, 0.3);
+            }
+            50% {
+                box-shadow: 
+                    0 0 0 20px rgba(0, 212, 255, 0.3),
+                    0 0 0 15px rgba(0, 153, 255, 0.4),
+                    0 0 0 0 rgba(0, 255, 255, 0.3);
+            }
+            75% {
+                box-shadow: 
+                    0 0 0 30px rgba(0, 212, 255, 0.1),
+                    0 0 0 25px rgba(0, 153, 255, 0.2),
+                    0 0 0 20px rgba(0, 255, 255, 0.2);
+            }
+            100% { 
+                box-shadow: 
+                    0 0 0 40px rgba(0, 212, 255, 0),
+                    0 0 0 35px rgba(0, 153, 255, 0),
+                    0 0 0 30px rgba(0, 255, 255, 0);
+            }
+        }
+        
+        /* Energy field animation */
+        @keyframes energyField {
+            0% { 
+                background: radial-gradient(circle at 0% 0%, var(--cyber-blue) 0%, transparent 50%);
+                opacity: 0.1;
+            }
+            25% {
+                background: radial-gradient(circle at 100% 0%, var(--neon-blue) 0%, transparent 50%);
+                opacity: 0.3;
+            }
+            50% {
+                background: radial-gradient(circle at 100% 100%, var(--electric-blue) 0%, transparent 50%);
+                opacity: 0.2;
+            }
+            75% {
+                background: radial-gradient(circle at 0% 100%, var(--cyber-blue) 0%, transparent 50%);
+                opacity: 0.4;
+            }
+            100% { 
+                background: radial-gradient(circle at 0% 0%, var(--cyber-blue) 0%, transparent 50%);
+                opacity: 0.1;
+            }
+        }
+
         /* Accessibility improvements */
         .sr-only {
             position: absolute;
@@ -759,6 +956,281 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--cyber-blue);
         }
+        
+        /* NOVÉ ANIMAČNÉ TRIEDY */
+        
+        /* Floating orbs */
+        .floating-orb {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--cyber-blue) 0%, var(--neon-blue) 50%, transparent 100%);
+            animation: floatingOrbs 8s ease-in-out infinite;
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .floating-orb:nth-child(2) { animation-delay: -2s; top: 20%; left: 80%; }
+        .floating-orb:nth-child(3) { animation-delay: -4s; top: 60%; left: 20%; }
+        .floating-orb:nth-child(4) { animation-delay: -6s; top: 80%; left: 70%; }
+        .floating-orb:nth-child(5) { animation-delay: -1s; top: 40%; left: 90%; }
+        
+        /* Data stream elements */
+        .data-stream {
+            position: absolute;
+            width: 2px;
+            height: 200px;
+            background: linear-gradient(to bottom, transparent, var(--cyber-blue), transparent);
+            animation: dataStream 3s linear infinite;
+            opacity: 0.7;
+            z-index: 0;
+        }
+        
+        .data-stream:nth-child(2) { animation-delay: -1s; left: 20%; }
+        .data-stream:nth-child(3) { animation-delay: -2s; left: 40%; }
+        .data-stream:nth-child(4) { animation-delay: -0.5s; left: 60%; }
+        .data-stream:nth-child(5) { animation-delay: -1.5s; left: 80%; }
+        
+        /* Holographic text */
+        .holographic-text {
+            animation: holographicText 4s ease-in-out infinite;
+        }
+        
+        /* Quantum interference effect */
+        .quantum-card {
+            animation: quantumInterference 6s ease-in-out infinite;
+        }
+        
+        /* Cyber pulse waves */
+        .cyber-pulse {
+            position: relative;
+            animation: cyberPulseWaves 3s ease-in-out infinite;
+        }
+        
+        /* Energy field background */
+        .energy-field {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            animation: energyField 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Enhanced hover effects */
+        .enhanced-hover {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .enhanced-hover:hover {
+            transform: translateY(-10px) scale(1.05) rotateX(5deg);
+            box-shadow: 
+                0 20px 40px rgba(0, 212, 255, 0.3),
+                0 0 60px rgba(0, 153, 255, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Matrix rain particles */
+        .matrix-particle {
+            position: absolute;
+            color: var(--cyber-blue);
+            font-family: 'Orbitron', monospace;
+            font-size: 14px;
+            animation: matrixRain 4s linear infinite;
+            opacity: 0.8;
+            text-shadow: 0 0 10px currentColor;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .matrix-particle:nth-child(2n) { animation-delay: -1s; font-size: 12px; }
+        .matrix-particle:nth-child(3n) { animation-delay: -2s; font-size: 16px; }
+        .matrix-particle:nth-child(4n) { animation-delay: -3s; font-size: 10px; }
+        
+        /* Circuit lines */
+        .circuit-line {
+            position: absolute;
+            stroke: var(--cyber-blue);
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 20;
+            animation: cyberCircuit 4s ease-in-out infinite;
+            opacity: 0.6;
+        }
+        
+        /* DODATOČNÉ POKROČILÉ EFEKTY */
+        
+        /* Nebula background effect */
+        .cyber-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(0, 153, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 80%, rgba(0, 255, 255, 0.06) 0%, transparent 50%);
+            animation: energyField 15s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        /* Glitch text effect */
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.8;
+        }
+        
+        .glitch-text::before {
+            animation: glitch1 0.5s infinite linear alternate-reverse;
+            color: var(--cyber-blue);
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        }
+        
+        .glitch-text::after {
+            animation: glitch2 0.5s infinite linear alternate-reverse;
+            color: var(--neon-blue);
+            clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+        }
+        
+        @keyframes glitch1 {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-2px); }
+            40% { transform: translateX(2px); }
+            60% { transform: translateX(-2px); }
+            80% { transform: translateX(2px); }
+            100% { transform: translateX(0); }
+        }
+        
+        @keyframes glitch2 {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(2px); }
+            40% { transform: translateX(-2px); }
+            60% { transform: translateX(2px); }
+            80% { transform: translateX(-2px); }
+            100% { transform: translateX(0); }
+        }
+        
+        /* Scan line effect */
+        .scan-line-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scan-line-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0, 212, 255, 0.2) 50%,
+                transparent
+            );
+            animation: scanSweep 3s ease-in-out infinite;
+        }
+        
+        @keyframes scanSweep {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+        
+        /* Holographic border */
+        .holo-border {
+            position: relative;
+            border: 2px solid transparent;
+            background: linear-gradient(var(--primary-blue), var(--primary-blue)) padding-box,
+                        var(--border-gradient) border-box;
+        }
+        
+        .holo-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--border-gradient);
+            border-radius: inherit;
+            z-index: -1;
+            animation: borderFlow 3s linear infinite;
+        }
+        
+        /* Cyber grid enhanced */
+        .grid-overlay::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 100px 100px;
+            animation: gridMove 20s linear infinite;
+            opacity: 0.3;
+        }
+        
+        /* Particle trail effect */
+        .particle-trail {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--cyber-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 10px currentColor;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Enhanced section transitions */
+        .section-divider {
+            height: 2px;
+            background: var(--border-gradient);
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.8),
+                transparent
+            );
+            animation: dividerSweep 4s ease-in-out infinite;
+        }
+        
+        @keyframes dividerSweep {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -774,6 +1246,54 @@
     <div class="cyber-background"></div>
     <div class="grid-overlay"></div>
     <canvas class="particle-system" id="particleCanvas"></canvas>
+    
+    <!-- NOVÉ ANIMOVANÉ ELEMENTY -->
+    
+    <!-- Floating orbs -->
+    <div class="floating-orb" style="top: 10%; left: 15%;"></div>
+    <div class="floating-orb" style="top: 25%; left: 85%;"></div>
+    <div class="floating-orb" style="top: 45%; left: 10%;"></div>
+    <div class="floating-orb" style="top: 65%; left: 75%;"></div>
+    <div class="floating-orb" style="top: 85%; left: 20%;"></div>
+    <div class="floating-orb" style="top: 70%; left: 90%;"></div>
+    
+    <!-- Data streams -->
+    <div class="data-stream" style="left: 5%;"></div>
+    <div class="data-stream" style="left: 25%;"></div>
+    <div class="data-stream" style="left: 45%;"></div>
+    <div class="data-stream" style="left: 65%;"></div>
+    <div class="data-stream" style="left: 85%;"></div>
+    <div class="data-stream" style="left: 95%;"></div>
+    
+    <!-- Matrix rain particles -->
+    <div class="matrix-particle" style="left: 8%; animation-delay: 0s;">01</div>
+    <div class="matrix-particle" style="left: 18%; animation-delay: -0.5s;">10</div>
+    <div class="matrix-particle" style="left: 28%; animation-delay: -1s;">11</div>
+    <div class="matrix-particle" style="left: 38%; animation-delay: -1.5s;">00</div>
+    <div class="matrix-particle" style="left: 48%; animation-delay: -2s;">01</div>
+    <div class="matrix-particle" style="left: 58%; animation-delay: -2.5s;">10</div>
+    <div class="matrix-particle" style="left: 68%; animation-delay: -3s;">11</div>
+    <div class="matrix-particle" style="left: 78%; animation-delay: -3.5s;">00</div>
+    <div class="matrix-particle" style="left: 88%; animation-delay: -4s;">01</div>
+    <div class="matrix-particle" style="left: 98%; animation-delay: -4.5s;">10</div>
+    
+    <!-- Circuit lines SVG -->
+    <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;">
+        <defs>
+            <linearGradient id="circuitGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:var(--cyber-blue);stop-opacity:0" />
+                <stop offset="50%" style="stop-color:var(--neon-blue);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:var(--electric-blue);stop-opacity:0" />
+            </linearGradient>
+        </defs>
+        <path class="circuit-line" d="M0,50 Q200,50 400,100 T800,50" stroke="url(#circuitGradient)" />
+        <path class="circuit-line" d="M0,150 Q300,150 600,200 T1200,150" stroke="url(#circuitGradient)" style="animation-delay: -1s;" />
+        <path class="circuit-line" d="M0,250 Q150,250 300,300 T600,250" stroke="url(#circuitGradient)" style="animation-delay: -2s;" />
+        <path class="circuit-line" d="M0,350 Q400,350 800,400 T1600,350" stroke="url(#circuitGradient)" style="animation-delay: -3s;" />
+    </svg>
+    
+    <!-- Energy field background -->
+    <div class="energy-field"></div>
 
     <!-- Header -->
     <header class="cyber-header" role="banner">
@@ -785,7 +1305,7 @@
                     <div class="brand-govsk">GOV.SK</div>
                 </div>
             </div>
-            <h1 class="cyber-title">SOCIÁLNE INOVÁCIE</h1>
+            <h1 class="cyber-title holographic-text glitch-text scan-line-effect" data-text="SOCIÁLNE INOVÁCIE">SOCIÁLNE INOVÁCIE</h1>
             <p class="cyber-subtitle">Podporujeme inovačné riešenia pre lepšiu budúcnosť Slovenska</p>
         </div>
     </header>
@@ -797,12 +1317,12 @@
             <div class="definition-content">
                 <h2 id="definition-title" class="section-title">ČO SÚ SOCIÁLNE INOVÁCIE</h2>
                 <div class="holo-grid">
-                    <div class="holo-card">
+                    <div class="holo-card quantum-card enhanced-hover">
                         <i class="card-icon fas fa-lightbulb" aria-hidden="true"></i>
                         <h3 class="card-title">DEFINÍCIA</h3>
                         <p class="card-text">Sociálne inovácie sú nové riešenia (produkty, služby, modely, trhy, procesy a pod.), ktoré súčasne napĺňajú sociálne potreby a vytvárajú nové sociálne vzťahy alebo spoluprácu.</p>
                     </div>
-                    <div class="holo-card">
+                    <div class="holo-card quantum-card enhanced-hover">
                         <i class="card-icon fas fa-target" aria-hidden="true"></i>
                         <h3 class="card-title">CIEĽ</h3>
                         <p class="card-text">Cieľom sociálnych inovácií je vytváranie efektívnejších, účinnejších, udržateľných riešení ako existujúce riešenia a zároveň vytvárajú hodnotu pre spoločnosť ako celok.</p>
@@ -811,32 +1331,35 @@
             </div>
         </section>
 
+        <!-- Section divider -->
+        <div class="section-divider"></div>
+
         <!-- Navigation section -->
         <section class="cyber-nav" aria-labelledby="nav-title">
             <div class="nav-content">
                 <h2 id="nav-title" class="sr-only">Navigačné sekcie</h2>
                 <div class="nav-grid">
-                    <a href="#aktuality" class="nav-button" aria-label="Prejsť na aktuality">
+                    <a href="#aktuality" class="nav-button cyber-pulse enhanced-hover holo-border" aria-label="Prejsť na aktuality">
                         <i class="nav-icon fas fa-newspaper" aria-hidden="true"></i>
                         <h3 class="nav-title">AKTUALITY</h3>
                         <p class="nav-desc">Najnovšie správy a udalosti</p>
                     </a>
-                    <a href="#vyzvy" class="nav-button" aria-label="Prejsť na výzvy">
+                    <a href="#vyzvy" class="nav-button cyber-pulse enhanced-hover holo-border" aria-label="Prejsť na výzvy">
                         <i class="nav-icon fas fa-bullhorn" aria-hidden="true"></i>
                         <h3 class="nav-title">VÝZVY</h3>
                         <p class="nav-desc">Aktuálne príležitosti a projekty</p>
                     </a>
-                    <a href="#podujatia" class="nav-button" aria-label="Prejsť na podujatia">
+                    <a href="#podujatia" class="nav-button cyber-pulse enhanced-hover holo-border" aria-label="Prejsť na podujatia">
                         <i class="nav-icon fas fa-calendar-alt" aria-hidden="true"></i>
                         <h3 class="nav-title">PODUJATIA</h3>
                         <p class="nav-desc">Konferencie, semináre a workshopy</p>
                     </a>
-                    <a href="#inspiracia" class="nav-button" aria-label="Prejsť na inšpiráciu">
+                    <a href="#inspiracia" class="nav-button cyber-pulse enhanced-hover holo-border" aria-label="Prejsť na inšpiráciu">
                         <i class="nav-icon fas fa-star" aria-hidden="true"></i>
                         <h3 class="nav-title">INŠPIRÁCIA</h3>
                         <p class="nav-desc">Úspešné projekty a príklady</p>
                     </a>
-                    <a href="https://socialneinovacie.gov.sk/" class="nav-button" aria-label="Prejsť na oficiálnu stránku" target="_blank" rel="noopener noreferrer">
+                    <a href="https://socialneinovacie.gov.sk/" class="nav-button cyber-pulse enhanced-hover holo-border" aria-label="Prejsť na oficiálnu stránku" target="_blank" rel="noopener noreferrer">
                         <i class="nav-icon fas fa-external-link-alt" aria-hidden="true"></i>
                         <h3 class="nav-title">SOCIÁLNE INOVÁCIE WEB</h3>
                         <p class="nav-desc">Oficiálna stránka gov.sk</p>
@@ -851,28 +1374,28 @@
                 <h2 id="aktuality-title" class="section-title">AKTUALITY</h2>
             </div>
             <div class="content-grid">
-                <article class="content-card">
+                <article class="content-card quantum-card enhanced-hover">
                     <img src="https://images.unsplash.com/photo-1560472355-536de3962603?w=400&h=220&fit=crop&crop=center" alt="Obchodné stretnutie" class="card-image">
                     <h3 class="content-title">Nové partnerstvá v sociálnom sektore</h3>
                     <p class="content-description">Ministerstvo práce uzavrelo strategické partnerstvá s neziskovými organizáciami na podporu sociálnych inovácií v regiónoch.</p>
                     <time class="content-date" datetime="2025-08-08">8. augusta 2025</time>
                 </article>
 
-                <article class="content-card">
+                <article class="content-card quantum-card enhanced-hover">
                     <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=220&fit=crop&crop=center" alt="Dokumenty" class="card-image">
                     <h3 class="content-title">Nová legislatíva pre sociálne podniky</h3>
                     <p class="content-description">Parlament schválil novelu zákona o sociálnom podnikaní, ktorá rozširuje možnosti financovania inovatívnych projektov.</p>
                     <time class="content-date" datetime="2025-08-05">5. augusta 2025</time>
                 </article>
 
-                <article class="content-card">
+                <article class="content-card quantum-card enhanced-hover">
                     <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=220&fit=crop&crop=center" alt="Seminár" class="card-image">
                     <h3 class="content-title">Digitalizácia sociálnych služieb</h3>
                     <p class="content-description">Spúšťame pilotný projekt digitálnych platforiem pre efektívnejšie poskytovanie sociálnych služieb občanom.</p>
                     <time class="content-date" datetime="2025-08-01">1. augusta 2025</time>
                 </article>
 
-                <article class="content-card">
+                <article class="content-card quantum-card enhanced-hover">
                     <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=220&fit=crop&crop=center" alt="Prezentácia" class="card-image">
                     <h3 class="content-title">Výročná správa o sociálnych inováciách</h3>
                     <p class="content-description">Publikovali sme komplexnú správu o pokroku v oblasti sociálnych inovácií za rok 2024 s výhľadom do budúcnosti.</p>
@@ -887,28 +1410,28 @@
                 <h2 id="vyzvy-title" class="section-title">VÝZVY</h2>
             </div>
             <div class="content-grid">
-                <article class="content-card">
+                <article class="content-card quantum-card enhanced-hover">
                     <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400&h=220&fit=crop&crop=center" alt="Formuláre" class="card-image">
                     <h3 class="content-title">Dotačná výzva pre sociálne podniky</h3>
                     <p class="content-description">Otvorená výzva na podporu začínajúcich sociálnych podnikov s celkovým rozpočtom 5 miliónov eur.</p>
                     <time class="content-date" datetime="2025-08-31">Uzávierka: 31. augusta 2025</time>
                 </article>
 
-                <article class="content-card">
+                <article class="content-card quantum-card enhanced-hover">
                     <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=400&h=220&fit=crop&crop=center" alt="Vzdelávanie" class="card-image">
                     <h3 class="content-title">Program mentoringu pre inovátórov</h3>
                     <p class="content-description">Päťmesačný program pre začínajúcich sociálnych podnikateľov s podporou expertov z praxe.</p>
                     <time class="content-date" datetime="2025-09-15">Prihlášky do: 15. septembra 2025</time>
                 </article>
 
-                <article class="content-card">
+                <article class="content-card quantum-card enhanced-hover">
                     <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=220&fit=crop&crop=center" alt="Semináre" class="card-image">
                     <h3 class="content-title">Inovačné granty pre obce</h3>
                     <p class="content-description">Špecializované granty pre mestá a obce na implementáciu inovatívnych sociálnych riešení.</p>
                     <time class="content-date" datetime="2025-10-01">Otvorenie: 1. októbra 2025</time>
                 </article>
 
-                <article class="content-card">
+                <article class="content-card quantum-card enhanced-hover">
                     <img src="https://images.unsplash.com/photo-1551818255-e6e10975cd17?w=400&h=220&fit=crop&crop=center" alt="Podpora" class="card-image">
                     <h3 class="content-title">Európske financovanie projektov</h3>
                     <p class="content-description">Informácie o európskych fondoch dostupných pre sociálne inovácie v období 2025-2027.</p>
@@ -923,28 +1446,28 @@
                 <h2 id="podujatia-title" class="section-title">PODUJATIA</h2>
             </div>
             <div class="content-grid">
-                <article class="content-card">
+                <article class="content-card quantum-card enhanced-hover">
                     <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=400&h=220&fit=crop&crop=center" alt="Konferencia" class="card-image">
                     <h3 class="content-title">Národná konferencia sociálnych inovácií</h3>
                     <p class="content-description">Ročná konferencia s medzinárodnými rečníkmi, prezentáciami projektov a networkingom.</p>
                     <time class="content-date" datetime="2025-09-25">25. septembra 2025, Bratislava</time>
                 </article>
 
-                <article class="content-card">
+                <article class="content-card quantum-card enhanced-hover">
                     <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=220&fit=crop&crop=center" alt="Workshop" class="card-image">
                     <h3 class="content-title">Workshop: Dizajn sociálnych služieb</h3>
                     <p class="content-description">Praktický workshop o metodológii design thinking v kontexte sociálnych služieb.</p>
                     <time class="content-date" datetime="2025-08-30">30. augusta 2025, Košice</time>
                 </article>
 
-                <article class="content-card">
+                <article class="content-card quantum-card enhanced-hover">
                     <img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=400&h=220&fit=crop&crop=center" alt="Online stretnutie" class="card-image">
                     <h3 class="content-title">Webinár: Financovanie sociálnych projektov</h3>
                     <p class="content-description">Online prezentácia možností financovania s priestorom pre otázky a diskusiu.</p>
                     <time class="content-date" datetime="2025-08-22">22. augusta 2025, online</time>
                 </article>
 
-                <article class="content-card">
+                <article class="content-card quantum-card enhanced-hover">
                     <img src="https://images.unsplash.com/photo-1559223607-affb2c4bf627?w=400&h=220&fit=crop&crop=center" alt="Meetup" class="card-image">
                     <h3 class="content-title">Regionálny meetup inovátórov</h3>
                     <p class="content-description">Neformálne stretnutie sociálnych podnikateľov a inovátórov zo západného Slovenska.</p>
@@ -960,21 +1483,21 @@
                 
                 <h3 style="color: var(--cyber-blue); font-family: 'Orbitron', monospace; text-align: center; margin: 3rem 0 2rem; font-size: 1.8rem;">NA SLOVENSKU</h3>
                 <div class="content-grid">
-                    <article class="content-card">
+                    <article class="content-card quantum-card enhanced-hover">
                         <img src="https://www.socialneinovacie.gov.sk/wp-content/uploads/2022/05/Gamifactory.png.webp" alt="Gamifactory" class="card-image">
                         <h3 class="content-title">Gamifactory</h3>
                         <p class="content-description">Inovatívna platforma využívajúca herné mechanizmy pre vzdelávanie a rozvoj zručností.</p>
                         <time class="content-date">Projekt roku 2024</time>
                     </article>
 
-                    <article class="content-card">
+                    <article class="content-card quantum-card enhanced-hover">
                         <img src="https://www.socialneinovacie.gov.sk/wp-content/uploads/2022/05/redflags-768x434.jpg.webp" alt="Red Flags" class="card-image">
                         <h3 class="content-title">Red Flags Slovensko.Digital</h3>
                         <p class="content-description">Nástroj na identifikáciu problematických verejných obstarávaní pre zvýšenie transparentnosti.</p>
                         <time class="content-date">Transparency International</time>
                     </article>
 
-                    <article class="content-card">
+                    <article class="content-card quantum-card enhanced-hover">
                         <img src="https://www.socialneinovacie.gov.sk/wp-content/uploads/2022/05/cinefil.png.webp" alt="Inkluzívne kino" class="card-image">
                         <h3 class="content-title">Inkluzívne kino</h3>
                         <p class="content-description">Kinematografia prístupná pre osoby so zrakovým a sluchovým postihnutím.</p>
@@ -984,21 +1507,21 @@
 
                 <h3 style="color: var(--cyber-blue); font-family: 'Orbitron', monospace; text-align: center; margin: 4rem 0 2rem; font-size: 1.8rem;">V ZAHRANIČÍ</h3>
                 <div class="content-grid">
-                    <article class="content-card">
+                    <article class="content-card quantum-card enhanced-hover">
                         <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=220&fit=crop&crop=center" alt="Disability employment" class="card-image">
                         <h3 class="content-title">Posilňovanie jednotlivcov s postihnutím pomocou zamestnanosti</h3>
                         <p class="content-description">Program na podporu zamestnanosti osôb so zdravotným postihnutím v Dánsku.</p>
                         <time class="content-date">Dánsko</time>
                     </article>
 
-                    <article class="content-card">
+                    <article class="content-card quantum-card enhanced-hover">
                         <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=220&fit=crop&crop=center" alt="Rural work balance" class="card-image">
                         <h3 class="content-title">Udržanie zamestnancov v odľahlých častiach</h3>
                         <p class="content-description">Program na podporu work-life balance v rurálnych oblastiach Nórska.</p>
                         <time class="content-date">Nórsko</time>
                     </article>
 
-                    <article class="content-card">
+                    <article class="content-card quantum-card enhanced-hover">
                         <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=400&h=220&fit=crop&crop=center" alt="Community integration" class="card-image">
                         <h3 class="content-title">Integrácia utečencov prostredníctvom komunity</h3>
                         <p class="content-description">Komunitný program na podporu integrácie migrantov a utečencov v Nemecku.</p>
@@ -1264,6 +1787,212 @@
                 }
             });
         });
+
+        // POKROČILÉ GSAP ANIMÁCIE
+
+        // Staggered entrance animations for cards
+        gsap.from(".content-card", {
+            duration: 1.2,
+            y: 100,
+            opacity: 0,
+            rotation: 5,
+            scale: 0.8,
+            stagger: {
+                amount: 1.5,
+                from: "random"
+            },
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+                trigger: ".content-grid",
+                start: "top 80%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        // Morphing text animation
+        gsap.to(".holographic-text", {
+            duration: 0.1,
+            x: () => Math.random() * 4 - 2,
+            y: () => Math.random() * 4 - 2,
+            repeat: -1,
+            yoyo: true,
+            ease: "power2.inOut"
+        });
+
+        // Floating elements with physics
+        gsap.to(".floating-orb", {
+            duration: () => gsap.utils.random(8, 15),
+            motionPath: {
+                path: "M0,0 Q100,200 200,0 T400,0",
+                autoRotate: true
+            },
+            repeat: -1,
+            ease: "none",
+            stagger: {
+                amount: 5,
+                from: "random"
+            }
+        });
+
+        // Parallax scrolling effect
+        gsap.registerPlugin(ScrollTrigger);
+        
+        gsap.utils.toArray(".data-stream").forEach((stream, i) => {
+            gsap.to(stream, {
+                y: -200,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: stream,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true,
+                    invalidateOnRefresh: true
+                }
+            });
+        });
+
+        // Magnetic hover effect for nav buttons
+        document.querySelectorAll('.nav-button').forEach(button => {
+            button.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                gsap.to(this, {
+                    duration: 0.3,
+                    x: x * 0.1,
+                    y: y * 0.1,
+                    ease: "power2.out"
+                });
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                gsap.to(this, {
+                    duration: 0.5,
+                    x: 0,
+                    y: 0,
+                    ease: "elastic.out(1, 0.3)"
+                });
+            });
+        });
+
+        // Dynamic background color shifting
+        let colorShift = gsap.timeline({ repeat: -1 });
+        colorShift.to(".cyber-background", {
+            duration: 10,
+            backgroundColor: "hsl(200, 80%, 5%)",
+            ease: "power2.inOut"
+        })
+        .to(".cyber-background", {
+            duration: 10,
+            backgroundColor: "hsl(220, 90%, 3%)",
+            ease: "power2.inOut"
+        })
+        .to(".cyber-background", {
+            duration: 10,
+            backgroundColor: "hsl(240, 70%, 4%)",
+            ease: "power2.inOut"
+        });
+
+        // Text reveal animation with typewriter effect
+        gsap.utils.toArray(".card-title").forEach(title => {
+            gsap.from(title, {
+                duration: 1,
+                opacity: 0,
+                x: -50,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: title,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        // Glitch effect on hover
+        document.querySelectorAll('.enhanced-hover').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                gsap.to(this, {
+                    duration: 0.1,
+                    skewX: () => gsap.utils.random(-2, 2),
+                    skewY: () => gsap.utils.random(-1, 1),
+                    repeat: 5,
+                    yoyo: true,
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        gsap.set(this, { skewX: 0, skewY: 0 });
+                    }
+                });
+            });
+        });
+
+        // Infinite scrolling matrix effect
+        let matrixTimeline = gsap.timeline({ repeat: -1 });
+        gsap.utils.toArray(".matrix-particle").forEach((particle, i) => {
+            matrixTimeline.to(particle, {
+                duration: () => gsap.utils.random(3, 8),
+                y: window.innerHeight + 100,
+                opacity: 0,
+                ease: "none",
+                delay: i * 0.2
+            }, 0);
+        });
+
+        // Advanced particle connections
+        function updateConnections() {
+            const orbs = document.querySelectorAll('.floating-orb');
+            orbs.forEach((orb1, i) => {
+                orbs.forEach((orb2, j) => {
+                    if (i < j) {
+                        const rect1 = orb1.getBoundingClientRect();
+                        const rect2 = orb2.getBoundingClientRect();
+                        const distance = Math.sqrt(
+                            Math.pow(rect2.left - rect1.left, 2) + 
+                            Math.pow(rect2.top - rect1.top, 2)
+                        );
+                        
+                        if (distance < 300) {
+                            // Create connection line
+                            const line = document.createElement('div');
+                            line.style.position = 'absolute';
+                            line.style.background = `linear-gradient(90deg, var(--cyber-blue), var(--neon-blue))`;
+                            line.style.height = '1px';
+                            line.style.width = distance + 'px';
+                            line.style.left = rect1.left + 'px';
+                            line.style.top = rect1.top + 'px';
+                            line.style.transformOrigin = '0 0';
+                            line.style.transform = `rotate(${Math.atan2(rect2.top - rect1.top, rect2.left - rect1.left)}rad)`;
+                            line.style.opacity = Math.max(0, 1 - distance / 300);
+                            line.style.pointerEvents = 'none';
+                            line.style.zIndex = '-1';
+                            
+                            document.body.appendChild(line);
+                            
+                            // Animate connection
+                            gsap.fromTo(line, 
+                                { scaleX: 0 }, 
+                                { 
+                                    scaleX: 1, 
+                                    duration: 0.5,
+                                    ease: "power2.out",
+                                    onComplete: () => {
+                                        setTimeout(() => {
+                                            if (line.parentNode) {
+                                                line.parentNode.removeChild(line);
+                                            }
+                                        }, 2000);
+                                    }
+                                }
+                            );
+                        }
+                    }
+                });
+            });
+        }
+
+        // Update connections periodically
+        setInterval(updateConnections, 3000);
     </script>
 </body>
 </html>
