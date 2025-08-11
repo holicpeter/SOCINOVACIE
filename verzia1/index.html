@@ -144,7 +144,7 @@
         
         .main-nav .nav-link:hover,
         .main-nav .nav-link:focus {
-            background-color: rgba(0, 82, 204, 0.1);
+            background-color: var(--light-blue);
             color: var(--primary-color);
         }
         
@@ -257,30 +257,32 @@
             outline-offset: 2px;
         }
         
-        /* High contrast mode support */
+        /* High contrast mode support - Light theme */
         @media (prefers-contrast: high) {
             :root {
-                --primary-color: #000080;
-                --text-color: #000000;
-                --border-color: #000000;
+                --primary-color: #003d82;
+                --text-color: #2c3e50;
+                --border-color: #333333;
+                --background-color: #ffffff;
             }
         }
         
-        /* Dark mode support */
+        /* Force light mode - Override dark mode preference */
         @media (prefers-color-scheme: dark) {
             :root {
-                --background-color: #1a1a1a;
-                --text-color: #ffffff;
-                --border-color: #444444;
+                --background-color: #ffffff;
+                --text-color: #444444;
+                --border-color: #e1e8ed;
+                --primary-color: #4a90e2;
             }
             
             body {
-                background-color: var(--background-color);
+                background: linear-gradient(135deg, #ffffff 0%, #f8fbff 50%, #ffffff 100%);
                 color: var(--text-color);
             }
             
             .card {
-                background-color: #2a2a2a;
+                background-color: #ffffff;
                 border-color: var(--border-color);
             }
         }
