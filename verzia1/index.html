@@ -31,13 +31,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* Custom CSS pre NASES požiadavky */
+        /* Custom CSS pre NASES požiadavky - Light Mode */
         :root {
-            --primary-color: #0052CC;
-            --secondary-color: #E5F3FF;
-            --text-color: #333333;
-            --background-color: #FFFFFF;
-            --border-color: #CCCCCC;
+            --primary-color: #4a90e2;
+            --secondary-color: #f8fbff;
+            --text-color: #444444;
+            --background-color: #ffffff;
+            --border-color: #e1e8ed;
+            --light-blue: #e8f4fd;
+            --soft-shadow: rgba(74, 144, 226, 0.1);
         }
         
         /* Skip links for accessibility */
@@ -83,10 +85,11 @@
         }
         
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--text-color);
-            background-color: var(--background-color);
+            background: linear-gradient(135deg, #ffffff 0%, #f8fbff 50%, #ffffff 100%);
+            min-height: 100vh;
         }
         
         /* Skip to content pre accessibility */
@@ -145,11 +148,11 @@
             color: var(--primary-color);
         }
         
-        /* Hero section */
+        /* Hero section - Light Mode */
         .hero {
-            background: linear-gradient(135deg, rgba(0, 61, 130, 0.85), rgba(0, 61, 153, 0.85)),
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.7), rgba(232, 244, 253, 0.9)),
                         url('https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=1920&h=1080&fit=crop&crop=center') center/cover;
-            color: white;
+            color: var(--text-color);
             padding: 5rem 0;
             margin-bottom: 3rem;
             position: relative;
@@ -163,7 +166,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, rgba(0, 61, 130, 0.1) 0%, rgba(74, 144, 226, 0.1) 100%);
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 0%, rgba(232, 244, 253, 0.3) 100%);
             z-index: 1;
         }
 
@@ -183,23 +186,25 @@
             margin-bottom: 2rem;
         }
         
-        /* Card styling */
+        /* Card styling - Light Mode */
         .innovation-card {
-            border: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px var(--soft-shadow);
             transition: transform 0.3s, box-shadow 0.3s;
             height: 100%;
+            background: var(--background-color);
         }
         
         .innovation-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(74, 144, 226, 0.15);
         }
         
         .innovation-card .card-header {
-            background-color: var(--secondary-color);
-            border-bottom: 2px solid var(--primary-color);
-            font-weight: bold;
+            background-color: var(--light-blue);
+            border-bottom: 1px solid var(--primary-color);
+            font-weight: 600;
+            color: var(--text-color);
         }
         
         /* News section */
@@ -280,12 +285,13 @@
             }
         }
         
-        /* Footer */
+        /* Footer - Light Mode */
         .footer {
-            background-color: #f8f9fa;
-            border-top: 3px solid var(--primary-color);
+            background-color: var(--light-blue);
+            border-top: 2px solid var(--primary-color);
             margin-top: 4rem;
             padding: 3rem 0 2rem;
+            color: var(--text-color);
         }
         
         /* Responsive design */
