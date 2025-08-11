@@ -147,10 +147,29 @@
         
         /* Hero section */
         .hero {
-            background: linear-gradient(135deg, var(--primary-color), #003d99);
+            background: linear-gradient(135deg, rgba(0, 61, 130, 0.85), rgba(0, 61, 153, 0.85)),
+                        url('https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=1920&h=1080&fit=crop&crop=center') center/cover;
             color: white;
-            padding: 4rem 0;
+            padding: 5rem 0;
             margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 61, 130, 0.1) 0%, rgba(74, 144, 226, 0.1) 100%);
+            z-index: 1;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
         }
         
         .hero h1 {
