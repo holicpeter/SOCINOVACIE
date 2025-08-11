@@ -46,15 +46,17 @@
     
     <style>
         :root {
-            --neon-blue: #00f3ff;
-            --neon-pink: #ff0080;
-            --neon-green: #39ff14;
-            --neon-purple: #bf00ff;
-            --dark-bg: #0a0a0a;
-            --darker-bg: #050505;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --text-light: #e0e0e0;
-            --text-dim: #a0a0a0;
+            /* Light Futuristic Theme */
+            --primary-blue: #4a90e2;
+            --secondary-blue: #6ba3f0;
+            --accent-teal: #00d4aa;
+            --accent-purple: #9c5fff;
+            --light-bg: #fafbfc;
+            --lighter-bg: #ffffff;
+            --glass-bg: rgba(74, 144, 226, 0.08);
+            --text-dark: #2c3e50;
+            --text-medium: #5a6c7d;
+            --border-light: #e1e8ed;
         }
 
         * {
@@ -65,9 +67,11 @@
 
         body {
             font-family: 'Exo 2', sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-light);
+            background: linear-gradient(135deg, var(--lighter-bg) 0%, var(--light-bg) 50%, var(--lighter-bg) 100%);
+            color: var(--text-dark);
             overflow-x: hidden;
+            min-height: 100vh;
+        }
             cursor: none;
         }
 

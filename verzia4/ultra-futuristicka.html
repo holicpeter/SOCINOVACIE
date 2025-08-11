@@ -127,9 +127,9 @@
             z-index: -2;
             background-image: 
                 linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+                linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
             background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
+            animation: gridMove 40s linear infinite;
         }
 
         @keyframes gridMove {
@@ -217,11 +217,11 @@
         @keyframes hologramFlicker {
             0% { 
                 opacity: 1; 
-                text-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--neon-blue); 
+                text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue); 
             }
             100% { 
-                opacity: 0.8; 
-                text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue); 
+                opacity: 0.9; 
+                text-shadow: 0 0 5px var(--neon-blue), 0 0 15px var(--neon-blue); 
             }
         }
 
@@ -252,12 +252,12 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-            animation: titleGlow 3s ease-in-out infinite alternate;
+            animation: titleGlow 6s ease-in-out infinite alternate;
         }
 
         @keyframes titleGlow {
             0% { filter: brightness(1) contrast(1); }
-            100% { filter: brightness(1.2) contrast(1.1); }
+            100% { filter: brightness(1.05) contrast(1.02); }
         }
 
         .cyber-subtitle {
@@ -287,10 +287,10 @@
                     0deg,
                     transparent,
                     transparent 2px,
-                    rgba(0, 212, 255, 0.03) 2px,
-                    rgba(0, 212, 255, 0.03) 4px
+                    rgba(0, 212, 255, 0.01) 2px,
+                    rgba(0, 212, 255, 0.01) 4px
                 );
-            animation: hologramLines 2s linear infinite;
+            animation: hologramLines 8s linear infinite;
         }
 
         @keyframes hologramLines {
@@ -336,7 +336,7 @@
         }
 
         @keyframes borderPulse {
-            0%, 100% { opacity: 0.5; }
+            0%, 100% { opacity: 0.8; }
             50% { opacity: 1; }
         }
 
@@ -759,17 +759,17 @@
         /* Matrix rain effect enhanced */
         @keyframes matrixRain {
             0% { 
-                transform: translateY(-100vh) scale(0.8);
+                transform: translateY(-100vh) scale(0.9);
                 opacity: 0;
             }
             10% {
-                opacity: 1;
+                opacity: 0.3;
             }
             90% {
-                opacity: 1;
+                opacity: 0.3;
             }
             100% { 
-                transform: translateY(100vh) scale(1.2);
+                transform: translateY(100vh) scale(1.1);
                 opacity: 0;
             }
         }
@@ -778,23 +778,23 @@
         @keyframes floatingOrbs {
             0% { 
                 transform: translate(0, 0) rotate(0deg) scale(1);
-                opacity: 0.3;
+                opacity: 0.2;
             }
             25% { 
-                transform: translate(30px, -50px) rotate(90deg) scale(1.2);
-                opacity: 0.7;
+                transform: translate(15px, -25px) rotate(90deg) scale(1.05);
+                opacity: 0.4;
             }
             50% { 
-                transform: translate(-20px, -80px) rotate(180deg) scale(0.8);
-                opacity: 1;
+                transform: translate(-10px, -40px) rotate(180deg) scale(0.95);
+                opacity: 0.5;
             }
             75% { 
-                transform: translate(-40px, -30px) rotate(270deg) scale(1.1);
-                opacity: 0.6;
+                transform: translate(-20px, -15px) rotate(270deg) scale(1.02);
+                opacity: 0.3;
             }
             100% { 
                 transform: translate(0, 0) rotate(360deg) scale(1);
-                opacity: 0.3;
+                opacity: 0.2;
             }
         }
         
@@ -834,30 +834,30 @@
         @keyframes holographicText {
             0% { 
                 text-shadow: 
-                    0 0 10px var(--cyber-blue),
-                    0 0 20px var(--neon-blue),
-                    0 0 30px var(--electric-blue);
+                    0 0 5px var(--cyber-blue),
+                    0 0 10px var(--neon-blue),
+                    0 0 15px var(--electric-blue);
                 transform: translateY(0px);
             }
             25% {
                 text-shadow: 
-                    2px 0 10px var(--neon-blue),
-                    -2px 0 20px var(--cyber-blue),
-                    0 0 40px var(--electric-blue);
-                transform: translateY(-2px);
+                    1px 0 5px var(--neon-blue),
+                    -1px 0 10px var(--cyber-blue),
+                    0 0 20px var(--electric-blue);
+                transform: translateY(-1px);
             }
             50% {
                 text-shadow: 
-                    0 0 15px var(--electric-blue),
-                    0 0 25px var(--cyber-blue),
-                    0 0 35px var(--neon-blue);
+                    0 0 7px var(--electric-blue),
+                    0 0 12px var(--cyber-blue),
+                    0 0 17px var(--neon-blue);
                 transform: translateY(0px);
             }
             75% {
                 text-shadow: 
-                    -2px 0 10px var(--cyber-blue),
-                    2px 0 20px var(--neon-blue),
-                    0 0 40px var(--electric-blue);
+                    -1px 0 5px var(--cyber-blue),
+                    1px 0 10px var(--neon-blue),
+                    0 0 20px var(--electric-blue);
                 transform: translateY(2px);
             }
             100% { 
@@ -876,19 +876,19 @@
                 transform: scale(1);
             }
             25% {
-                filter: hue-rotate(90deg) saturate(1.5) blur(1px);
-                transform: scale(1.02);
+                filter: hue-rotate(45deg) saturate(1.1) blur(0px);
+                transform: scale(1.005);
             }
             50% {
-                filter: hue-rotate(180deg) saturate(2) blur(0px);
-                transform: scale(0.98);
+                filter: hue-rotate(90deg) saturate(1.2) blur(0px);
+                transform: scale(0.998);
             }
             75% {
-                filter: hue-rotate(270deg) saturate(1.5) blur(1px);
-                transform: scale(1.01);
+                filter: hue-rotate(135deg) saturate(1.1) blur(0px);
+                transform: scale(1.002);
             }
             100% { 
-                filter: hue-rotate(360deg) saturate(1) blur(0px);
+                filter: hue-rotate(180deg) saturate(1) blur(0px);
                 transform: scale(1);
             }
         }
