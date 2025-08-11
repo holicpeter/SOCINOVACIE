@@ -188,11 +188,41 @@
             border-left: 4px solid var(--primary-color);
             padding-left: 1rem;
             margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .news-item-image {
+            flex-shrink: 0;
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .news-item-content {
+            flex: 1;
         }
         
         .news-date {
             color: #666;
             font-size: 0.9rem;
+        }
+
+        /* Card images */
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .inspiration-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
         }
         
         /* Accessibility improvements */
@@ -337,7 +367,13 @@
                     <a class="nav-link" href="#projekty">Projekty</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#novinky">Novinky</a>
+                    <a class="nav-link" href="#novinky">Aktuality</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#inspiracia">Inšpirácia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#podujatia">Podujatia</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#dokumenty">Dokumenty</a>
@@ -493,44 +529,294 @@
                     <h2 class="mb-4">Aktuality</h2>
                     
                     <article class="news-item">
-                        <h3><a href="#" class="text-decoration-none">Nová výzva na podporu sociálnych inovácií</a></h3>
-                        <p class="news-date">
-                            <i class="fas fa-calendar me-2" aria-hidden="true"></i>
-                            2. august 2025
-                        </p>
-                        <p>
-                            Ministerstvo práce, sociálnych vecí a rodiny SR vyhlasuje novú výzvu 
-                            na podporu inovatívnych projektov v oblasti sociálnych služieb...
-                        </p>
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=250&fit=crop&crop=center" 
+                             alt="Komparatívna správa o ekosystémoch" 
+                             class="news-item-image">
+                        <div class="news-item-content">
+                            <h3><a href="#" class="text-decoration-none">Práve bola zverejnená KOMPARATÍVNA A ODPORÚČACIA SPRÁVA O EKOSYSTÉMOCH SOCIÁLNYCH</a></h3>
+                            <p class="news-date">
+                                <i class="fas fa-calendar me-2" aria-hidden="true"></i>
+                                5. mája 2025
+                            </p>
+                            <p>
+                                Zaujíma vás mapovanie ekosystémov sociálnych inovácií? Národné kompetenčné centrum pre sociálne inovácie...
+                            </p>
+                        </div>
                     </article>
                     
                     <article class="news-item">
-                        <h3><a href="#" class="text-decoration-none">Konferencia o sociálnych inováciách</a></h3>
-                        <p class="news-date">
-                            <i class="fas fa-calendar me-2" aria-hidden="true"></i>
-                            28. júl 2025
-                        </p>
-                        <p>
-                            V septembri sa uskutoční medzinárodná konferencia zameraná na 
-                            najnovšie trendy v oblasti sociálnych inovácií...
-                        </p>
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop&crop=center" 
+                             alt="Definícia sociálnej inovácie" 
+                             class="news-item-image">
+                        <div class="news-item-content">
+                            <h3><a href="#" class="text-decoration-none">Bola zverejnená definícia sociálnej inovácie a jej atribúty</a></h3>
+                            <p class="news-date">
+                                <i class="fas fa-calendar me-2" aria-hidden="true"></i>
+                                2. decembra 2024
+                            </p>
+                            <p>
+                                Na webovej stránke www.socialneinovacie.gov.sk v časti dokumenty bola nedávno zverejnená definícia...
+                            </p>
+                        </div>
                     </article>
                     
                     <article class="news-item">
-                        <h3><a href="#" class="text-decoration-none">Úspešné projekty roku 2025</a></h3>
-                        <p class="news-date">
-                            <i class="fas fa-calendar me-2" aria-hidden="true"></i>
-                            20. júl 2025
-                        </p>
-                        <p>
-                            Predstavujeme najúspešnejšie sociálne inovácie, ktoré v tomto roku 
-                            priniesli pozitívne zmeny do života občanov...
-                        </p>
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=250&fit=crop&crop=center" 
+                             alt="Informačný seminár" 
+                             class="news-item-image">
+                        <div class="news-item-content">
+                            <h3><a href="#" class="text-decoration-none">Online informačný seminár k Výzve na predkladanie projektových zámerov SocInoLab</a></h3>
+                            <p class="news-date">
+                                <i class="fas fa-calendar me-2" aria-hidden="true"></i>
+                                2. decembra 2024
+                            </p>
+                            <p>
+                                Sekcia riadenia programov EÚ MPSVR SR ako gestor cieľa politiky 4...
+                            </p>
+                        </div>
                     </article>
                 </div>
                 
                 <aside class="col-lg-4">
                     <div class="card">
+                        <div class="card-header">
+                            <h3 class="mb-0">Aktuálne výzvy</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop&crop=center" 
+                                     alt="Projektové zámery ESF+" 
+                                     class="card-img-top">
+                                <h5 class="mt-2">Výzva na predkladanie projektových zámerov PSK-MPSVR-072-2025-PZ-ESF+</h5>
+                                <p class="small text-muted">30. júla 2025</p>
+                                <p class="small">Ministerstvo práce, sociálnych vecí a rodiny SR ako sprostredkovateľský orgán pre...</p>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400&h=200&fit=crop&crop=center" 
+                                     alt="Sociálne inovácie vzdelávanie" 
+                                     class="card-img-top">
+                                <h5 class="mt-2">Sociálne inovácie – škálovanie overených nástrojov vo vzdelávaní</h5>
+                                <p class="small text-muted">10. júla 2025</p>
+                                <p class="small">Ministerstvo práce, sociálnych vecí a rodiny SR ako sprostredkovateľský orgán pre...</p>
+                            </div>
+
+                            <div class="mb-3">
+                                <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=200&fit=crop&crop=center" 
+                                     alt="Zamestnávanie osôb so zdravotným postihnutím" 
+                                     class="card-img-top">
+                                <h5 class="mt-2">Implementácia balíka opatrení pre zamestnávanie</h5>
+                                <p class="small text-muted">11. júna 2025</p>
+                                <p class="small">Nová výzva na predkladanie návrhov: Zamestnávanie osôb so zdravotným postihnutím...</p>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- Inspiration Section -->
+        <section id="inspiracia" class="mb-5">
+            <div class="container">
+                <h2 class="text-center mb-5">Inšpirujte sa</h2>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card inspiration-card">
+                            <img src="https://www.socialneinovacie.gov.sk/wp-content/uploads/2022/05/Gamifactory.png.webp" 
+                                 alt="Gamifactory projekt" 
+                                 class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Gamifactory</h5>
+                                <p class="card-text">Inovatívny prístup k vzdelávaniu prostredníctvom gamifikácie a interaktívnych nástrojov.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card inspiration-card">
+                            <img src="https://www.socialneinovacie.gov.sk/wp-content/uploads/2022/05/redflags-768x434.jpg.webp" 
+                                 alt="Red Flags projekt" 
+                                 class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Red Flags Slovensko.Digital</h5>
+                                <p class="card-text">Digitálne riešenie pre identifikáciu a prevenciu problémov v rôznych oblastiach.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card inspiration-card">
+                            <img src="https://www.socialneinovacie.gov.sk/wp-content/uploads/2022/05/cinefil.png.webp" 
+                                 alt="Inkluzívne kino projekt" 
+                                 class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Inkluzívne kino</h5>
+                                <p class="card-text">Projekt zameraný na zlepšenie prístupnosti kinematografie pre všetkých občanov.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card inspiration-card">
+                            <img src="https://www.socialneinovacie.gov.sk/wp-content/uploads/2022/05/rescueroom.png.webp" 
+                                 alt="rescueROOM projekt" 
+                                 class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">rescueROOM</h5>
+                                <p class="card-text">Inovatívne riešenie pre krízové situácie a poskytovanie okamžitej pomoci.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card inspiration-card">
+                            <img src="https://www.socialneinovacie.gov.sk/wp-content/uploads/2022/05/equita.png.webp" 
+                                 alt="Zdravotníci na ulici projekt" 
+                                 class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Zdravotníci na ulici</h5>
+                                <p class="card-text">Program zameraný na poskytovanie zdravotnej starostlivosti v teréne.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card inspiration-card">
+                            <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&h=200&fit=crop&crop=center" 
+                                 alt="Dlhodobá nezamestnanosť" 
+                                 class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Riešenie dlhodobej nezamestnanosti</h5>
+                                <p class="card-text">Komplexný prístup k riešeniu nezamestnanosti v deindustrializovaných oblastiach.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Section -->
+        <section id="podujatia" class="mb-5">
+            <div class="container">
+                <h2 class="text-center mb-5">Nadchádzajúce podujatia</h2>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <img src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=500&h=250&fit=crop&crop=center" 
+                                 alt="Thematic Workshop" 
+                                 class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Thematic Workshop</h5>
+                                <p class="card-text">
+                                    Ministerstvo práce, sociálnych vecí a rodiny Slovenskej republiky ako člen nadnárodného konzorcia „Social Innovation"...
+                                </p>
+                                <a href="#" class="btn btn-primary">Čítať viac</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card">
+                            <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=500&h=250&fit=crop&crop=center" 
+                                 alt="Medzinárodný biznis kurz" 
+                                 class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Kurz: Medzinárodný biznis</h5>
+                                <p class="card-text">
+                                    Centrum celoživotného vzdelávania Ekonomickej univerzity v Bratislave (CCV EUBA) v spolupráci s Obchodnou...
+                                </p>
+                                <a href="#" class="btn btn-primary">Čítať viac</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=250&fit=crop&crop=center" 
+                                 alt="Líderstvo kurz" 
+                                 class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Kurz: Líder súčasnosti</h5>
+                                <p class="card-text">
+                                    Nástroje a zručnosti efektívneho a empatického lídra. Centrum celoživotného vzdelávania...
+                                </p>
+                                <a href="#" class="btn btn-primary">Čítať viac</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card">
+                            <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=500&h=250&fit=crop&crop=center" 
+                                 alt="Konferencia sociálne inovácie" 
+                                 class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Konferencia o podpore sociálnych inovácií na Slovensku</h5>
+                                <p class="card-text">
+                                    Spojili sme sily s Ministerstvom investícií, regionálneho rozvoja a informatizácie SR...
+                                </p>
+                                <a href="#" class="btn btn-primary">Čítať viac</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Partners Section -->
+        <section id="partneri" class="mb-5">
+            <div class="container">
+                <h2 class="text-center mb-5">Partneri</h2>
+                <div class="row align-items-center justify-content-center text-center">
+                    <div class="col-md-4 mb-4">
+                        <img src="https://www.socialneinovacie.gov.sk/wp-content/uploads/2022/04/euflag2-1024x646.png.webp" 
+                             alt="Logo Európskej únie" 
+                             class="img-fluid" 
+                             style="max-height: 100px;">
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <img src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=200&h=100&fit=crop&crop=center" 
+                             alt="Logo MPSVaR SR" 
+                             class="img-fluid" 
+                             style="max-height: 100px;">
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=200&h=100&fit=crop&crop=center" 
+                             alt="Logo Slovakia" 
+                             class="img-fluid" 
+                             style="max-height: 100px;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section text-center py-5 bg-light">
+            <div class="container">
+                <h2>Chcete sa zapojiť?</h2>
+                <p class="lead mb-4">
+                    Máte nápad na sociálnu inováciu? Kontaktujte nás a spoločne vytvoríme lepšiu budúcnosť.
+                </p>
+                <a href="#kontakt" class="btn btn-primary btn-lg me-3">Kontaktujte nás</a>
+                <a href="#" class="btn btn-outline-primary btn-lg">Zistiť viac</a>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" id="footer" role="contentinfo">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <h4>Kontaktné informácie</h4>
+                    <address>
+                        <strong>Ministerstvo práce, sociálnych vecí a rodiny SR</strong><br>
+                        Odbor sociálnych inovácií<br>
+                        <i class="fas fa-map-marker-alt me-2"></i>Špitálska 4, 816 43 Bratislava<br>
+                        <i class="fas fa-phone me-2"></i><a href="tel:+42220460000">+421 2 2046 0000</a><br>
+                        <i class="fas fa-envelope me-2"></i><a href="mailto:info@mpsvr.gov.sk">info@mpsvr.gov.sk</a>
+                    </address>
+                </div>
                         <div class="card-header">
                             <h3 class="card-title mb-0">Rýchle odkazy</h3>
                         </div>
