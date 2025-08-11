@@ -1,0 +1,381 @@
+/*
+Theme Name: Sociálne Inovácie v8 - Light Mode
+Description: WordPress theme založený na verzii 1 s light mode dizajnom a gov.sk farbami. Obsahuje custom post types pre aktuality, výzvy, podujatia a inšpiráciu s plnou NASES compliance.
+Author: Gov.sk Development Team
+Version: 8.0
+Text Domain: socialne-inovacie-v8
+Domain Path: /languages
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Tags: government, gov.sk, light-mode, bootstrap, responsive, accessibility, nases-compliance
+Requires at least: 5.0
+Tested up to: 6.4
+Requires PHP: 7.4
+*/
+
+/* Custom CSS pre NASES požiadavky - Light Mode */
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #f8fbff;
+    --text-color: #444444;
+    --background-color: #ffffff;
+    --border-color: #e1e8ed;
+    --light-blue: #e8f4fd;
+    --soft-shadow: rgba(74, 144, 226, 0.1);
+}
+
+/* Skip links for accessibility */
+.skip-links {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    z-index: 9999;
+}
+.skip-links a {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    color: #fff;
+    background: var(--primary-color);
+    padding: 8px;
+    text-decoration: none;
+}
+.skip-links a:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    left: auto;
+    top: auto;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background: linear-gradient(135deg, #ffffff 0%, #f8fbff 50%, #ffffff 100%);
+    min-height: 100vh;
+}
+
+/* Skip to content pre accessibility */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--primary-color);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 1000;
+}
+
+.skip-link:focus {
+    top: 6px;
+}
+
+/* Header styling */
+.gov-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 0;
+}
+
+.gov-logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.gov-logo i {
+    font-size: 2rem;
+}
+
+.logo-text h1 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.logo-text .tagline {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Navigation */
+.main-nav {
+    background-color: var(--secondary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding: 0;
+}
+
+.main-nav .nav-link {
+    color: var(--primary-color);
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+    transition: background-color 0.3s;
+}
+
+.main-nav .nav-link:hover,
+.main-nav .nav-link:focus {
+    background-color: var(--light-blue);
+    color: var(--primary-color);
+}
+
+/* Hero section - Light Mode */
+.hero {
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.7), rgba(232, 244, 253, 0.9)),
+                url('https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=1920&h=1080&fit=crop&crop=center') center/cover;
+    color: var(--text-color);
+    padding: 5rem 0;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 0%, rgba(232, 244, 253, 0.3) 100%);
+    z-index: 1;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Card styling - Light Mode */
+.innovation-card, .post-card {
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px var(--soft-shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+    background: var(--background-color);
+}
+
+.innovation-card:hover, .post-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(74, 144, 226, 0.15);
+}
+
+.innovation-card .card-header, .post-card .card-header {
+    background-color: var(--light-blue);
+    border-bottom: 1px solid var(--primary-color);
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* News section */
+.news-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.3s;
+}
+
+.news-item:hover {
+    background-color: var(--light-blue);
+}
+
+.news-item img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.news-content h5 {
+    color: var(--primary-color);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.news-date {
+    color: var(--text-color);
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+/* Card images */
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.inspiration-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* High contrast mode support - Light theme */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-color: #003d82;
+        --text-color: #2c3e50;
+        --border-color: #333333;
+        --background-color: #ffffff;
+    }
+}
+
+/* Force light mode - Override dark mode preference */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #ffffff;
+        --text-color: #444444;
+        --border-color: #e1e8ed;
+        --primary-color: #4a90e2;
+    }
+    
+    body {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fbff 50%, #ffffff 100%);
+        color: var(--text-color);
+    }
+    
+    .card {
+        background-color: #ffffff;
+        border-color: var(--border-color);
+    }
+}
+
+/* Footer - Light Mode */
+.footer {
+    background-color: var(--light-blue);
+    border-top: 2px solid var(--primary-color);
+    margin-top: 4rem;
+    padding: 3rem 0 2rem;
+    color: var(--text-color);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero .lead {
+        font-size: 1.1rem;
+    }
+    
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    .news-item {
+        flex-direction: column;
+    }
+    
+    .news-item img {
+        width: 100%;
+        height: 150px;
+    }
+}
+
+/* WordPress specific styles */
+.wp-caption {
+    max-width: 100%;
+}
+
+.wp-caption img {
+    width: 100%;
+    height: auto;
+}
+
+.alignleft {
+    float: left;
+    margin: 0 1rem 1rem 0;
+}
+
+.alignright {
+    float: right;
+    margin: 0 0 1rem 1rem;
+}
+
+.aligncenter {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Admin bar compatibility */
+body.admin-bar .skip-link:focus {
+    top: 38px;
+}
+
+@media screen and (max-width: 782px) {
+    body.admin-bar .skip-link:focus {
+        top: 52px;
+    }
+}
+
+/* Custom post types styling */
+.custom-post-meta {
+    background: var(--light-blue);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.post-date, .post-category {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Search form styling */
+.search-form {
+    position: relative;
+    max-width: 300px;
+}
+
+.search-form input[type="search"] {
+    width: 100%;
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--background-color);
+}
+
+.search-form button {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+/* Loading animation */
+.loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--primary-color);
+}
+
+.loading::after {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+    margin-left: 0.5rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
